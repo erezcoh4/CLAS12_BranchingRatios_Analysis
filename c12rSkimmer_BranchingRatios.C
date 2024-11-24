@@ -61,5 +61,5 @@ void Debug(int v, const char* fmt, ...) {
 void c12rSkimmer_BranchingRatios(int RunNumber    = 6420)
 {
     Debug(1, "Begin main");
-    Debug(1, "Done.");
+    Debug(1, "\nDone.\n");
 }

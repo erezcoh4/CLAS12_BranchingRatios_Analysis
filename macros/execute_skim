@@ -1,0 +1,111 @@
+#!/usr/bin python
+# -*- coding: utf-8 -*-
+# previously: /usr/bin/env python
+
+'''
+    last edit Nov-24, 2024 (EOC)
+
+    execute:
+    ------------
+
+    skim_sidis_multiple_runs --Ebeam=10.4 --Nruns=1 --fdebug=2 --NeventsMax=10 --no-email
+
+    comments
+    ------------
+'''
+
+import sys, os, linecache
+import argparse
+
+parser = argparse.ArgumentParser(description='SIDIS skimming of multiple runs')
+parser.add_argument("--Nruns",        type=int, default=1,
+                    required=False, help="number of runs to process ('-1' for all runs)")
+parser.add_argument("--FirstRun",     type=int, default=0,
+                    required=False, help="first run to start from")
+parser.add_argument("--NeventsMax",   type=int, default=-1,
+                    required=False, help="maximal number of events to process")
+parser.add_argument("--fdebug",       type=int, default=1,
+                    required=False, help="verbosity")
+parser.add_argument("--PrintProgress",type=int, default=500000,
+                    required=False, help="print progress (every N events)")
+parser.add_argument("--no-email",   dest="no_email",
+                    default=False,  required=False,
+                    action='store_true', help="do not send email")
+parser.add_argument("--FirstEvent",     type=int, default=0,
+                    required=False, help="first event to start from")
+parser.add_argument("--DataPath",     type=str, default="sidisdvcs",
+                    required=False,
+                    help="inc, sidisdvcs, nSidis, AcceptanceCorrection")
+parser.add_argument("--Ebeam",     type=float, default=10.2,
+                    required=False, help="beam energy")
+
+
+args = parser.parse_args()
+
+Nruns         = args.Nruns
+NeventsMax    = args.NeventsMax
+fdebug        = args.fdebug
+PrintProgress = args.PrintProgress
+FirstRun      = args.FirstRun
+FirstEvent    = args.FirstEvent
+DataPath      = args.DataPath
+Ebeam         = args.Ebeam
+
+
+if Ebeam == 10.2:
+    runs_filename = "runlists/good_runs_10-2-final.txt"
+elif Ebeam == 10.4:
+    runs_filename = "runlists/good_runs_10-4.txt"
+elif Ebeam == 10.6:
+    runs_filename = "runlists/good_runs_10-6.txt"
+
+
+run_fileLines = read_runs_file( runs_filename )
+
+runIdx = 0
+for line in run_fileLines[FirstRun:]:#{
+    runIdx += 1
+    run = int(line.strip())
+    
+    print("")
+    print("processing run %d/%d"%(runIdx,Nruns))
+    print("")
+    
+#    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,%d,\"%s\",\"%s\",%f,)'"%
+#                    (run,NeventsMax,fdebug,PrintProgress,FirstEvent,DataPath,Ebeam))
+    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d)'"%
+                    (run))
+    print(commandline)
+    
+    
+    os.system( commandline )
+
+    if (runIdx >= Nruns): break;
+    print('------------------------------------------------------------')
+#}
+
+print('')
+print('done.')
+print('')
+if args.no_email==False:#{
+    mailtitle = 'Done processing skim_sidis_multiple_runs on ifarm'
+    mailbody  = ('Processed %s - %d runs, see /volatile/clas12/users/ecohen/BAND/%s/'%( DataPath, Nruns, Skimming))
+    emailstr = ('echo %s | mail -s %s cohen.erez7@gmail.com'%(mailbody,mailtitle) )
+    os.system(emailstr)
+#}
+
+
+def read_runs_file( runs_filename ):
+    # Using readlines()
+    runs_file = open(runs_filename, 'r')
+    run_fileLines = runs_file.readlines();
+    if Nruns<0: Nruns = len(run_fileLines)
+    if fdebug>1:#{
+        print('good runs to process:')
+        for line in run_fileLines[FirstRun:]:#{
+            print(int(line.strip()), end =" ")
+        #}
+        print('')
+        print('processing %d runs, starting from run %d, event %d'%(Nruns-FirstRun,FirstRun, FirstEvent))
+    #}
+    return run_fileLines
