@@ -17,7 +17,7 @@
 import sys, os, linecache
 import argparse
 
-parser = argparse.ArgumentParser(description='SIDIS skimming of multiple runs')
+parser = argparse.ArgumentParser(description='Skim multiple runs')
 parser.add_argument("--Nruns",        type=int, default=1,
                     required=False, help="number of runs to process ('-1' for all runs)")
 parser.add_argument("--FirstRun",     type=int, default=0,
@@ -60,7 +60,18 @@ elif Ebeam == 10.6:
     runs_filename = "runlists/good_runs_10-6.txt"
 
 
-run_fileLines = read_runs_file( runs_filename )
+runs_file = open(runs_filename, 'r')
+run_fileLines = runs_file.readlines();
+if Nruns<0: Nruns = len(run_fileLines)
+if fdebug>1:#{
+    print('good runs to process:')
+    for line in run_fileLines[FirstRun:]:#{
+        print(int(line.strip()), end =" ")
+    #}
+    print('')
+    print('processing %d runs, starting from run %d, event %d'%(Nruns-FirstRun,FirstRun, FirstEvent))
+#}
+
 
 runIdx = 0
 for line in run_fileLines[FirstRun:]:#{
@@ -95,17 +106,3 @@ if args.no_email==False:#{
 #}
 
 
-def read_runs_file( runs_filename ):
-    # Using readlines()
-    runs_file = open(runs_filename, 'r')
-    run_fileLines = runs_file.readlines();
-    if Nruns<0: Nruns = len(run_fileLines)
-    if fdebug>1:#{
-        print('good runs to process:')
-        for line in run_fileLines[FirstRun:]:#{
-            print(int(line.strip()), end =" ")
-        #}
-        print('')
-        print('processing %d runs, starting from run %d, event %d'%(Nruns-FirstRun,FirstRun, FirstEvent))
-    #}
-    return run_fileLines
