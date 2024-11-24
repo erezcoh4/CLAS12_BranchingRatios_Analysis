@@ -41,3 +41,11 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 # **(2) Software**
 --------------------------------------------------------
 
+# Prequisits
+---------------------------------------
+### Load modules on ifarm:
+
+module use /scigroup/cvmfs/hallb/clas12/sw/modulefiles
+module purge
+module load sqlite/dev
+module load clas12
