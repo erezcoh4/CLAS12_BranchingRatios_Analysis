@@ -36,16 +36,16 @@ std::vector<int> csvprecisions = {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // globals
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-int fdeubg = 2;
+int verbosity = 2;
 
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void Debug(int _fdebug_, const char* fmt, ...) {
+void Debug(int v, const char* fmt, ...) {
     va_list arg;
     va_start(arg, fmt);
 
-    if (fdebug > _fdebug_) {
+    if (verbosity > v) {
         vprintf(fmt, arg);
         std::cout << std::endl;
     }
