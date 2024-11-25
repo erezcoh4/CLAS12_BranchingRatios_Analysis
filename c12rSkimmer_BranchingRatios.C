@@ -80,7 +80,7 @@ void SetEbeam (double fEbeam) { // [GeV]
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetGlobals(int v, float fEbeam) {
+void SetGlobals(int v=0, float fEbeam=10.2) {
     SetVerbosity        ( v          );
 //    SetDataPath         ( fDataPath, fEbeam );
 //    SetSkimming         ( fSkimming  );
