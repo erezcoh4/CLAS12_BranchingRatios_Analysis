@@ -50,8 +50,14 @@ TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
 int                           Ne, Np, Ngammas;
-int          Nevents_processed = 0;
-int                  evnum, runnum;
+int             Nevents_processed = 0;
+int                     evnum, runnum;
+
+float                           Ebeam;
+TString              Skimming = "";
+TString                prefix = "";
+
+
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void Debug(int v, const char* fmt, ...) {
     va_list arg;
@@ -80,13 +86,48 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetGlobals(int v=0, float fEbeam=10.2) {
+void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
     SetVerbosity        ( v          );
-//    SetDataPath         ( fDataPath, fEbeam );
+    SetDataPath         ( fDataPath, fEbeam );
 //    SetSkimming         ( fSkimming  );
     SetEbeam            ( fEbeam     );
 }
 
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetDataPath (TString fDataPath, Double_t fEbeam) {
+    prefix   = "sidisdvcs_"; // default
+    
+    if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
+        // sidis-dvcs train files, used since July 2022
+        // (the 'usual' train files)
+        if (fEbeam==10.2){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
+        } else if (fEbeam==10.4){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass1/v1/dst/train/sidisdvcs/";
+        } else if (fEbeam==10.6){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
+        }
+        prefix   = "sidisdvcs_";
+    }
+    else if (fDataPath=="inclusive" || fDataPath=="inc"){
+        // inclusive train files, used until July 2022
+        // (inclusive train files were only generated in the beginning of RGB without any backup)
+        DataPath = "/volatile/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train_20200610/inc/";
+        prefix   = "inc_";
+    }
+    else if (fDataPath=="nSidis" || fDataPath=="nsidis"){
+        // free-p data from RGA data
+        // For RGA we use nSidis, they key difference is sidisdvcs has e_p > 1 GeV and nSidis has e_p > 2 GeV.
+        DataPath = "/cache/clas12/rg-a/production/recon/spring2019/torus-1/pass1/v1/dst/train/nSidis/";
+        prefix   = "nSidis_";
+    }
+    else if (fDataPath=="AcceptanceCorrection"){
+        // GEMC simulations of "white" spectra
+        // i.e. (e,e'π) events with no physics generator
+        DataPath = "/volatile/clas12/users/ecohen/GEMC/hipo/10.2/AcceptanceCorrection/";
+        prefix = "p_uniform_distribution";
+    }
+}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetFileNames(int RunNumber) {
@@ -125,17 +166,23 @@ void GetParticlesByType (){
 }
 
 
+
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
-                                 int FirstEvent         = 0,
-                                 int NeventsMaxToProcess= -1,
-                                 int PrintProgress      = 100)
+void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
+                                 int           FirstEvent = 0,
+                                 int  NeventsMaxToProcess = -1,
+                                 int        PrintProgress = 100,
+                                 TString         Skimming = "BranchingRatios",
+                                 TString        fDataPath = "sidisdvcs",
+                                 float             fEbeam = 10.2,
+                                 int               fdebug = 0)
 {
     Debug(1, "Begin main");
     
-//    SetGlobals     ();
+    
+    SetGlobals     (fdebug, fEbeam, fDataPath );
 //    LoadCutValues  ();
 //    SetFileNames   ();
     
