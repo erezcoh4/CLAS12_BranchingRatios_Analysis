@@ -121,6 +121,7 @@ void GetParticlesByType (){
     Ne      = electrons .size();
     Np      = protons   .size();
     Ngammas = gammas    .size();
+    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
 }
 
 
@@ -165,14 +166,13 @@ void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
                 
-                InitializeVariables();
+                //                InitializeVariables();
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ();
                 
-                Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
                 
                 // filter events, extract information, and compute event kinematics:
                 // ....
