@@ -49,3 +49,13 @@ module use /scigroup/cvmfs/hallb/clas12/sw/modulefiles
 module purge
 module load sqlite/dev
 module load clas12
+
+
+# **(3) ToDo**
+--------------------------------------------------------
+
+1. We start only with particle detection in the forward detector - ?
+2. Learn how to identify protons in the forward detector
+3. Learn how to identify and isolate photons (g1 and g2) in the forward detector
+4. Add cuts in a dedicated file cuts/RGBcutValues.csv
+
