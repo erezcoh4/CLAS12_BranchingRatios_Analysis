@@ -10,6 +10,7 @@
 #endif
 
 using namespace clas12;
+aux;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
@@ -69,6 +70,13 @@ void SetVerbosity( int v ){
     verbosity = v;
 }
 
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetEbeam (double fEbeam) { // [GeV]
+    // RGA the enrgy was 10.6
+    // RGB Spring-2019 the enrgy was 10.2
+    // RGB Fall-2019 the enrgy was 10.4096
+    Ebeam = fEbeam;
+}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetGlobals(int v, float fEbeam) {
