@@ -169,7 +169,7 @@ void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
                 gammas      = c12.getByID( 22   );
-                GetParticlesByType ( evnum, fdebug );
+                GetParticlesByType ();
                 
                 Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas)
                 
