@@ -213,7 +213,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     auto files = fake.GetListOfFiles();
     
     // open output files
-    OpenResultFiles( outfilepath, outfilename );
+    OpenResultFiles();
     
     // start analysis
     // step over events and extract information....
