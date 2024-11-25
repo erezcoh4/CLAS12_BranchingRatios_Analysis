@@ -129,7 +129,8 @@ void GetParticlesByType (){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
                                  int FirstEvent         = 0,
-                                 int NeventsMaxToProcess= -1)
+                                 int NeventsMaxToProcess= -1,
+                                 int PrintProgress      = 100)
 {
     Debug(1, "Begin main");
     
