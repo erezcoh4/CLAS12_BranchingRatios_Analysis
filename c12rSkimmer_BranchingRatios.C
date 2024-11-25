@@ -67,15 +67,14 @@ void Debug(int v, const char* fmt, ...) {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetVerbosity( int v ){
     verbosity = v;
-    aux.SetVerbosity( verbosity );
 }
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetGlobals() {
-    SetVerbosity        ( fdebug     );
-    SetDataPath         ( fDataPath, fEbeam );
-    SetSkimming         ( fSkimming  );
+void SetGlobals(int v, float fEbeam) {
+    SetVerbosity        ( v          );
+//    SetDataPath         ( fDataPath, fEbeam );
+//    SetSkimming         ( fSkimming  );
     SetEbeam            ( fEbeam     );
 }
 
@@ -108,13 +107,10 @@ void LoadCutValues() {
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void GetParticlesByType (int evnum, int fdebug){
+void GetParticlesByType (){
     // get particles by type
     Ne      = electrons .size();
-    Nn      = neutrons  .size();
     Np      = protons   .size();
-    Npips   = pipluses  .size();
-    Npims   = piminuses .size();
     Ngammas = gammas    .size();
 }
 
@@ -126,9 +122,9 @@ void c12rSkimmer_BranchingRatios(int RunNumber    = 6420)
 {
     Debug(1, "Begin main");
     
-    SetGlobals     ();
-    LoadCutValues  ();
-    SetFileNames   ();
+//    SetGlobals     ();
+//    LoadCutValues  ();
+//    SetFileNames   ();
     
     
     // open input file and get the hipo data
@@ -160,10 +156,7 @@ void c12rSkimmer_BranchingRatios(int RunNumber    = 6420)
                 InitializeVariables();
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
-                neutrons    = c12.getByID( 2112 );
                 protons     = c12.getByID( 2212 );
-                pipluses    = c12.getByID( 211  );
-                piminuses   = c12.getByID(-211  );
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ( evnum, fdebug );
                 
