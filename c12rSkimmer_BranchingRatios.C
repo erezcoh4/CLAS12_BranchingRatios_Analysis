@@ -132,7 +132,7 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
     SetVerbosity        ( v          );
     SetDataPath         ( fDataPath, fEbeam );
-//    SetSkimming         ( fSkimming  );
+    //    SetSkimming         ( fSkimming  );
     SetEbeam            ( fEbeam     );
 }
 
@@ -174,6 +174,18 @@ void GetParticlesByType (){
 
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void OpenResultFiles(){
+    
+    
+    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
+    outcsvfile_eep2gX << csvheader << std::endl;
+    
+    if (fdebug>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
+}
+
+
+
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -191,8 +203,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
-//    LoadCutValues  ();
-//    SetFileNames   ();
+    //    LoadCutValues  ();
+    //    SetFileNames   ();
     
     
     // open input file and get the hipo data
