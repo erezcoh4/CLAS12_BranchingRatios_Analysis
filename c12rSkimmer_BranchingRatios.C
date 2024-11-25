@@ -58,7 +58,7 @@ float                         Ebeam;
 TString               Skimming = "";
 TString                 prefix = "";
 TString               DataPath = "";
-
+TString infilename, outfilepath, outfilename;
 
 
 
@@ -141,7 +141,6 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 void SetFileNames(int RunNumber) {
     TString RunNumberStr = aux.GetRunNumberSTR(RunNumber, Skimming);
     // define input filename
-    TString infilename, outfilepath, outfilename;
     
     infilename  = DataPath + prefix + RunNumberStr + ".hipo";
     outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
