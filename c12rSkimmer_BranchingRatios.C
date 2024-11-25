@@ -49,6 +49,7 @@ TLorentzVector*          g2_p4 = NULL; // gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
+int                           Ne, Np, Ngammas;
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -126,7 +127,9 @@ void GetParticlesByType (){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void c12rSkimmer_BranchingRatios(int RunNumber    = 6420)
+void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
+                                 int FirstEvent         = 0,
+                                 int NeventsMaxToProcess= -1)
 {
     Debug(1, "Begin main");
     
