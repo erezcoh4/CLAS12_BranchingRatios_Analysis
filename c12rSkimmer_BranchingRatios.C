@@ -51,7 +51,7 @@ TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
 int                           Ne, Np, Ngammas;
 int          Nevents_processed = 0;
-
+int                  evnum, runnum;
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void Debug(int v, const char* fmt, ...) {
     va_list arg;
