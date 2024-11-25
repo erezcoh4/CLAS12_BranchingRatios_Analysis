@@ -10,7 +10,7 @@
 #endif
 
 using namespace clas12;
-aux;
+BranchingRatio_CLAS12_Auxiliary aux;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
