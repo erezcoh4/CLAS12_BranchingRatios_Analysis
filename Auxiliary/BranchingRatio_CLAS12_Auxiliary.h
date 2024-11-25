@@ -19,8 +19,8 @@
 
 
 // EOC, Nov-24, 2024
-#ifndef __BranchingRatio_CLAS12_Auxiliary.h_H__
-#define __BranchingRatio_CLAS12_Auxiliary.h_H__
+#ifndef __BranchingRatio_CLAS12_Auxiliary_H__
+#define __BranchingRatio_CLAS12_Auxiliary_H__
 
 #include "csv_reader.h"
 #include <sstream>
