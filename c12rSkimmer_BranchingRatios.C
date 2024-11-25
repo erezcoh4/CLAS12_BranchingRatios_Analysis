@@ -49,13 +49,13 @@ TLorentzVector*          g2_p4 = NULL; // gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
-int                           Ne, Np, Ngammas;
-int             Nevents_processed = 0;
-int                     evnum, runnum;
+int                Ne, Np, Ngammas;
+int          Nevents_processed = 0;
+int                   evnum, runnum;
 
-float                           Ebeam;
-TString              Skimming = "";
-TString                prefix = "";
+float                         Ebeam;
+TString               Skimming = "";
+TString                 prefix = "";
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
