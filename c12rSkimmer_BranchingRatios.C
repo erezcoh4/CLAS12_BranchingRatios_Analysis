@@ -72,7 +72,7 @@ void SetVerbosity( int v ){
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetEbeam (double fEbeam) { // [GeV]
+void SetEbeam (double fEbeam=10.2) { // [GeV]
     // RGA the enrgy was 10.6
     // RGB Spring-2019 the enrgy was 10.2
     // RGB Fall-2019 the enrgy was 10.4096
@@ -89,7 +89,7 @@ void SetGlobals(int v=0, float fEbeam=10.2) {
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetFileNames() {
+void SetFileNames(int RunNumber) {
     TString RunNumberStr = aux.GetRunNumberSTR(RunNumber, Skimming);
     // define input filename
     TString infilename, outfilepath, outfilename;
