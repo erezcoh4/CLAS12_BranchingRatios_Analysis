@@ -56,8 +56,14 @@ int                   evnum, runnum;
 float                         Ebeam;
 TString               Skimming = "";
 TString                 prefix = "";
+TString               DataPath = "";
 
 
+
+
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+// Routines
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void Debug(int v, const char* fmt, ...) {
     va_list arg;
@@ -70,27 +76,6 @@ void Debug(int v, const char* fmt, ...) {
     //vprintf can be replaced with vsprintf (for sprintf behavior)
     //or any other printf function preceded by a v
     va_end(arg);
-}
-
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetVerbosity( int v ){
-    verbosity = v;
-}
-
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetEbeam (double fEbeam=10.2) { // [GeV]
-    // RGA the enrgy was 10.6
-    // RGB Spring-2019 the enrgy was 10.2
-    // RGB Fall-2019 the enrgy was 10.4096
-    Ebeam = fEbeam;
-}
-
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
-    SetVerbosity        ( v          );
-    SetDataPath         ( fDataPath, fEbeam );
-//    SetSkimming         ( fSkimming  );
-    SetEbeam            ( fEbeam     );
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -128,6 +113,28 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         prefix = "p_uniform_distribution";
     }
 }
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetVerbosity( int v ){
+    verbosity = v;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetEbeam (double fEbeam=10.2) { // [GeV]
+    // RGA the enrgy was 10.6
+    // RGB Spring-2019 the enrgy was 10.2
+    // RGB Fall-2019 the enrgy was 10.4096
+    Ebeam = fEbeam;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
+    SetVerbosity        ( v          );
+    SetDataPath         ( fDataPath, fEbeam );
+//    SetSkimming         ( fSkimming  );
+    SetEbeam            ( fEbeam     );
+}
+
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetFileNames(int RunNumber) {
