@@ -50,7 +50,7 @@ TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
 int                           Ne, Np, Ngammas;
-
+int          Nevents_processed = 0;
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void Debug(int v, const char* fmt, ...) {
@@ -171,7 +171,7 @@ void c12rSkimmer_BranchingRatios(int RunNumber          = 6420,
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ();
                 
-                Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas)
+                Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
                 
                 // filter events, extract information, and compute event kinematics:
                 // ....

@@ -33,10 +33,10 @@
 
 //using namespace clas12;
 
-class BranchingRatio_CLAS12_Auxiliary.h {
+class BranchingRatio_CLAS12_Auxiliary {
 public:
-    BranchingRatio_CLAS12_Auxiliary.h(int _fdebug_=0,int _torusBending_=-1);
-    ~BranchingRatio_CLAS12_Auxiliary.h();
+    BranchingRatio_CLAS12_Auxiliary(int _fdebug_=0,int _torusBending_=-1);
+    ~BranchingRatio_CLAS12_Auxiliary();
 
     void                loadCutValues (std::string cutValuesFilename="cutValues.csv",
                                        int torusBending=1); //  -1 for In-bending, +1 for Out-bending
