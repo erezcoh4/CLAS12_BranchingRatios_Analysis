@@ -52,6 +52,7 @@ std::vector<region_part_ptr>  electrons, protons, gammas;
 int                Ne, Np, Ngammas;
 int          Nevents_processed = 0;
 int                   evnum, runnum;
+int               torusBending = -1; // -1 for In-bending, +1 for Out-bending
 
 float                         Ebeam;
 TString               Skimming = "";
@@ -146,7 +147,7 @@ void SetFileNames(int RunNumber) {
     outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
     outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
     
-    if (fdebug>1){
+    if (verbosity>1){
         std::cout
         << "Input file name: " << std::endl
         << infilename          << std::endl
@@ -184,7 +185,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                                  TString         Skimming = "BranchingRatios",
                                  TString        fDataPath = "sidisdvcs",
                                  float             fEbeam = 10.2,
-                                 int               fdebug = 0)
+                                 int               fdebug = 0
+                                 )
 {
     Debug(1, "Begin main");
     
