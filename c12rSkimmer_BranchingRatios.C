@@ -59,7 +59,7 @@ TString               Skimming = "";
 TString                 prefix = "";
 TString               DataPath = "";
 TString infilename, outfilepath, outfilename;
-
+ofstream          outcsvfile_eep2gX;
 
 
 
@@ -181,7 +181,7 @@ void OpenResultFiles(){
     outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
     outcsvfile_eep2gX << csvheader << std::endl;
     
-    if (fdebug>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
+    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
 }
 
 
