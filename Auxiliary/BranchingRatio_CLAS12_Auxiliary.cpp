@@ -1,11 +1,8 @@
 
-// last edit Nov-24, 2024 (EOC)
+// last edit Nov-30, 2024 (EOC)
 
 #include "BranchingRatio_CLAS12_Auxiliary.h"
-#define NMAXPIONS 5 // maximal allowed number of pions
-#define NMAXKAONS 5 // maximal allowed number of Kaons
 #define r2d 180./3.1415 // radians to degrees
-
 
 
 BranchingRatio_CLAS12_Auxiliary::BranchingRatio_CLAS12_Auxiliary(int _fdebug_, int _torusBending_){
@@ -13,12 +10,12 @@ BranchingRatio_CLAS12_Auxiliary::BranchingRatio_CLAS12_Auxiliary(int _fdebug_, i
     SetTorusBending (_torusBending_);
 }
 
-BranchingRatio_CLAS12_Auxiliary::~BranchingRatio_CLAS12_Auxiliary(){}
+//BranchingRatio_CLAS12_Auxiliary::~BranchingRatio_CLAS12_Auxiliary(){}
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void BranchingRatio_CLAS12_Auxiliary::loadCutValues(std::string cutValuesFilename,
-                                          int torusBending){
+                                                    int torusBending){
     if (fdebug>2) {
         std::cout << "BranchingRatio_CLAS12_Auxiliary::loadCutValues()" << std::endl;
     }
@@ -183,8 +180,8 @@ void BranchingRatio_CLAS12_Auxiliary::SetTorusBendingFromRunNumber ( Int_t RunNu
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void BranchingRatio_CLAS12_Auxiliary::StreamToCSVfile (std::ofstream&         csvfile,
-                                             std::vector<Double_t>  observables,
-                                             std::vector<int>       precisions){
+                                                       std::vector<Double_t>  observables,
+                                                       std::vector<int>       precisions){
     
     //    for (auto v:observables) csvfile << v << ",";
     //    csvfile << std::endl;
@@ -205,12 +202,10 @@ void BranchingRatio_CLAS12_Auxiliary::StreamToCSVfile (std::ofstream&         cs
     }
 }
 
-
-
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void BranchingRatio_CLAS12_Auxiliary::OpenCSVfile (std::ofstream& csvfile,
-                                         TString filename,
-                                         std::string header){
+                                                   TString filename,
+                                                   std::string header){
     csvfile.open( filename );
     csvfile << header << "," << std::endl;
 }
