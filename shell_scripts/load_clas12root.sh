@@ -5,5 +5,5 @@ module load sqlite/dev
 module load clas12
 echo "done loading clas12root."
 
-echo "git pull && clas12root c12rSkimmer_BranchingRatios.C"
-git pull && clas12root c12rSkimmer_BranchingRatios.C
+echo "git pull && macros/execute_skim"
+git pull && macros/execute_skim
