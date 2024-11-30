@@ -4,6 +4,6 @@ module purge
 module load sqlite/dev
 module load clas12
 echo "done loading clas12root."
-
-echo "git pull && macros/execute_skim"
-git pull && macros/execute_skim
+echo 
+echo "git pull && python macros/execute_skim"
+git pull && python macros/execute_skim
