@@ -149,6 +149,8 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         DataPath = "/volatile/clas12/users/ecohen/GEMC/hipo/10.2/AcceptanceCorrection/";
         prefix = "p_uniform_distribution";
     }
+    
+    Debug(2,DataPath);
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
