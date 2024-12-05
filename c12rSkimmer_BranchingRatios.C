@@ -79,6 +79,22 @@ void Debug(int v, const char* fmt, ...) {
     va_end(arg);
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
+    char RunNumberStr[20];
+    // sprintf( RunNumberStr, "00%d", RunNumber );
+    
+    if(fSkimming == "p_uniform_distribution"){
+        // "white" GEMC simulation runs
+        sprintf( RunNumberStr, "%d", RunNumber );
+    } else {
+        sprintf( RunNumberStr, "%06d", RunNumber );
+    }
+    if (verbosity>1) std::cout << "(SIDIS) skimming run " << RunNumberStr << std::endl;
+    return (TString)RunNumberStr;
+}
+
+
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
     prefix   = "sidisdvcs_"; // default
@@ -139,7 +155,7 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetFileNames(int RunNumber) {
-    TString RunNumberStr = aux.GetRunNumberSTR(RunNumber, Skimming);
+    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
     // define input filename
     
     infilename  = DataPath + prefix + RunNumberStr + ".hipo";
