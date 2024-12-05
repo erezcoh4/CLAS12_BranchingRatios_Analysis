@@ -20,7 +20,7 @@
 #include <iostream>
 #include "clas12reader.h"
 #include "Auxiliary/csv_reader.h"
-//#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
+#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
 
 #ifdef __CINT__
 #pragma link C++ class std::vector<TVector3>+;
@@ -30,7 +30,7 @@
 #endif
 
 using namespace clas12;
-BranchingRatio_CLAS12_Auxiliary aux;
+//BranchingRatio_CLAS12_Auxiliary aux;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
