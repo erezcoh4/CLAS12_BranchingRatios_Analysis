@@ -173,25 +173,25 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 }
 
 
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetFileNames(int RunNumber) {
-//    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
-//    // define input filename
-//
-//    infilename  = DataPath + prefix + RunNumberStr + ".hipo";
-//    outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
-//    outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
-//
-//    if (verbosity>1){
-//        std::cout
-//        << "Input file name: " << std::endl
-//        << infilename          << std::endl
-//        << "Output file name: "<< std::endl
-//        << outfilepath + outfilename
-//        << std::endl;
-//    }
-//}
-//
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetFileNames(int RunNumber) {
+    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
+    // define input filename
+
+    infilename  = DataPath + prefix + RunNumberStr + ".hipo";
+    outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
+    outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
+
+    if (verbosity>1){
+        std::cout
+        << "Input file name: " << std::endl
+        << infilename          << std::endl
+        << "Output file name: "<< std::endl
+        << outfilepath + outfilename
+        << std::endl;
+    }
+}
+
 //// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 //void LoadCutValues() {
 //    // read cut values
@@ -199,26 +199,26 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 //}
 //
 //
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void GetParticlesByType (){
-//    // get particles by type
-//    Ne      = electrons .size();
-//    Np      = protons   .size();
-//    Ngammas = gammas    .size();
-//    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
-//}
-//
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void OpenResultFiles(){
-//
-//
-//    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
-//    outcsvfile_eep2gX << csvheader << std::endl;
-//
-//    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
-//}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void GetParticlesByType (){
+    // get particles by type
+    Ne      = electrons .size();
+    Np      = protons   .size();
+    Ngammas = gammas    .size();
+    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
+}
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void OpenResultFiles(){
+
+
+    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
+    outcsvfile_eep2gX << csvheader << std::endl;
+
+    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
+}
 
 
 
