@@ -86,7 +86,7 @@ ofstream          outcsvfile_eep2gX;
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // Routines
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void Debug(int v, const char* fmt, ...) {
+void DEBUG(int v, const char* fmt, ...) {
     va_list arg;
     va_start(arg, fmt);
     std::cout << "Debug(), verbosity: " << verbosity << ", v: " << v << std::endl;
@@ -241,7 +241,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     std::cout << "verbosity: " << verbosity << std::endl;
 //    //    LoadCutValues  ();
 //    //    SetFileNames   ();
-    Debug(1, "Begin main");
+    DEBUG(1, "Begin main");
 //
 //
 //    // open input file and get the hipo data
@@ -283,9 +283,9 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
 //
 //                Nevents_processed++;
 //            }
-//            if (event%PrintProgress==0 && (event > FirstEvent)) Debug(1,"%d/%d",event,NeventsMaxToProcess);
+//            if (event%PrintProgress==0 && (event > FirstEvent)) DEBUG(1,"%d/%d",event,NeventsMaxToProcess);
 //
 //        } // end event loop
 //    } // end file loop
-    Debug(1, "\nDone.\n");
+    DEBUG(1, "\nDone.\n");
 }
