@@ -286,7 +286,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                 Nevents_processed++;
             }
             if (event%PrintProgress==0 && (event > FirstEvent))
-                DEBUG(1,"%d/%d",event,NeventsMaxToProcess);
+                DEBUG(1,"Entry %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
 
         } // end event loop
     } // end file loop
