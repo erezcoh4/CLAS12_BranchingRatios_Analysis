@@ -235,12 +235,12 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                                  int               fdebug = 0
                                  )
 {
-    Debug(1, "Begin main");
     
     
-//    SetGlobals     (fdebug, fEbeam, fDataPath );
+    SetGlobals     (fdebug, fEbeam, fDataPath );
 //    //    LoadCutValues  ();
 //    //    SetFileNames   ();
+    Debug(1, "Begin main");
 //
 //
 //    // open input file and get the hipo data
