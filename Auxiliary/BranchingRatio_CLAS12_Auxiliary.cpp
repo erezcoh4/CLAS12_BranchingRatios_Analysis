@@ -96,13 +96,6 @@ void BranchingRatio_CLAS12_Auxiliary::printCutValues(){
     "Pe_max: "                  << cutValue_Pe_max                  << ", " << std::endl <<
     "Zpi_min: "                 << cutValue_Zpi_min                 << ", " << std::endl <<
     "Zpi_max: "                 << cutValue_Zpi_max                 << ", " << std::endl <<
-    "Ve_VK_dz_max: "            << cutValue_Ve_VK_dz_max            << ", " << std::endl <<
-    "K_theta_min: "             << cutValue_K_theta_min             << ", " << std::endl <<
-    "K_theta_max: "             << cutValue_K_theta_max             << ", " << std::endl <<
-    "PK_min: "                  << cutValue_PK_min                  << ", " << std::endl <<
-    "PK_max: "                  << cutValue_PK_max                  << ", " << std::endl <<
-    "ZK_min: "                  << cutValue_ZK_min                  << ", " << std::endl <<
-    "ZK_max: "                  << cutValue_ZK_max                  << ", " << std::endl <<
     std::endl;
 }
 
@@ -131,42 +124,42 @@ TString BranchingRatio_CLAS12_Auxiliary::GetRunNumberSTR( int RunNumber, TString
     return (TString)RunNumberStr;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-Double_t BranchingRatio_CLAS12_Auxiliary::GetEbeamFromRunNumber ( Int_t RunNumber ){
-    if (6420 <= RunNumber && RunNumber <= 6598){
-        return 10.2; // GeV
-    }
-    else if (11362 <= RunNumber && RunNumber <= 11571){
-        return 10.4; // GeV
-    }
-    else if (6164 <= RunNumber && RunNumber <= 6399){
-        return 10.6; // GeV
-    }
-    else{
-        return 0;
-    }
-}
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//Double_t BranchingRatio_CLAS12_Auxiliary::GetEbeamFromRunNumber ( Int_t RunNumber ){
+//    if (6420 <= RunNumber && RunNumber <= 6598){
+//        return 10.2; // GeV
+//    }
+//    else if (11362 <= RunNumber && RunNumber <= 11571){
+//        return 10.4; // GeV
+//    }
+//    else if (6164 <= RunNumber && RunNumber <= 6399){
+//        return 10.6; // GeV
+//    }
+//    else{
+//        return 0;
+//    }
+//}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void BranchingRatio_CLAS12_Auxiliary::SetTorusBendingFromRunNumber ( Int_t RunNumber ){
-    // -1 for In-bending, +1 for Out-bending
-    // For BAND data
-    // Spring 19 and Spring 2020 was in-bending
-    // Fall 2019 (without low-energy-run) was out-bending
-
-    if (6420 <= RunNumber && RunNumber <= 6598){
-        this->torusBending = -1;
-    }
-    else if (11362 <= RunNumber && RunNumber <= 11571){
-        this->torusBending = -1;
-    }
-    else if (6164 <= RunNumber && RunNumber <= 6399){
-        this->torusBending = +1;
-    }
-    else{
-        this->torusBending = 0;
-    }
-}
+////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//void BranchingRatio_CLAS12_Auxiliary::SetTorusBendingFromRunNumber ( Int_t RunNumber ){
+//    // -1 for In-bending, +1 for Out-bending
+//    // For BAND data
+//    // Spring 19 and Spring 2020 was in-bending
+//    // Fall 2019 (without low-energy-run) was out-bending
+//
+//    if (6420 <= RunNumber && RunNumber <= 6598){
+//        this->torusBending = -1;
+//    }
+//    else if (11362 <= RunNumber && RunNumber <= 11571){
+//        this->torusBending = -1;
+//    }
+//    else if (6164 <= RunNumber && RunNumber <= 6399){
+//        this->torusBending = +1;
+//    }
+//    else{
+//        this->torusBending = 0;
+//    }
+//}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void BranchingRatio_CLAS12_Auxiliary::StreamToCSVfile (std::ofstream&         csvfile,
