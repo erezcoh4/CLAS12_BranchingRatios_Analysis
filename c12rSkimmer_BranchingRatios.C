@@ -118,11 +118,10 @@ TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
     DEBUG(2,"SetDataPath('%s',%f)",fDataPath.Data(),fEbeam);
-//    DEBUG(2,"%s,%f",fDataPath,fEbeam);
-    
     prefix   = "sidisdvcs_"; // default
 
     if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
+        DEBUG(2,"if (fDataPath==...)");
         // sidis-dvcs train files, used since July 2022
         // (the 'usual' train files)
         if (fEbeam==10.2){
