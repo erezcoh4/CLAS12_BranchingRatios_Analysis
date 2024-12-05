@@ -164,15 +164,15 @@ void Debug(int v, const char* fmt, ...) {
 //    Ebeam = fEbeam;
 //}
 //
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
-//    SetVerbosity        ( v          );
-//    SetDataPath         ( fDataPath, fEbeam );
-//    //    SetSkimming         ( fSkimming  );
-//    SetEbeam            ( fEbeam     );
-//}
-//
-//
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
+    SetVerbosity        ( v          );
+    SetDataPath         ( fDataPath, fEbeam );
+    //    SetSkimming         ( fSkimming  );
+    SetEbeam            ( fEbeam     );
+}
+
+
 //// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 //void SetFileNames(int RunNumber) {
 //    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
