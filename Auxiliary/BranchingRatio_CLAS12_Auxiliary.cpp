@@ -67,16 +67,6 @@ void BranchingRatio_CLAS12_Auxiliary::loadCutValues(std::string cutValuesFilenam
     cutValue_Zpi_min                = FindCutValue("Zpi_min");
     cutValue_Zpi_max                = FindCutValue("Zpi_max");
 
-    // Kaons
-    cutValue_Ve_VK_dz_max          = FindCutValue("(Ve-VK)_z_max");
-    cutValue_K_theta_min           = FindCutValue("K_theta_min");
-    cutValue_K_theta_max           = FindCutValue("K_theta_max");
-    cutValue_PK_min                = FindCutValue("PK_min");
-    cutValue_PK_max                = FindCutValue("PK_max");
-    cutValue_ZK_min                = FindCutValue("ZK_min");
-    cutValue_ZK_max                = FindCutValue("ZK_max");
-
-
     if (fdebug>2) { printCutValues(); }
 }
 
