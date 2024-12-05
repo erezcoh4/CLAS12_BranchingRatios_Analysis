@@ -80,6 +80,14 @@ for line in run_fileLines[FirstRun:]:#{
     
     print("")
     print("processing run %d/%d"%(runIdx,Nruns))
+    print("NeventsMax:",NeventsMax)
+    print("fdebug:",fdebug)
+    print("PrintProgress:", PrintProgress)
+    print("FirstEvent:",FirstEvent);
+    print("DataPath:",DataPath)
+    print("Ebeam:",Ebeam)
+    print("fdebug:",fdebug)
+    
     print("")
     
 #    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,%d,\"%s\",\"%s\",%f,)'"%
@@ -99,7 +107,7 @@ print('')
 print('done execute skim.')
 print('')
 if args.no_email==False:#{
-    mailtitle = 'Done processing skim_sidis_multiple_runs on ifarm'
+    mailtitle = 'Done processing execute_skim'
     mailbody  = ('Processed %s - %d runs, see ....'%( DataPath, Nruns))
     emailstr = ('echo %s | mail -s %s cohen.erez7@gmail.com'%(mailbody,mailtitle) )
     os.system(emailstr)
