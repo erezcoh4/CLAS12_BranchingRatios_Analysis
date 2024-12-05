@@ -266,6 +266,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
         // process the events...
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
             event++;
+            if (event%PrintProgress==0 && (event > FirstEvent))
+                DEBUG(1,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
 
             if (event > FirstEvent) {
 
@@ -286,7 +288,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                 Nevents_processed++;
             }
             if (event%PrintProgress==0 && (event > FirstEvent))
-                DEBUG(1,"Entry %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
+                DEBUG(1,"Done processing %d/%d",event,NeventsMaxToProcess);
 
         } // end event loop
     } // end file loop
