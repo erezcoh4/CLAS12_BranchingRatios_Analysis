@@ -1,4 +1,9 @@
 
+
+
+// EOC, Nov-24, 2024
+#ifndef __BranchingRatio_CLAS12_Auxiliary_H__
+#define __BranchingRatio_CLAS12_Auxiliary_H__
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -14,18 +19,11 @@
 #include <TChain.h>
 #include <TCanvas.h>
 #include <TBenchmark.h>
-#include "clas12reader.h"
-#include "csv_reader.h"
-
-
-// EOC, Nov-24, 2024
-#ifndef __BranchingRatio_CLAS12_Auxiliary_H__
-#define __BranchingRatio_CLAS12_Auxiliary_H__
-
-#include "csv_reader.h"
 #include <sstream>
 #include <fstream>
 #include <iostream>
+#include "clas12reader.h"
+#include "csv_reader.h"
 
 #define    SHOW (x){ std::cout << (#x) << ": " << (x) << std::endl;};
 #define SHOWArr (x){ for (auto _x:x) std::cout << (#_x) << ": " << (_x) << ", " << std::endl;};
