@@ -20,7 +20,7 @@
 #include <iostream>
 #include "clas12reader.h"
 #include "Auxiliary/csv_reader.h"
-#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
+//#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
 
 #ifdef __CINT__
 #pragma link C++ class std::vector<TVector3>+;
@@ -30,7 +30,7 @@
 #endif
 
 using namespace clas12;
-BranchingRatio_CLAS12_Auxiliary aux;
+//BranchingRatio_CLAS12_Auxiliary aux;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
@@ -103,7 +103,7 @@ void Debug(int v, const char* fmt, ...) {
 //TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
 //    char RunNumberStr[20];
 //    // sprintf( RunNumberStr, "00%d", RunNumber );
-//    
+//
 //    if(fSkimming == "p_uniform_distribution"){
 //        // "white" GEMC simulation runs
 //        sprintf( RunNumberStr, "%d", RunNumber );
@@ -118,7 +118,7 @@ void Debug(int v, const char* fmt, ...) {
 //// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 //void SetDataPath (TString fDataPath, Double_t fEbeam) {
 //    prefix   = "sidisdvcs_"; // default
-//    
+//
 //    if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
 //        // sidis-dvcs train files, used since July 2022
 //        // (the 'usual' train files)
@@ -177,11 +177,11 @@ void Debug(int v, const char* fmt, ...) {
 //void SetFileNames(int RunNumber) {
 //    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
 //    // define input filename
-//    
+//
 //    infilename  = DataPath + prefix + RunNumberStr + ".hipo";
 //    outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
 //    outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
-//    
+//
 //    if (verbosity>1){
 //        std::cout
 //        << "Input file name: " << std::endl
@@ -212,11 +212,11 @@ void Debug(int v, const char* fmt, ...) {
 //
 ////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //void OpenResultFiles(){
-//    
-//    
+//
+//
 //    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
 //    outcsvfile_eep2gX << csvheader << std::endl;
-//    
+//
 //    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
 //}
 
