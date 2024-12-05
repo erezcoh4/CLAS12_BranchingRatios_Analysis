@@ -90,7 +90,7 @@ void DEBUG(int v, const char* fmt, ...) {
     va_list arg;
     va_start(arg, fmt);
     std::cout << "Debug(), verbosity: " << verbosity << ", v: " << v << std::endl;
-    if (v > verbosity) {
+    if (verbosity > v) {
         vprintf(fmt, arg);
         std::cout << std::endl;
     }
