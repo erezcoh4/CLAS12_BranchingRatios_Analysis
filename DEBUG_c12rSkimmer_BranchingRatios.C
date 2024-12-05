@@ -1,13 +1,13 @@
 // last edit Nov-24, 2023
 
-//#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
-//
-//#ifdef __CINT__
-//#pragma link C++ class std::vector<TVector3>+;
-//#pragma link C++ class vector<TVector3>+;
-//#pragma link C++ class std::vector<TLorentzVector>+;
-//#pragma link C++ class vector<TLorentzVector>+;
-//#endif
+#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
+
+#ifdef __CINT__
+#pragma link C++ class std::vector<TVector3>+;
+#pragma link C++ class vector<TVector3>+;
+#pragma link C++ class std::vector<TLorentzVector>+;
+#pragma link C++ class vector<TLorentzVector>+;
+#endif
 
 using namespace clas12;
 //BranchingRatio_CLAS12_Auxiliary aux;
