@@ -117,8 +117,8 @@ TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
-    DEBUG(2,"SetDataPath()");
-    DEBUG(2,fDataPath);
+    DEBUG(2,"SetDataPath('%s',%f)",fDataPath.c_str(),fEbeam);
+//    DEBUG(2,"%s,%f",fDataPath,fEbeam);
     
     prefix   = "sidisdvcs_"; // default
 
