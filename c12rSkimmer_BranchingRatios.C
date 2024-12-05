@@ -238,6 +238,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
+    std::cout << "verbosity: " << verbosity << std::endl;
 //    //    LoadCutValues  ();
 //    //    SetFileNames   ();
     Debug(1, "Begin main");
