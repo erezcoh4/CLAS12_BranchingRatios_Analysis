@@ -174,7 +174,7 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetFileNames(int RunNumber) {
+void SetFileNames(int RunNumber=6164) {
     TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
     // define input filename
 
@@ -239,7 +239,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
     //    LoadCutValues  ();
-        SetFileNames   ();
+    SetFileNames   ();
     DEBUG(1, "Begin main");
 
 
