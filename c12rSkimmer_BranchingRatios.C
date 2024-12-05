@@ -99,126 +99,126 @@ void Debug(int v, const char* fmt, ...) {
     va_end(arg);
 }
 
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
-//    char RunNumberStr[20];
-//    // sprintf( RunNumberStr, "00%d", RunNumber );
-//
-//    if(fSkimming == "p_uniform_distribution"){
-//        // "white" GEMC simulation runs
-//        sprintf( RunNumberStr, "%d", RunNumber );
-//    } else {
-//        sprintf( RunNumberStr, "%06d", RunNumber );
-//    }
-//    if (verbosity>1) std::cout << "(SIDIS) skimming run " << RunNumberStr << std::endl;
-//    return (TString)RunNumberStr;
-//}
-//
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetDataPath (TString fDataPath, Double_t fEbeam) {
-//    prefix   = "sidisdvcs_"; // default
-//
-//    if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
-//        // sidis-dvcs train files, used since July 2022
-//        // (the 'usual' train files)
-//        if (fEbeam==10.2){
-//            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
-//        } else if (fEbeam==10.4){
-//            DataPath = "/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass1/v1/dst/train/sidisdvcs/";
-//        } else if (fEbeam==10.6){
-//            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
-//        }
-//        prefix   = "sidisdvcs_";
-//    }
-//    else if (fDataPath=="inclusive" || fDataPath=="inc"){
-//        // inclusive train files, used until July 2022
-//        // (inclusive train files were only generated in the beginning of RGB without any backup)
-//        DataPath = "/volatile/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train_20200610/inc/";
-//        prefix   = "inc_";
-//    }
-//    else if (fDataPath=="nSidis" || fDataPath=="nsidis"){
-//        // free-p data from RGA data
-//        // For RGA we use nSidis, they key difference is sidisdvcs has e_p > 1 GeV and nSidis has e_p > 2 GeV.
-//        DataPath = "/cache/clas12/rg-a/production/recon/spring2019/torus-1/pass1/v1/dst/train/nSidis/";
-//        prefix   = "nSidis_";
-//    }
-//    else if (fDataPath=="AcceptanceCorrection"){
-//        // GEMC simulations of "white" spectra
-//        // i.e. (e,e'π) events with no physics generator
-//        DataPath = "/volatile/clas12/users/ecohen/GEMC/hipo/10.2/AcceptanceCorrection/";
-//        prefix = "p_uniform_distribution";
-//    }
-//}
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetVerbosity( int v ){
-//    verbosity = v;
-//}
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetEbeam (double fEbeam=10.2) { // [GeV]
-//    // RGA the enrgy was 10.6
-//    // RGB Spring-2019 the enrgy was 10.2
-//    // RGB Fall-2019 the enrgy was 10.4096
-//    Ebeam = fEbeam;
-//}
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
-//    SetVerbosity        ( v          );
-//    SetDataPath         ( fDataPath, fEbeam );
-//    //    SetSkimming         ( fSkimming  );
-//    SetEbeam            ( fEbeam     );
-//}
-//
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void SetFileNames(int RunNumber) {
-//    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
-//    // define input filename
-//
-//    infilename  = DataPath + prefix + RunNumberStr + ".hipo";
-//    outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
-//    outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
-//
-//    if (verbosity>1){
-//        std::cout
-//        << "Input file name: " << std::endl
-//        << infilename          << std::endl
-//        << "Output file name: "<< std::endl
-//        << outfilepath + outfilename
-//        << std::endl;
-//    }
-//}
-//
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void LoadCutValues() {
-//    // read cut values
-//    aux.loadCutValues("cuts/RGBcutValues.csv",torusBending);
-//}
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void GetParticlesByType (){
-//    // get particles by type
-//    Ne      = electrons .size();
-//    Np      = protons   .size();
-//    Ngammas = gammas    .size();
-//    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
-//}
-//
-//
-//
-////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//void OpenResultFiles(){
-//
-//
-//    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
-//    outcsvfile_eep2gX << csvheader << std::endl;
-//
-//    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
-//}
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
+    char RunNumberStr[20];
+    // sprintf( RunNumberStr, "00%d", RunNumber );
+
+    if(fSkimming == "p_uniform_distribution"){
+        // "white" GEMC simulation runs
+        sprintf( RunNumberStr, "%d", RunNumber );
+    } else {
+        sprintf( RunNumberStr, "%06d", RunNumber );
+    }
+    if (verbosity>1) std::cout << "(SIDIS) skimming run " << RunNumberStr << std::endl;
+    return (TString)RunNumberStr;
+}
+
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetDataPath (TString fDataPath, Double_t fEbeam) {
+    prefix   = "sidisdvcs_"; // default
+
+    if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
+        // sidis-dvcs train files, used since July 2022
+        // (the 'usual' train files)
+        if (fEbeam==10.2){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
+        } else if (fEbeam==10.4){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass1/v1/dst/train/sidisdvcs/";
+        } else if (fEbeam==10.6){
+            DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
+        }
+        prefix   = "sidisdvcs_";
+    }
+    else if (fDataPath=="inclusive" || fDataPath=="inc"){
+        // inclusive train files, used until July 2022
+        // (inclusive train files were only generated in the beginning of RGB without any backup)
+        DataPath = "/volatile/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train_20200610/inc/";
+        prefix   = "inc_";
+    }
+    else if (fDataPath=="nSidis" || fDataPath=="nsidis"){
+        // free-p data from RGA data
+        // For RGA we use nSidis, they key difference is sidisdvcs has e_p > 1 GeV and nSidis has e_p > 2 GeV.
+        DataPath = "/cache/clas12/rg-a/production/recon/spring2019/torus-1/pass1/v1/dst/train/nSidis/";
+        prefix   = "nSidis_";
+    }
+    else if (fDataPath=="AcceptanceCorrection"){
+        // GEMC simulations of "white" spectra
+        // i.e. (e,e'π) events with no physics generator
+        DataPath = "/volatile/clas12/users/ecohen/GEMC/hipo/10.2/AcceptanceCorrection/";
+        prefix = "p_uniform_distribution";
+    }
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetVerbosity( int v ){
+    verbosity = v;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetEbeam (double fEbeam=10.2) { // [GeV]
+    // RGA the enrgy was 10.6
+    // RGB Spring-2019 the enrgy was 10.2
+    // RGB Fall-2019 the enrgy was 10.4096
+    Ebeam = fEbeam;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
+    SetVerbosity        ( v          );
+    SetDataPath         ( fDataPath, fEbeam );
+    //    SetSkimming         ( fSkimming  );
+    SetEbeam            ( fEbeam     );
+}
+
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetFileNames(int RunNumber) {
+    TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
+    // define input filename
+
+    infilename  = DataPath + prefix + RunNumberStr + ".hipo";
+    outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
+    outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
+
+    if (verbosity>1){
+        std::cout
+        << "Input file name: " << std::endl
+        << infilename          << std::endl
+        << "Output file name: "<< std::endl
+        << outfilepath + outfilename
+        << std::endl;
+    }
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void LoadCutValues() {
+    // read cut values
+    aux.loadCutValues("cuts/RGBcutValues.csv",torusBending);
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void GetParticlesByType (){
+    // get particles by type
+    Ne      = electrons .size();
+    Np      = protons   .size();
+    Ngammas = gammas    .size();
+    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
+}
+
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void OpenResultFiles(){
+
+
+    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
+    outcsvfile_eep2gX << csvheader << std::endl;
+
+    if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
+}
 
 
 
