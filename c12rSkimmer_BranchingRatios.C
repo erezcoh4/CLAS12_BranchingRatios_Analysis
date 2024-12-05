@@ -20,7 +20,7 @@
 #include <iostream>
 #include "clas12reader.h"
 #include "Auxiliary/csv_reader.h"
-#include "Auxiliary/SIDISatBAND_auxiliary.cpp"
+#include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.cpp"
 
 #ifdef __CINT__
 #pragma link C++ class std::vector<TVector3>+;
