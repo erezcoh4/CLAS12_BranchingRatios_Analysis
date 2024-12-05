@@ -84,8 +84,8 @@ for line in run_fileLines[FirstRun:]:#{
     
 #    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,%d,\"%s\",\"%s\",%f,)'"%
 #                    (run,NeventsMax,fdebug,PrintProgress,FirstEvent,DataPath,Ebeam))
-    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d)'"%
-                    (run))
+    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,\"%s\",\"%s\",%f,%d)'"%
+                    (run,NeventsMax,fdebug,PrintProgress,FirstEvent,DataPath,Ebeam,fdebug))
     print(commandline)
     
     
