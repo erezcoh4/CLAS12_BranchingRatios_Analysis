@@ -1,10 +1,10 @@
-//
-//// last edit Dec-5, 2024 (EOC)
-//
-//#include "BranchingRatio_CLAS12_Auxiliary.h"
-//#define r2d 180./3.1415 // radians to degrees
-//
-//
+
+// last edit Dec-5, 2024 (EOC)
+
+#include "BranchingRatio_CLAS12_Auxiliary.h"
+#define r2d 180./3.1415 // radians to degrees
+
+
 //BranchingRatio_CLAS12_Auxiliary::BranchingRatio_CLAS12_Auxiliary(int _fdebug_, int _torusBending_){
 ////    SetVerbosity    (_fdebug_);
 ////    SetTorusBending (_torusBending_);

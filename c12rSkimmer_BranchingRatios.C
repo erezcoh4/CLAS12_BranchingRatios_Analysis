@@ -289,7 +289,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
             }
             if (event%PrintProgress==0 && (event > FirstEvent)){
                 DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
-                DEBUG(3,"------------------------------------");
+                DEBUG(3,"----------------------------------------------------------");
             }
 
         } // end event loop
