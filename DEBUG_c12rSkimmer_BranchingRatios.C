@@ -1,25 +1,5 @@
 // last edit Nov-24, 2023
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <chrono>
-#include <TFile.h>
-#include <TTree.h>
-#include <TApplication.h>
-#include <TROOT.h>
-#include <TDatabasePDG.h>
-#include <TLorentzVector.h>
-#include <TVector3.h>
-#include <TH1.h>
-#include <TChain.h>
-#include <TCanvas.h>
-#include <TBenchmark.h>
-#include <sstream>
-#include <fstream>
-#include <iostream>
-#include "clas12reader.h"
-#include "Auxiliary/csv_reader.h"
 #include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.h"
 
 #ifdef __CINT__
