@@ -172,9 +172,9 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
     SetVerbosity        ( v          );
+    SetEbeam            ( fEbeam     );
     SetDataPath         ( fDataPath, fEbeam );
     //    SetSkimming         ( fSkimming  );
-    SetEbeam            ( fEbeam     );
 }
 
 
