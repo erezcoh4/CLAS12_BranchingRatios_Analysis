@@ -196,13 +196,13 @@ void SetFileNames(int RunNumber=6164) {
     }
 }
 
-//// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void LoadCutValues() {
-//    // read cut values
-//    aux.loadCutValues("cuts/RGBcutValues.csv",torusBending);
-//}
-//
-//
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void LoadCutValues() {
+    // read cut values
+    aux.loadCutValues("cuts/RGBcutValues.csv",torusBending);
+}
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void GetParticlesByType (){
     // get particles by type
@@ -241,7 +241,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
-    //    LoadCutValues  ();
+    LoadCutValues  ();
     SetFileNames   ();
     DEBUG(1, "Begin main");
 
