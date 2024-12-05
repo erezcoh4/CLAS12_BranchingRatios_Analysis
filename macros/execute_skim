@@ -96,7 +96,7 @@ for line in run_fileLines[FirstRun:]:#{
 #}
 
 print('')
-print('done.')
+print('done execute skim.')
 print('')
 if args.no_email==False:#{
     mailtitle = 'Done processing skim_sidis_multiple_runs on ifarm'

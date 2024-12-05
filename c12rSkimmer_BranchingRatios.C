@@ -89,7 +89,7 @@ ofstream          outcsvfile_eep2gX;
 void DEBUG(int v, const char* fmt, ...) {
     va_list arg;
     va_start(arg, fmt);
-    std::cout << "Debug(), verbosity: " << verbosity << ", v: " << v  << ", " << fmt << std::endl;
+    //    std::cout << "Debug(), verbosity: " << verbosity << ", v: " << v  << ", " << fmt << std::endl;
     if (verbosity > v) {
         vprintf(fmt, arg);
         std::cout << std::endl;
@@ -287,5 +287,5 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
 //
 //        } // end event loop
 //    } // end file loop
-    DEBUG(1, "\nDone.\n");
+    DEBUG(1, "\nDone main.\n");
 }
