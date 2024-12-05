@@ -39,7 +39,6 @@ parser.add_argument("--DataPath",     type=str, default="sidisdvcs",
 parser.add_argument("--Ebeam",     type=float, default=10.2,
                     required=False, help="beam energy")
 
-
 args = parser.parse_args()
 
 Nruns         = args.Nruns
@@ -90,10 +89,8 @@ for line in run_fileLines[FirstRun:]:#{
     
     print("")
     
-#    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,%d,\"%s\",\"%s\",%f,)'"%
-#                    (run,NeventsMax,fdebug,PrintProgress,FirstEvent,DataPath,Ebeam))
-    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,\"%s\",\"%s\",%f,%d)'"%
-                    (run,NeventsMax,fdebug,PrintProgress,FirstEvent,DataPath,Ebeam,fdebug))
+    commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,\"%s\",%f,%d)'"%
+                    (run,FirstEvent,NeventsMax,PrintProgress,DataPath,Ebeam,fdebug))
     print(commandline)
     
     

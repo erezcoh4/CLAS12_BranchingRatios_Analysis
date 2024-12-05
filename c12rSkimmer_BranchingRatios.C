@@ -233,7 +233,6 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                                  int           FirstEvent = 0,
                                  int  NeventsMaxToProcess = -1,
                                  int        PrintProgress = 100,
-                                 TString         Skimming = "BranchingRatios",
                                  TString        fDataPath = "sidisdvcs",
                                  float             fEbeam = 10.2,
                                  int               fdebug = 0
