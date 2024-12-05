@@ -205,8 +205,7 @@ void Debug(int v, const char* fmt, ...) {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//DEBUG_c12rSkimmer_BranchingRatios
-void main(int            RunNumber = 6420,
+void DEBUG_c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                                  int           FirstEvent = 0,
                                  int  NeventsMaxToProcess = -1,
                                  int        PrintProgress = 100,
