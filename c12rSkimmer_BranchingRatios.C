@@ -199,7 +199,7 @@ void SetFileNames(int RunNumber=6164) {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void LoadCutValues() {
     // read cut values
-    aux.loadCutValues("cuts/RGBcutValues.csv",torusBending);
+    aux.loadCutValues("cuts/cutValues_5Dec2024.csv",torusBending);
 }
 
 
