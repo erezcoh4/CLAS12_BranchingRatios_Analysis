@@ -10,8 +10,8 @@
 ////    SetTorusBending (_torusBending_);
 //}
 //
-////BranchingRatio_CLAS12_Auxiliary::~BranchingRatio_CLAS12_Auxiliary(){}
-//
+BranchingRatio_CLAS12_Auxiliary::~BranchingRatio_CLAS12_Auxiliary(){}
+
 //
 //////....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 ////void BranchingRatio_CLAS12_Auxiliary::loadCutValues(std::string cutValuesFilename,
