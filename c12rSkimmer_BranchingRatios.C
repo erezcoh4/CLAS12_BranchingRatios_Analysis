@@ -238,54 +238,53 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
     
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
-    std::cout << "verbosity: " << verbosity << std::endl;
-//    //    LoadCutValues  ();
-//    //    SetFileNames   ();
+    //    LoadCutValues  ();
+        SetFileNames   ();
     DEBUG(1, "Begin main");
-//
-//
-//    // open input file and get the hipo data
-//    TChain fake("hipo");
-//    fake.Add(infilename.Data());
-//    auto files = fake.GetListOfFiles();
-//
-//    // open output files
-//    OpenResultFiles();
-//
-//    // start analysis
-//    // step over events and extract information....
-//    for(Int_t i=0;i<files->GetEntries();i++){
-//
-//        //create the event reader
-//        clas12reader c12(files->At(i)->GetTitle(),{0});
-//        //        InitializeFileReading( NeventsMax, c12.getReader().getEntries(), fdebug );
-//        int event = 0;
-//
-//        // process the events...
-//        while((c12.next()==true) && (event < NeventsMaxToProcess)){
-//            event++;
-//
-//            if (event > FirstEvent) {
-//
-//                runnum = c12.runconfig()->getRun();
-//                evnum  = c12.runconfig()->getEvent();
-//
-//                //                InitializeVariables();
-//                // Get Particles By Type
-//                electrons   = c12.getByID( 11   );
-//                protons     = c12.getByID( 2212 );
-//                gammas      = c12.getByID( 22   );
-//                GetParticlesByType ();
-//
-//
-//                // filter events, extract information, and compute event kinematics:
-//                // ....
-//
-//                Nevents_processed++;
-//            }
-//            if (event%PrintProgress==0 && (event > FirstEvent)) DEBUG(1,"%d/%d",event,NeventsMaxToProcess);
-//
-//        } // end event loop
-//    } // end file loop
+
+
+    // open input file and get the hipo data
+    TChain fake("hipo");
+    fake.Add(infilename.Data());
+    auto files = fake.GetListOfFiles();
+
+    // open output files
+    OpenResultFiles();
+
+    // start analysis
+    // step over events and extract information....
+    for(Int_t i=0;i<files->GetEntries();i++){
+
+        //create the event reader
+        clas12reader c12(files->At(i)->GetTitle(),{0});
+        //        InitializeFileReading( NeventsMax, c12.getReader().getEntries(), fdebug );
+        int event = 0;
+
+        // process the events...
+        while((c12.next()==true) && (event < NeventsMaxToProcess)){
+            event++;
+
+            if (event > FirstEvent) {
+
+                runnum = c12.runconfig()->getRun();
+                evnum  = c12.runconfig()->getEvent();
+
+                //                InitializeVariables();
+                // Get Particles By Type
+                electrons   = c12.getByID( 11   );
+                protons     = c12.getByID( 2212 );
+                gammas      = c12.getByID( 22   );
+                GetParticlesByType ();
+
+
+                // filter events, extract information, and compute event kinematics:
+                // ....
+
+                Nevents_processed++;
+            }
+            if (event%PrintProgress==0 && (event > FirstEvent)) DEBUG(1,"%d/%d",event,NeventsMaxToProcess);
+
+        } // end event loop
+    } // end file loop
     DEBUG(1, "\nDone main.\n");
 }
