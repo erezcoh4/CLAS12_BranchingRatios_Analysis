@@ -26,6 +26,12 @@
 //#include "clas12reader.h"
 //#include "csv_reader.h"
 
+#include "csv_reader.h"
+#include <sstream>
+#include <fstream>
+#include <iostream>
+
+
 #define    SHOW (x){ std::cout << (#x) << ": " << (x) << std::endl;};
 #define SHOWArr (x){ for (auto _x:x) std::cout << (#_x) << ": " << (_x) << ", " << std::endl;};
 
