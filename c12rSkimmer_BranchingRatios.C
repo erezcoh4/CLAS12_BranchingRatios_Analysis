@@ -158,6 +158,7 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetVerbosity( int v ){
     verbosity = v;
+    aux.SetVerbosity(v);
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
