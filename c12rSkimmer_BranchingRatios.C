@@ -117,7 +117,7 @@ TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
-    Debug(2,"SetDataPath()");
+    DEBUG(2,"SetDataPath()");
     prefix   = "sidisdvcs_"; // default
 
     if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
@@ -151,7 +151,7 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         prefix = "p_uniform_distribution";
     }
     
-    Debug(2,DataPath);
+    DEBUG(2,DataPath);
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
