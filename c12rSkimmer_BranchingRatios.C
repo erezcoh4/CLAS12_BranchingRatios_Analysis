@@ -151,7 +151,7 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         prefix = "p_uniform_distribution";
     }
     
-    DEBUG(2,DataPath);
+    DEBUG(2,DataPath.c_str());
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
