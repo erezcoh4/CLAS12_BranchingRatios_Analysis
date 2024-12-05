@@ -124,12 +124,12 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         
         // sidis-dvcs train files, used since July 2022
         // (the 'usual' train files)
-        if (fEbeam==10.2){
+        if        (fabs(fEbeam-10.2)<0.01){
             DEBUG(2,"if (fDataPath==... && fEbeam==10.2)");
             DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
-        } else if (fEbeam==10.4){
+        } else if (fabs(fEbeam-10.4)<0.01){
             DataPath = "/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass1/v1/dst/train/sidisdvcs/";
-        } else if (fEbeam==10.6){
+        } else if (fabs(fEbeam-10.6)<0.01){
             DataPath = "/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass1/v0/dst/train/sidisdvcs/";
         }
         prefix   = "sidisdvcs_";
