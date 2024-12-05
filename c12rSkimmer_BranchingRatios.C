@@ -205,7 +205,7 @@ void GetParticlesByType (){
     Ne      = electrons .size();
     Np      = protons   .size();
     Ngammas = gammas    .size();
-    Debug(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
+    DEBUG(1,"N(e):%d, N(p):%d, N(g):%d ",Ne,Np,Ngammas);
 }
 
 
