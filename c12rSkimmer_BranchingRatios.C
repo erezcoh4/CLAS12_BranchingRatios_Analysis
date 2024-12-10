@@ -61,6 +61,7 @@ int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
 TLorentzVector   Beam_p4, target_p4, e_p4, q_p4, p_p4;
+TLorentzVector   p_rest;
 TLorentzVector   g1_p4, g2_p4; // gamma 1 and gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
@@ -78,7 +79,7 @@ TString infilename, outfilepath, outfilename;
 ofstream          outcsvfile_eep2gX;
 
 // detector features
-int    DC_layer, status, DC_layers;
+int    DC_layer, status, DC_layers[3];
 int      Nevents_passed_e_cuts = 0;
 int      Nevents_passed_p_cuts = 0;
 int    Nevents_passed_eep_cuts = 0;
@@ -125,7 +126,7 @@ void DEBUG(int v, const char* fmt, ...) {
 TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
     char RunNumberStr[20];
     // sprintf( RunNumberStr, "00%d", RunNumber );
-
+    
     if(fSkimming == "p_uniform_distribution"){
         // "white" GEMC simulation runs
         sprintf( RunNumberStr, "%d", RunNumber );
@@ -156,7 +157,7 @@ void SetLorentzVector (TLorentzVector &p4,clas12::region_part_ptr rp){
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
     DEBUG(2,"SetDataPath('%s',%f)",fDataPath.Data(),fEbeam);
     prefix   = "sidisdvcs_"; // default
-
+    
     if (fDataPath=="" || fDataPath=="sidisdvcs" || fDataPath=="sidis dvcs"){
         
         // sidis-dvcs train files, used since July 2022
@@ -207,10 +208,16 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetTarget (){
+    p_rest.SetXYZM (0, 0, 0, aux.Mp);
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
-    SetVerbosity        ( v          );
-    SetEbeam            ( fEbeam     );
-    SetDataPath         ( fDataPath, fEbeam );
+    SetVerbosity        (v);
+    SetEbeam            (fEbeam);
+    SetTarget           ();
+    SetDataPath         (fDataPath, fEbeam);
     //    SetSkimming         ( fSkimming  );
 }
 
@@ -219,11 +226,11 @@ void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
 void SetFileNames(int RunNumber=6164) {
     TString RunNumberStr = GetRunNumberSTR(RunNumber, Skimming);
     // define input filename
-
+    
     infilename  = DataPath + prefix + RunNumberStr + ".hipo";
     outfilepath = "/volatile/clas12/users/ecohen/RGB/" + Skimming + "/";
     outfilename = "skimmed_BranchingRatios_" + prefix + RunNumberStr;
-
+    
     if (verbosity>1){
         std::cout
         << "Input file name: " << std::endl
@@ -254,11 +261,11 @@ void GetParticlesByType (){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void OpenResultFiles(){
-
-
+    
+    
     outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
     outcsvfile_eep2gX << csvheader << std::endl;
-
+    
     if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
 }
 
@@ -272,7 +279,7 @@ void InitializeVariables(){
     
     DC_layer    = -9999;
     status      = 1; // 0 is good...
-
+    
     
     e_p4 = TLorentzVector(0,0,0,aux.Me);
     xB  = Q2  = omega     = -9999;
@@ -290,7 +297,7 @@ void InitializeVariables(){
     Pe_phi = q_phi = q_theta            = 0;
     Ve                                  = TVector3();
     ePastCutsInEvent                    = false;
-        
+    
     p_p4 = TLorentzVector(0,0,0,aux.Mp);
     p_E_ECIN    = p_E_ECOUT = p_E_PCAL  = -9999;
     p_PCAL_W    = p_PCAL_V              = -9999;
@@ -305,7 +312,7 @@ void InitializeVariables(){
     Pp_phi                              = 0;
     Vp                                  = TVector3();
     pPastCutsInEvent                    = false;
-
+    
     eepPastCutsInEvent                  = false;
 }
 
@@ -382,10 +389,10 @@ void ExtractProtonInformation(){
     // find leading electron as the one with highest energy
     double  leading_p_E;
     int     leading_p_index = 0;
-    SetLorentzVector(p,protons[0]);
+    SetLorentzVector(p_p4,protons[0]);
     TLorentzVector p_tmp(0,0,0,db->GetParticle(11)->Mass());
     for (int pIdx=0; pIdx < Np; pIdx++) {
-        SetLorentzVector(p_tmp  ,protons[eIdx]);
+        SetLorentzVector(p_tmp  ,protons[pIdx]);
         double Ep = p_tmp.E();
         if (Ep > leading_p_E) {
             leading_p_index = pIdx;
@@ -428,13 +435,13 @@ void ExtractProtonInformation(){
     // now, check if proton passed event selection requirements
     // ------------------------------------------------------------------------------------------------
     pPastCutsInEvent = CheckIfProtonPassedSelectionCuts(p_PCAL_x, p_PCAL_y,
-                                                          p_PCAL_W, p_PCAL_V,
-                                                          p_E_PCAL, p_E_ECIN,
-                                                          p_E_ECOUT,
-                                                          p_p4, Vp,
-                                                          p_PCAL_sector,
-                                                          p_DC_x, p_DC_y, p_DC_z,
-                                                          torusBending );
+                                                        p_PCAL_W, p_PCAL_V,
+                                                        p_E_PCAL, p_E_ECIN,
+                                                        p_E_ECOUT,
+                                                        p_p4, Vp,
+                                                        p_PCAL_sector,
+                                                        p_DC_x, p_DC_y, p_DC_z,
+                                                        torusBending );
     if (pPastCutsInEvent)  Nevents_passed_p_cuts++ ;
 }
 
@@ -442,11 +449,11 @@ void ExtractProtonInformation(){
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ComputeElectronKinematics(){
     // compute event kinematics (from e-only information)
-    q       = Beam - e_p4;
-    Q2      = -q.Mag2();
-    omega   = q.E();
-    xB      = Q2/(2. * aux.Mp * q.E());
-    W       = sqrt((p_rest + q).Mag2());
+    q_p4    = Beam_p4 - e_p4;
+    Q2      = -q_p4.Mag2();
+    omega   = q_p4.E();
+    xB      = Q2/(2. * aux.Mp * q_p4.E());
+    W       = sqrt((p_rest + q_p4).Mag2());
 }
 
 
@@ -487,52 +494,49 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  TString        fDataPath = "sidisdvcs",
                                  float             fEbeam = 10.2,
                                  int               fdebug = 0
-                                 )
-{
-    
+                                 ){
     
     SetGlobals     (fdebug, fEbeam, fDataPath );
     LoadCutValues  ();
     SetFileNames   ();
     DEBUG(1, "Begin main");
-
-
+    
     // open input file and get the hipo data
     TChain fake("hipo");
     fake.Add(infilename.Data());
     auto files = fake.GetListOfFiles();
-
+    
     // open output files
     OpenResultFiles();
-
+    
     // start analysis
     // step over events and extract information....
     for(Int_t i=0;i<files->GetEntries();i++){
-
+        
         //create the event reader
         clas12reader c12(files->At(i)->GetTitle(),{0});
         //        InitializeFileReading( NeventsMax, c12.getReader().getEntries(), fdebug );
         int event = 0;
-
+        
         // process the events...
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
             event++;
             if (event%PrintProgress==0 && (event > FirstEvent))
                 DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
-
+            
             if (event > FirstEvent) {
-
+                
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
-
-                 InitializeVariables();
+                
+                InitializeVariables();
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ();
-
-
+                
+                
                 // filter events, extract information, and compute event kinematics:
                 // ....
                 if(( 0 < Ne ) &&
@@ -551,16 +555,16 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     
                     DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
                     
-                    }
                 }
-                Nevents_processed++;
             }
-            if (event%PrintProgress==0 && (event > FirstEvent)){
-                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
-                DEBUG(3,"----------------------------------------------------------");
-            }
-
-        } // end event loop
+            Nevents_processed++;
+        }
+        if (event%PrintProgress==0 && (event > FirstEvent)){
+            DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
+            DEBUG(3,"----------------------------------------------------------");
+        }// end event loop
     } // end file loop
+    
     DEBUG(1, "\nDone main.\n");
-}
+    
+} // end main
