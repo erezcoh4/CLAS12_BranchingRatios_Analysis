@@ -34,7 +34,7 @@ BranchingRatio_CLAS12_Auxiliary aux;
 auto db = TDatabasePDG::Instance();
 
 // Results in CSV file d(e,e'p2𝛾X)
-TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
+TString csvheader = ( (TString)"status,runnum,evnum,"
                      // e'
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,"
                      // p
@@ -468,7 +468,7 @@ void WriteEventToOutput(){
         Nevents_passed_eep_cuts ++ ;
         
         std::vector<double> variables =
-        {   (double)status, (double)runnum,     (double)evnum,      (double)beam_helicity,
+        {   (double)status, (double)runnum,     (double)evnum,      
             e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
             Q2,             xB,                 omega,
             (double)e_DC_sector,                (double)p_DC_sector,
