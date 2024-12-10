@@ -99,7 +99,7 @@ bool     pPastCutsInEvent;
 
 // kinematics
 double xB, Q2, omega, W, M_x;
-double Pe_phi, , q_phi, q_theta;
+double Pe_phi, q_phi, q_theta;
 
 
 bool    eepPastCutsInEvent;
