@@ -82,21 +82,19 @@ void BranchingRatio_CLAS12_Auxiliary::printCutValues(){
     "e_E_PCAL: "                << cutValue_e_E_PCAL                << ", " << std::endl <<
     "SamplingFraction_min: "    << cutValue_SamplingFraction_min    << ", " << std::endl <<
     "PCAL_ECIN_SF_min: "        << cutValue_PCAL_ECIN_SF_min        << ", " << std::endl <<
-    "Ve_Vpi_dz_max: "           << cutValue_Ve_Vpi_dz_max           << ", " << std::endl <<
+    "Ve_Vp_dz_max: "           << cutValue_Ve_Vp_dz_max           << ", " << std::endl <<
     "Q2_min: "                  << cutValue_Q2_min                  << ", " << std::endl <<
     "Q2_max: "                  << cutValue_Q2_max                  << ", " << std::endl <<
     "W_min: "                   << cutValue_W_min                   << ", " << std::endl <<
     "y_max: "                   << cutValue_y_max                   << ", " << std::endl <<
     "e_theta_min: "             << cutValue_e_theta_min             << ", " << std::endl <<
     "e_theta_max: "             << cutValue_e_theta_max             << ", " << std::endl <<
-    "pi_theta_min: "            << cutValue_pi_theta_min            << ", " << std::endl <<
-    "pi_theta_max: "            << cutValue_pi_theta_max            << ", " << std::endl <<
-    "Ppi_min: "                 << cutValue_Ppi_min                 << ", " << std::endl <<
-    "Ppi_max: "                 << cutValue_Ppi_max                 << ", " << std::endl <<
+    "p_theta_min: "            << cutValue_p_theta_min            << ", " << std::endl <<
+    "p_theta_max: "            << cutValue_p_theta_max            << ", " << std::endl <<
+    "Pp_min: "                 << cutValue_Pp_min                 << ", " << std::endl <<
+    "Pp_max: "                 << cutValue_Pp_max                 << ", " << std::endl <<
     "Pe_min: "                  << cutValue_Pe_min                  << ", " << std::endl <<
     "Pe_max: "                  << cutValue_Pe_max                  << ", " << std::endl <<
-    "Zpi_min: "                 << cutValue_Zpi_min                 << ", " << std::endl <<
-    "Zpi_max: "                 << cutValue_Zpi_max                 << ", " << std::endl <<
     std::endl;
 }
 
