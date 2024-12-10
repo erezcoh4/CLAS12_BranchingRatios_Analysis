@@ -520,49 +520,47 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         
         // process the events...
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
-            InitializeVariables();
-            event++;
-            
-            if (event%PrintProgress==0 && (event > FirstEvent))
-                DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
+            //            InitializeVariables();
+            //            event++;
+            //            if (event%PrintProgress==0 && (event > FirstEvent))
+            //                DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
             
             if (event > FirstEvent) {
                 
-                runnum = c12.runconfig()->getRun();
-                evnum  = c12.runconfig()->getEvent();                
+                //                runnum = c12.runconfig()->getRun();
+                //                evnum  = c12.runconfig()->getEvent();
+                //
+                //                // Get Particles By Type
+                //                electrons   = c12.getByID( 11   );
+                //                protons     = c12.getByID( 2212 );
+                //                gammas      = c12.getByID( 22   );
+                //                GetParticlesByType ();
                 
-                // Get Particles By Type
-                electrons   = c12.getByID( 11   );
-                protons     = c12.getByID( 2212 );
-                gammas      = c12.getByID( 22   );
-                GetParticlesByType ();
                 
-                
-                // filter events, extract information, and compute event kinematics:
-                // ....
+                // filter events, extract information, and compute event kinematics
                 if(( 0 < Ne ) &&
                    ( Np == 1 ) &&
                    ( Ngammas == 2 ) &&
                    ){
                     
-                    DEBUG(2,"Extracting information...");
-                    ExtractElectronInformation  ();
-                    ComputeElectronKinematics   ();
-                    ExtractProtonInformation    ();
-                    WriteEventToOutput          ();
-                    DEBUG(2,"Done extracting information...");
+                    //                    DEBUG(2,"Extracting information...");
+                    //                    ExtractElectronInformation  ();
+                    //                    ComputeElectronKinematics   ();
+                    //                    ExtractProtonInformation    ();
+                    //                    WriteEventToOutput          ();
+                    //                    DEBUG(2,"Done extracting information...");
                     
                 } else {
-                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                    //                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
                 }
                 Nevents_processed++;
             }
-            if (event%PrintProgress==0 && (event > FirstEvent)){
-                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
-                DEBUG(3,"----------------------------------------------------------");
-            }// end event loop
-        } // end file loop
-        
-        DEBUG(1, "\nDone main.\n");
-        
-    } // end main
+            //            if (event%PrintProgress==0 && (event > FirstEvent)){
+            //                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
+            //                DEBUG(3,"----------------------------------------------------------");
+        }// end event loop
+    } // end file loop
+    
+    DEBUG(1, "\nDone main.\n");
+    
+} // end main
