@@ -79,16 +79,17 @@ public:
     double                cutValue_y_max;
     double          cutValue_e_theta_min;
     double          cutValue_e_theta_max;
-    double         cutValue_pi_theta_min;
-    double         cutValue_pi_theta_max;
-    double              cutValue_Ppi_min;
-    double              cutValue_Ppi_max;
+    double         cutValue_p_theta_min;
+    double         cutValue_p_theta_max;
+    double               cutValue_Pp_min;
+    double               cutValue_Pp_max;
     double               cutValue_Pe_min;
     double               cutValue_Pe_max;
-    double              cutValue_Zpi_min;
-    double              cutValue_Zpi_max;
     
-    
+    double             cutValue_p_PCAL_W;
+    double             cutValue_p_PCAL_V;
+    double             cutValue_p_E_PCAL;
+
     
     double         Me = 0.00051099895;// GeV/c2
     double        Mpi = 0.139570;     // GeV/c2
