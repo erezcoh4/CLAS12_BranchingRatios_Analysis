@@ -319,6 +319,76 @@ void InitializeVariables(){
     eepPastCutsInEvent                  = false;
 }
 
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
+                                        Double_t e_PCAL_W, Double_t e_PCAL_V,
+                                        Double_t e_E_PCAL,
+                                        Double_t e_E_ECIN, Double_t e_E_ECOUT,
+                                        TLorentzVector e,
+                                        TVector3 Ve,
+                                        Double_t e_DC_sector,
+                                        Double_t e_DC_x[3],
+                                        Double_t e_DC_y[3],
+                                        Double_t e_DC_z[3],
+                                        int torusBending){
+    
+    // decide if electron in event passes event selection cuts
+    
+    // DC - fiducial cuts on DC
+    // from bandsoft_tools/skimmers/electrons.cpp,
+    // where eHit.getDC_x1() - x position in first region of the drift chamber
+    // same for y1,x2,y2,...
+    // eHit.getDC_sector() - sector
+    // checking DC Fiducials
+    // torusBending         torus magnet bending:   ( 1 = inbeding, -1 = outbending    )
+    
+    // sometimes the readout-sector is 0. This is funny
+    // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
+    if (e_DC_sector == 0) return false;
+    
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        // DC_e_fid:
+        // sector:  1-6
+        // layer:   1-3
+        // bending: 0(out)/1(in)
+        // std::cout << "e_DC_sector: " << e_DC_sector << ", regionIdx: " << regionIdx << std::endl;
+        int bending  = 1 ? (torusBending==-1) : 0;
+        bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
+                                             e_DC_x[regionIdx],  // x
+                                             e_DC_y[regionIdx],  // y
+                                             e_DC_sector,        // sector
+                                             regionIdx+1,        // layer
+                                             bending);           // torus bending
+        if (DC_fid == false) {
+            return false;
+        }
+    }
+    
+    
+    if(!(true
+         // fiducial cuts on PCAL
+         //fabs(e_PCAL_x)>0
+         //&&  fabs(e_PCAL_y)>0
+         &&  e_PCAL_W > aux.cutValue_e_PCAL_W
+         &&  e_PCAL_V > aux.cutValue_e_PCAL_V
+         
+         // Electron Identification Refinement  - PCAL Minimum Energy Deposition Cut
+         &&  e_E_PCAL > aux.cutValue_e_E_PCAL
+         
+         // Sampling fraction cut
+         && ((e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e.P()) > aux.cutValue_SamplingFraction_min
+         && (e_E_ECIN/e.P() > aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e.P()) // RGA AN puts "<" here mistakenly
+         
+         // Cut on z-vertex position: in-bending torus field -13.0 cm < Vz < +12.0 cm
+         // Spring 19 and Spring 2020 in-bending.
+         // Fall 2019 (without low-energy-run) was out-bending.
+         &&  ((aux.cutValue_Vz_min < Ve.Z()) && (Ve.Z() < aux.cutValue_Vz_max))
+         )) return false;
+    
+    return true;
+}
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ExtractElectronInformation(){
     // ------------------------------------------------------------------------------------------------
@@ -487,74 +557,6 @@ void WriteEventToOutput(){
     
 }
 
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
-                                        Double_t e_PCAL_W, Double_t e_PCAL_V,
-                                        Double_t e_E_PCAL,
-                                        Double_t e_E_ECIN, Double_t e_E_ECOUT,
-                                        TLorentzVector e,
-                                        TVector3 Ve,
-                                        Double_t e_DC_sector,
-                                        Double_t e_DC_x[3],
-                                        Double_t e_DC_y[3],
-                                        Double_t e_DC_z[3],
-                                        int torusBending){
-    
-    // decide if electron in event passes event selection cuts
-    
-    // DC - fiducial cuts on DC
-    // from bandsoft_tools/skimmers/electrons.cpp,
-    // where eHit.getDC_x1() - x position in first region of the drift chamber
-    // same for y1,x2,y2,...
-    // eHit.getDC_sector() - sector
-    // checking DC Fiducials
-    // torusBending         torus magnet bending:   ( 1 = inbeding, -1 = outbending    )
-    
-    // sometimes the readout-sector is 0. This is funny
-    // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
-    if (e_DC_sector == 0) return false;
-    
-    for (int regionIdx=0; regionIdx<3; regionIdx++) {
-        // DC_e_fid:
-        // sector:  1-6
-        // layer:   1-3
-        // bending: 0(out)/1(in)
-        // std::cout << "e_DC_sector: " << e_DC_sector << ", regionIdx: " << regionIdx << std::endl;
-        int bending  = 1 ? (torusBending==-1) : 0;
-        bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
-                                             e_DC_x[regionIdx],  // x
-                                             e_DC_y[regionIdx],  // y
-                                             e_DC_sector,        // sector
-                                             regionIdx+1,        // layer
-                                             bending);           // torus bending
-        if (DC_fid == false) {
-            return false;
-        }
-    }
-    
-    
-    if(!(true
-         // fiducial cuts on PCAL
-         //fabs(e_PCAL_x)>0
-         //&&  fabs(e_PCAL_y)>0
-         &&  e_PCAL_W > aux.cutValue_e_PCAL_W
-         &&  e_PCAL_V > aux.cutValue_e_PCAL_V
-         
-         // Electron Identification Refinement  - PCAL Minimum Energy Deposition Cut
-         &&  e_E_PCAL > aux.cutValue_e_E_PCAL
-         
-         // Sampling fraction cut
-         && ((e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e.P()) > aux.cutValue_SamplingFraction_min
-         && (e_E_ECIN/e.P() > aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e.P()) // RGA AN puts "<" here mistakenly
-         
-         // Cut on z-vertex position: in-bending torus field -13.0 cm < Vz < +12.0 cm
-         // Spring 19 and Spring 2020 in-bending.
-         // Fall 2019 (without low-energy-run) was out-bending.
-         &&  ((aux.cutValue_Vz_min < Ve.Z()) && (Ve.Z() < aux.cutValue_Vz_max))
-         )) return false;
-    
-    return true;
-}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
