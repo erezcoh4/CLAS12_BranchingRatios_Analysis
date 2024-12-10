@@ -72,15 +72,15 @@ public:
     double             cutValue_e_E_PCAL;
     double cutValue_SamplingFraction_min;
     double     cutValue_PCAL_ECIN_SF_min;
-    double        cutValue_Ve_Vpi_dz_max;
+    double         cutValue_Ve_Vp_dz_max;
     double               cutValue_Q2_min;
     double               cutValue_Q2_max;
     double                cutValue_W_min;
     double                cutValue_y_max;
     double          cutValue_e_theta_min;
     double          cutValue_e_theta_max;
-    double         cutValue_p_theta_min;
-    double         cutValue_p_theta_max;
+    double          cutValue_p_theta_min;
+    double          cutValue_p_theta_max;
     double               cutValue_Pp_min;
     double               cutValue_Pp_max;
     double               cutValue_Pe_min;
