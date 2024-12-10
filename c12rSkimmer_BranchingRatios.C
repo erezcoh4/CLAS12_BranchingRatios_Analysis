@@ -469,10 +469,10 @@ void WriteEventToOutput(int fdebug){
         
         std::vector<double> variables =
         {   (double)status, (double)runnum,     (double)evnum,      (double)beam_helicity,
-            e_p4.P(),          e_p4.Theta(),          e_p4.Phi(),            Ve.Z(),
+            e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
             Q2,             xB,                 omega,
             (double)e_DC_sector,                (double)p_DC_sector,
-            q.P(),
+            q_p4.P(),
         };
         
         aux.StreamToCSVfile(outcsvfile_eep2gX,
