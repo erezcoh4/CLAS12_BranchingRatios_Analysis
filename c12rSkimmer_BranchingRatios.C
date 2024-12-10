@@ -321,6 +321,44 @@ void InitializeVariables(){
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+bool CheckIfProtonPassedSelectionCuts(Double_t p_PCAL_x, Double_t p_PCAL_y,
+                                        Double_t p_PCAL_W, Double_t p_PCAL_V,
+                                        Double_t p_E_PCAL,
+                                        Double_t p_E_ECIN, Double_t p_E_ECOUT,
+                                        TLorentzVector p,
+                                        TVector3 Vp,
+                                        Double_t p_DC_sector,
+                                        Double_t p_DC_x[3],
+                                        Double_t p_DC_y[3],
+                                        Double_t p_DC_z[3],
+                                        int torusBending){
+    
+    if (p_DC_sector == 0) return false;
+    
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        int bending  = 1 ? (torusBending==-1) : 0;
+        bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
+                                             p_DC_x[regionIdx],  // x
+                                             p_DC_y[regionIdx],  // y
+                                             p_DC_sector,        // sector
+                                             regionIdx+1,        // layer
+                                             bending);           // torus bending
+        if (DC_fid == false) {
+            return false;
+        }
+    }
+    if(!(true
+         &&  p_PCAL_W > aux.cutValue_p_PCAL_W
+         &&  p_PCAL_V > aux.cutValue_p_PCAL_V
+         &&  p_E_PCAL > aux.cutValue_p_E_PCAL
+         && ((p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P()) > aux.cutValue_SamplingFraction_min
+         && (p_E_ECIN/p_p4.P() > aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P())
+         &&  ((aux.cutValue_Vz_min < Vp.Z()) && (Vp.Z() < aux.cutValue_Vz_max))
+         )) return false;
+    
+    return true;
+}
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
                                         Double_t e_PCAL_W, Double_t e_PCAL_V,
                                         Double_t e_E_PCAL,
