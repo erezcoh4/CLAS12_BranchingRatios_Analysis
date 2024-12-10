@@ -31,6 +31,7 @@
 
 using namespace clas12;
 BranchingRatio_CLAS12_Auxiliary aux;
+auto db = TDatabasePDG::Instance();
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,beam_helicity,"
@@ -464,7 +465,7 @@ void WriteEventToOutput(int fdebug){
     
     if (ePastCutsInEvent && pPastCutsInEvent) {
         IsSelected = true;
-        Nevents_passed_e_p_cuts ++ ;
+        Nevents_passed_eep_cuts ++ ;
         
         std::vector<double> variables =
         {   (double)status, (double)runnum,     (double)evnum,      (double)beam_helicity,
