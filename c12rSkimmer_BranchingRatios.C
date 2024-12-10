@@ -575,17 +575,10 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  int               fdebug = 0
                                  ){
     for(Int_t i=0;i<files->GetEntries();i++){
-        
-        //create the event reader
         clas12reader c12(files->At(i)->GetTitle(),{0});
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
             if (event > FirstEvent) {
-                if(( 0 < Ne ) &&
-                   ( Np == 1 ) &&
-                   ( Ngammas == 2 ) &&
-                   ){
-                } else {
-                }
+                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 )){} else {}
             }
         }// end event loop
     } // end file loop
