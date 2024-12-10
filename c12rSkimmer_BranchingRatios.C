@@ -468,7 +468,7 @@ void WriteEventToOutput(){
         Nevents_passed_eep_cuts ++ ;
         
         std::vector<double> variables =
-        {   (double)status, (double)runnum,     (double)evnum,      
+        {   (double)status, (double)runnum,     (double)evnum,
             e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
             Q2,             xB,                 omega,
             (double)e_DC_sector,                (double)p_DC_sector,
@@ -516,21 +516,21 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         
         //create the event reader
         clas12reader c12(files->At(i)->GetTitle(),{0});
-        //        InitializeFileReading( NeventsMax, c12.getReader().getEntries(), fdebug );
         int event = 0;
         
         // process the events...
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
+            InitializeVariables();
             event++;
+            
             if (event%PrintProgress==0 && (event > FirstEvent))
                 DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
             
             if (event > FirstEvent) {
                 
                 runnum = c12.runconfig()->getRun();
-                evnum  = c12.runconfig()->getEvent();
+                evnum  = c12.runconfig()->getEvent();                
                 
-                InitializeVariables();
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
@@ -553,19 +553,16 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     DEBUG(2,"Done extracting information...");
                     
                 } else {
-                    
                     DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
-                    
                 }
+                Nevents_processed++;
             }
-            Nevents_processed++;
-        }
-        if (event%PrintProgress==0 && (event > FirstEvent)){
-            DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
-            DEBUG(3,"----------------------------------------------------------");
-        }// end event loop
-    } // end file loop
-    
-    DEBUG(1, "\nDone main.\n");
-    
-} // end main
+            if (event%PrintProgress==0 && (event > FirstEvent)){
+                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
+                DEBUG(3,"----------------------------------------------------------");
+            }// end event loop
+        } // end file loop
+        
+        DEBUG(1, "\nDone main.\n");
+        
+    } // end main
