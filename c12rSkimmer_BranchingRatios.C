@@ -512,16 +512,19 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                    ( Ngammas == 2 ) &&
                    ){
                     
+                    DEBUG(2,"Extracting information...");
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
                     WriteEventToOutput          ();
+                    DEBUG(2,"Done extracting information...");
                     
                 } else {
-                    DEBUG(1,"Skipped computation at event %d, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                    
+                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                    
                     }
                 }
-                    
                 Nevents_processed++;
             }
             if (event%PrintProgress==0 && (event > FirstEvent)){
