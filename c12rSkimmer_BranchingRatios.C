@@ -488,84 +488,6 @@ void WriteEventToOutput(){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-//void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
-//                                 int           FirstEvent = 0,
-//                                 int  NeventsMaxToProcess = -1,
-//                                 int        PrintProgress = 100,
-//                                 TString        fDataPath = "sidisdvcs",
-//                                 float             fEbeam = 10.2,
-//                                 int               fdebug = 0
-//                                 ){
-//
-//    SetGlobals     (fdebug, fEbeam, fDataPath );
-//    LoadCutValues  ();
-//    SetFileNames   ();
-//    DEBUG(1, "Begin main");
-//
-//    // open input file and get the hipo data
-//    TChain fake("hipo");
-//    fake.Add(infilename.Data());
-//    auto files = fake.GetListOfFiles();
-//
-//    // open output files
-//    OpenResultFiles();
-//
-//    // start analysis
-//    // step over events and extract information....
-//    for(Int_t i=0;i<files->GetEntries();i++){
-//
-//        //create the event reader
-//        clas12reader c12(files->At(i)->GetTitle(),{0});
-//        int event = 0;
-//
-//        // process the events...
-//        while((c12.next()==true) && (event < NeventsMaxToProcess)){
-//            //            InitializeVariables();
-//            //            event++;
-//            //            if (event%PrintProgress==0 && (event > FirstEvent))
-//            //                DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
-//
-//            if (event > FirstEvent) {
-//
-//                //                runnum = c12.runconfig()->getRun();
-//                //                evnum  = c12.runconfig()->getEvent();
-//                //
-//                //                // Get Particles By Type
-//                //                electrons   = c12.getByID( 11   );
-//                //                protons     = c12.getByID( 2212 );
-//                //                gammas      = c12.getByID( 22   );
-//                //                GetParticlesByType ();
-//
-//
-//                // filter events, extract information, and compute event kinematics
-//                if(( 0 < Ne ) &&
-//                   ( Np == 1 ) &&
-//                   ( Ngammas == 2 ) &&
-//                   ){
-//
-//                    //                    DEBUG(2,"Extracting information...");
-//                    //                    ExtractElectronInformation  ();
-//                    //                    ComputeElectronKinematics   ();
-//                    //                    ExtractProtonInformation    ();
-//                    //                    WriteEventToOutput          ();
-//                    //                    DEBUG(2,"Done extracting information...");
-//
-//                } else {
-//                    //                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
-//                }
-//                Nevents_processed++;
-//            }
-//            //            if (event%PrintProgress==0 && (event > FirstEvent)){
-//            //                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
-//            //                DEBUG(3,"----------------------------------------------------------");
-//        }// end event loop
-//    } // end file loop
-//
-//    DEBUG(1, "\nDone main.\n");
-//
-//} // end main
-
-
 void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  int           FirstEvent = 0,
                                  int  NeventsMaxToProcess = -1,
@@ -574,12 +496,87 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  float             fEbeam = 10.2,
                                  int               fdebug = 0
                                  ){
+
+    SetGlobals     (fdebug, fEbeam, fDataPath );
+    LoadCutValues  ();
+    SetFileNames   ();
+    DEBUG(1, "Begin main");
+
+    // open input file and get the hipo data
+    TChain fake("hipo");
+    fake.Add(infilename.Data());
+    auto files = fake.GetListOfFiles();
+
+    // open output files
+    OpenResultFiles();
+
+    // start analysis
+    // step over events and extract information....
     for(Int_t i=0;i<files->GetEntries();i++){
+
+        //create the event reader
         clas12reader c12(files->At(i)->GetTitle(),{0});
+        int event = 0;
+
+        // process the events...
         while((c12.next()==true) && (event < NeventsMaxToProcess)){
+            //            InitializeVariables();
+            //            event++;
+            //            if (event%PrintProgress==0 && (event > FirstEvent))
+            //                DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
+
             if (event > FirstEvent) {
-                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 )){} else {}
+
+                //                runnum = c12.runconfig()->getRun();
+                //                evnum  = c12.runconfig()->getEvent();
+                //
+                //                // Get Particles By Type
+                //                electrons   = c12.getByID( 11   );
+                //                protons     = c12.getByID( 2212 );
+                //                gammas      = c12.getByID( 22   );
+                //                GetParticlesByType ();
+
+
+                // filter events, extract information, and compute event kinematics
+                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
+
+                    //                    DEBUG(2,"Extracting information...");
+                    //                    ExtractElectronInformation  ();
+                    //                    ComputeElectronKinematics   ();
+                    //                    ExtractProtonInformation    ();
+                    //                    WriteEventToOutput          ();
+                    //                    DEBUG(2,"Done extracting information...");
+
+                } else {
+                    //                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                }
+                Nevents_processed++;
             }
+            //            if (event%PrintProgress==0 && (event > FirstEvent)){
+            //                DEBUG(1,"Done %d/%d",event,NeventsMaxToProcess);
+            //                DEBUG(3,"----------------------------------------------------------");
         }// end event loop
     } // end file loop
+
+    DEBUG(1, "\nDone main.\n");
+
 } // end main
+
+
+//void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
+//                                 int           FirstEvent = 0,
+//                                 int  NeventsMaxToProcess = -1,
+//                                 int        PrintProgress = 100,
+//                                 TString        fDataPath = "sidisdvcs",
+//                                 float             fEbeam = 10.2,
+//                                 int               fdebug = 0
+//                                 ){
+//    for(Int_t i=0;i<files->GetEntries();i++){
+//        clas12reader c12(files->At(i)->GetTitle(),{0});
+//        while((c12.next()==true) && (event < NeventsMaxToProcess)){
+//            if (event > FirstEvent) {
+//                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 )){} else {}
+//            }
+//        }// end event loop
+//    } // end file loop
+//} // end main
