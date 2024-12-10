@@ -60,10 +60,11 @@ std::vector<int> csvprecisions = {
 int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
-TLorentzVector*        beam_p4 = NULL; // e-beam
-TLorentzVector*           e_p4 = NULL; // e'
-TLorentzVector*           q_p4 = NULL; // q 4 vector
-TLorentzVector*           p_p4 = NULL; // q 4 vector
+TLorentzVector   Beam_p4, target_p4, e_p4, q_p4, p_p4;
+//TLorentzVector*        beam_p4 = NULL; // e-beam
+//TLorentzVector*           e_p4 = NULL; // e'
+//TLorentzVector*           q_p4 = NULL; // q 4 vector
+//TLorentzVector*           p_p4 = NULL; // q 4 vector
 TLorentzVector*          g1_p4 = NULL; // gamma 1
 TLorentzVector*          g2_p4 = NULL; // gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
