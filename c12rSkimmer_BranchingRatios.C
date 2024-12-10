@@ -81,15 +81,28 @@ TString               DataPath = "";
 TString infilename, outfilepath, outfilename;
 ofstream          outcsvfile_eep2gX;
 
+// detector features
+int    DC_layer, status;
+
 // leading electron
 // electron energy deposit in PCAL [GeV], in ECAL_in [GeV], in ECAL_out [GeV]...
 double e_E_PCAL, e_E_ECIN, e_E_ECOUT, e_PCAL_W, e_PCAL_V, e_PCAL_x, e_PCAL_y, e_PCAL_z;
 double e_PCAL_sector, e_DC_sector, e_DC_Chi2N, e_DC_x[3], e_DC_y[3], e_DC_z[3];
+TVector3 Ve;
+bool     ePastCutsInEvent;
 
 // proton
 double p_E_PCAL, p_E_ECIN, p_E_ECOUT, p_PCAL_W, p_PCAL_V, p_PCAL_x, p_PCAL_y, p_PCAL_z;
 double p_PCAL_sector, p_DC_sector, p_DC_Chi2N, p_DC_x[3], p_DC_y[3], p_DC_z[3];
+TVector3 Vp;
+bool     pPastCutsInEvent;
 
+// kinematics
+double xB, Q2, omega, W, M_x;
+double Pe_phi, , q_phi, q_theta;
+
+
+bool    eepPastCutsInEvent;
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
