@@ -61,12 +61,7 @@ int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
 TLorentzVector   Beam_p4, target_p4, e_p4, q_p4, p_p4;
-//TLorentzVector*        beam_p4 = NULL; // e-beam
-//TLorentzVector*           e_p4 = NULL; // e'
-//TLorentzVector*           q_p4 = NULL; // q 4 vector
-//TLorentzVector*           p_p4 = NULL; // q 4 vector
-TLorentzVector*          g1_p4 = NULL; // gamma 1
-TLorentzVector*          g2_p4 = NULL; // gamma 2
+TLorentzVector   g1_p4, g2_p4; // gamma 1 and gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
@@ -83,7 +78,10 @@ TString infilename, outfilepath, outfilename;
 ofstream          outcsvfile_eep2gX;
 
 // detector features
-int    DC_layer, status;
+int    DC_layer, status, DC_layers;
+int      Nevents_passed_e_cuts = 0;
+int      Nevents_passed_p_cuts = 0;
+int    Nevents_passed_eep_cuts = 0;
 
 // leading electron
 // electron energy deposit in PCAL [GeV], in ECAL_in [GeV], in ECAL_out [GeV]...
@@ -100,8 +98,9 @@ bool     pPastCutsInEvent;
 
 // kinematics
 double xB, Q2, omega, W, M_x;
-double Pe_phi, q_phi, q_theta;
-
+double Pe_phi, Pe_theta;
+double q_phi,   q_theta;
+double Pp_phi, Pp_theta;
 
 bool    eepPastCutsInEvent;
 
@@ -137,6 +136,21 @@ TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
     return (TString)RunNumberStr;
 }
 
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+TVector3 GetParticleVertex(clas12::region_part_ptr rp){
+    TVector3 V(rp->par()->getVx(),
+               rp->par()->getVy(),
+               rp->par()->getVz());
+    return V;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void SetLorentzVector (TLorentzVector &p4,clas12::region_part_ptr rp){
+    p4.SetXYZM(rp->par()->getPx(),
+               rp->par()->getPy(),
+               rp->par()->getPz(),
+               p4.M());
+}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetDataPath (TString fDataPath, Double_t fEbeam) {
