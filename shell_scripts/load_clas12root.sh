@@ -5,5 +5,5 @@ module load sqlite/dev
 module load clas12
 echo "done loading clas12root."
 echo 
-echo "git pull && python macros/execute_skim"
-git pull && python macros/execute_skim
+echo "git pull && python macros/execute_skim --fdebug=4 --no-email --FirstEvent=10 --NeventsMax=20"
+git pull && python ./macros/execute_skim --fdebug=4 --no-email --FirstEvent=10 --NeventsMax=20
