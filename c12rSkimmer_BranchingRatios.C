@@ -81,6 +81,15 @@ TString               DataPath = "";
 TString infilename, outfilepath, outfilename;
 ofstream          outcsvfile_eep2gX;
 
+// leading electron
+// electron energy deposit in PCAL [GeV], in ECAL_in [GeV], in ECAL_out [GeV]...
+double e_E_PCAL, e_E_ECIN, e_E_ECOUT, e_PCAL_W, e_PCAL_V, e_PCAL_x, e_PCAL_y, e_PCAL_z;
+double e_PCAL_sector, e_DC_sector, e_DC_Chi2N, e_DC_x[3], e_DC_y[3], e_DC_z[3];
+
+// proton
+double p_E_PCAL, p_E_ECIN, p_E_ECOUT, p_PCAL_W, p_PCAL_V, p_PCAL_x, p_PCAL_y, p_PCAL_z;
+double p_PCAL_sector, p_DC_sector, p_DC_Chi2N, p_DC_x[3], p_DC_y[3], p_DC_z[3];
+
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -226,11 +235,224 @@ void OpenResultFiles(){
 }
 
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void InitializeVariables(){
+    
+    electrons   .clear();
+    protons     .clear();
+    gammas      .clear();
+    
+    DC_layer    = -9999;
+    status      = 1; // 0 is good...
+
+    
+    e_p4 = TLorentzVector(0,0,0,aux.Me);
+    xB  = Q2  = omega     = -9999;
+    W   = M_x             = -9999;
+    e_E_ECIN    = e_E_ECOUT = e_E_PCAL  = -9999;
+    e_PCAL_W    = e_PCAL_V              = -9999;
+    e_PCAL_x    = e_PCAL_y  = e_PCAL_z  = -9999;
+    e_PCAL_sector                       = -9999;
+    e_DC_sector = e_DC_Chi2N            = -9999;
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        e_DC_x[regionIdx]               = -9999;
+        e_DC_y[regionIdx]               = -9999;
+        e_DC_z[regionIdx]               = -9999;
+    }
+    Pe_phi = q_phi = q_theta            = 0;
+    Ve                                  = TVector3();
+    ePastCutsInEvent                    = false;
+        
+    p_p4 = TLorentzVector(0,0,0,aux.Mp);
+    p_E_ECIN    = p_E_ECOUT = p_E_PCAL  = -9999;
+    p_PCAL_W    = p_PCAL_V              = -9999;
+    p_PCAL_x    = p_PCAL_y  = p_PCAL_z  = -9999;
+    p_PCAL_sector                       = -9999;
+    p_DC_sector = p_DC_Chi2N            = -9999;
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        p_DC_x[regionIdx]               = -9999;
+        p_DC_y[regionIdx]               = -9999;
+        p_DC_z[regionIdx]               = -9999;
+    }
+    Pp_phi                              = 0;
+    Vp                                  = TVector3();
+    pPastCutsInEvent                    = false;
+
+    eepPastCutsInEvent                  = false;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void ExtractElectronInformation(){
+    // ------------------------------------------------------------------------------------------------
+    // extract electron information
+    // ------------------------------------------------------------------------------------------------
+    // find leading electron as the one with highest energy
+    double  leading_e_E;
+    int     leading_e_index = 0;
+    SetLorentzVector(e,electrons[0]);
+    TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
+    for (int eIdx=0; eIdx < Ne; eIdx++) {
+        SetLorentzVector(e_tmp  ,electrons[eIdx]);
+        double Ee = e_tmp.E();
+        if (Ee > leading_e_E) {
+            leading_e_index = eIdx;
+            leading_e_E     = Ee;
+        }
+    }
+    // set leading electron 4-momentum
+    SetLorentzVector(e_p4 , electrons[leading_e_index]);
+    // set leading electron vertex
+    Ve              = GetParticleVertex( electrons[leading_e_index] );
+    
+    // detector information on electron
+    auto e_PCAL_info= electrons[leading_e_index]->cal(PCAL);
+    e_E_PCAL        = e_PCAL_info->getEnergy();
+    e_PCAL_sector   = e_PCAL_info->getSector();
+    e_PCAL_V        = e_PCAL_info->getLv();
+    e_PCAL_W        = e_PCAL_info->getLw();
+    e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
+    e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
+    
+    // hit position in PCAL
+    e_PCAL_x        = e_PCAL_info->getX();
+    e_PCAL_y        = e_PCAL_info->getY();
+    e_PCAL_z        = e_PCAL_info->getZ();
+    
+    // Drift Chamber tracking system
+    auto e_DC_info  = electrons[leading_e_index]->trk(DC);
+    e_DC_sector     = e_DC_info->getSector(); // tracking sector
+    e_DC_Chi2N      = e_DC_info->getChi2N();  // tracking chi^2/NDF
+    
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        int DC_layer = DC_layers[regionIdx];
+        e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
+        e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
+        e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
+    }
+    DEBUG(2,"extracted electron information");
+    
+    // ------------------------------------------------------------------------------------------------
+    // now, check if electron passed event selection requirements
+    // ------------------------------------------------------------------------------------------------
+    ePastCutsInEvent = CheckIfElectronPassedSelectionCuts(e_PCAL_x, e_PCAL_y,
+                                                          e_PCAL_W, e_PCAL_V,
+                                                          e_E_PCAL, e_E_ECIN,
+                                                          e_E_ECOUT,
+                                                          e_p4, Ve,
+                                                          e_PCAL_sector,
+                                                          e_DC_x, e_DC_y, e_DC_z,
+                                                          torusBending );
+    if (ePastCutsInEvent)  Nevents_passed_e_cuts++ ;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void ExtractProtonInformation(){
+    // ------------------------------------------------------------------------------------------------
+    // extract electron information
+    // ------------------------------------------------------------------------------------------------
+    // find leading electron as the one with highest energy
+    double  leading_p_E;
+    int     leading_p_index = 0;
+    SetLorentzVector(p,protons[0]);
+    TLorentzVector p_tmp(0,0,0,db->GetParticle(11)->Mass());
+    for (int pIdx=0; pIdx < Np; pIdx++) {
+        SetLorentzVector(p_tmp  ,protons[eIdx]);
+        double Ep = p_tmp.E();
+        if (Ep > leading_p_E) {
+            leading_p_index = pIdx;
+            leading_p_E     = Ep;
+        }
+    }
+    // set leading electron 4-momentum
+    SetLorentzVector(p_p4 , protons[leading_p_index]);
+    // set leading proton vertex
+    Vp              = GetParticleVertex( protons[leading_p_index] );
+    
+    // detector information on electron
+    auto p_PCAL_info= protons[leading_p_index]->cal(PCAL);
+    p_E_PCAL        = p_PCAL_info->getEnergy();
+    p_PCAL_sector   = p_PCAL_info->getSector();
+    p_PCAL_V        = p_PCAL_info->getLv();
+    p_PCAL_W        = p_PCAL_info->getLw();
+    p_E_ECIN        = protons[leading_p_index]->cal(ECIN)->getEnergy();
+    p_E_ECOUT       = protons[leading_p_index]->cal(ECOUT)->getEnergy();
+    
+    // hit position in PCAL
+    p_PCAL_x        = p_PCAL_info->getX();
+    p_PCAL_y        = p_PCAL_info->getY();
+    p_PCAL_z        = p_PCAL_info->getZ();
+    
+    // Drift Chamber tracking system
+    auto p_DC_info  = protons[leading_p_index]->trk(DC);
+    p_DC_sector     = p_DC_info->getSector(); // tracking sector
+    p_DC_Chi2N      = p_DC_info->getChi2N();  // tracking chi^2/NDF
+    
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        int DC_layer = DC_layers[regionIdx];
+        p_DC_x[regionIdx] = protons[leading_p_index]->traj(DC,DC_layer)->getX();
+        p_DC_y[regionIdx] = protons[leading_p_index]->traj(DC,DC_layer)->getY();
+        p_DC_z[regionIdx] = protons[leading_p_index]->traj(DC,DC_layer)->getZ();
+    }
+    DEBUG(2,"extracted proton information");
+    
+    // ------------------------------------------------------------------------------------------------
+    // now, check if proton passed event selection requirements
+    // ------------------------------------------------------------------------------------------------
+    pPastCutsInEvent = CheckIfProtonPassedSelectionCuts(p_PCAL_x, p_PCAL_y,
+                                                          p_PCAL_W, p_PCAL_V,
+                                                          p_E_PCAL, p_E_ECIN,
+                                                          p_E_ECOUT,
+                                                          p_p4, Vp,
+                                                          p_PCAL_sector,
+                                                          p_DC_x, p_DC_y, p_DC_z,
+                                                          torusBending );
+    if (pPastCutsInEvent)  Nevents_passed_p_cuts++ ;
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void ComputeElectronKinematics(){
+    // compute event kinematics (from e-only information)
+    q       = Beam - e_p4;
+    Q2      = -q.Mag2();
+    omega   = q.E();
+    xB      = Q2/(2. * aux.Mp * q.E());
+    W       = sqrt((p_rest + q).Mag2());
+}
+
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void WriteEventToOutput(int fdebug){
+    // (Maybe) write this event to "selected events csv-file"
+    bool IsSelected = false;
+    
+    if (ePastCutsInEvent && pPastCutsInEvent) {
+        IsSelected = true;
+        Nevents_passed_e_p_cuts ++ ;
+        
+        std::vector<double> variables =
+        {   (double)status, (double)runnum,     (double)evnum,      (double)beam_helicity,
+            e_p4.P(),          e_p4.Theta(),          e_p4.Phi(),            Ve.Z(),
+            Q2,             xB,                 omega,
+            (double)e_DC_sector,                (double)p_DC_sector,
+            q.P(),
+        };
+        
+        aux.StreamToCSVfile(outcsvfile_eep2gX,
+                            variables,
+                            csvprecisions );
+        
+        DEBUG(3,"writing (e,e'p) event");
+        
+    }
+    
+}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
+void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  int           FirstEvent = 0,
                                  int  NeventsMaxToProcess = -1,
                                  int        PrintProgress = 100,
@@ -275,7 +497,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
 
-                //                InitializeVariables();
+                 InitializeVariables();
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
@@ -285,7 +507,21 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6420,
 
                 // filter events, extract information, and compute event kinematics:
                 // ....
-
+                if(( 0 < Ne ) &&
+                   ( Np == 1 ) &&
+                   ( Ngammas == 2 ) &&
+                   ){
+                    
+                    ExtractElectronInformation  ();
+                    ComputeElectronKinematics   ();
+                    ExtractProtonInformation    ();
+                    WriteEventToOutput          ();
+                    
+                } else {
+                    DEBUG(1,"Skipped computation at event %d, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                    }
+                }
+                    
                 Nevents_processed++;
             }
             if (event%PrintProgress==0 && (event > FirstEvent)){
