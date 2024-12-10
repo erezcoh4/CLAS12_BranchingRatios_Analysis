@@ -459,7 +459,7 @@ void ComputeElectronKinematics(){
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void WriteEventToOutput(int fdebug){
+void WriteEventToOutput(){
     // (Maybe) write this event to "selected events csv-file"
     bool IsSelected = false;
     
