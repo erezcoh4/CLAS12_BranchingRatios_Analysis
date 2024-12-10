@@ -21,6 +21,7 @@
 #include "clas12reader.h"
 #include "Auxiliary/csv_reader.h"
 #include "Auxiliary/BranchingRatio_CLAS12_Auxiliary.cpp"
+#include "Auxiliary/DCfid_SIDIS.cpp"
 
 #ifdef __CINT__
 #pragma link C++ class std::vector<TVector3>+;
@@ -32,6 +33,7 @@
 using namespace clas12;
 BranchingRatio_CLAS12_Auxiliary aux;
 auto db = TDatabasePDG::Instance();
+DCfid_SIDIS dcfid;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,"
