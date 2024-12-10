@@ -289,7 +289,7 @@ void ExtractElectronInformation(){
     // find leading electron as the one with highest energy
     double  leading_e_E;
     int     leading_e_index = 0;
-    SetLorentzVector(e,electrons[0]);
+    SetLorentzVector(e_p4,electrons[0]);
     TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
     for (int eIdx=0; eIdx < Ne; eIdx++) {
         SetLorentzVector(e_tmp  ,electrons[eIdx]);
