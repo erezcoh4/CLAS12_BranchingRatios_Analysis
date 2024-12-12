@@ -635,6 +635,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         //create the event reader
         DEBUG(2, "file %d", i);
         clas12reader c12(files->At(i)->GetTitle(),{0});
+        DEBUG(2, "Read title of file %d", i);
         int event = 0;
         
         // process the events...
