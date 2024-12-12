@@ -600,6 +600,13 @@ void WriteEventToOutput(){
     
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void FinishProgram(){
+
+    outcsvfile_eep2gX.close();
+}
+
+
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
@@ -680,8 +687,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             } // end if (event%PrintProgress==0 && (event > FirstEvent))
         }// end event loop
     } // end file loop
-    
-    //        DEBUG(1, "\nDone main.\n");
-    
+                
+    FinishProgram();
+    DEBUG(1, "\nDone main.\n");
 } // end main
 
