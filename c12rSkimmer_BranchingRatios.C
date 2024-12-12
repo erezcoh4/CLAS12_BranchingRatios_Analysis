@@ -629,6 +629,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
     for(Int_t i=0;i<files->GetEntries();i++){
         
         //create the event reader
+        DEBUG(2, "file %d", i);
         clas12reader c12(files->At(i)->GetTitle(),{0});
         int event = 0;
         
@@ -636,6 +637,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         while((c12.next()==true) && ((event + FirstEvent) < NeventsMaxToProcess)){
             InitializeVariables();
             event++;
+            DEBUG(3, "event %d", event);
             
             if (event%PrintProgress==0 && (event > FirstEvent))
                 DEBUG(3,"Start processing %d/%d (run %d, event %d)",event,NeventsMaxToProcess,runnum,evnum);
