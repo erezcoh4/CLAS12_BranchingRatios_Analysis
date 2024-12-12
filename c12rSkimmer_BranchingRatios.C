@@ -274,7 +274,7 @@ void OpenResultFiles(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void InitializeVariables(){
-    
+    DEBUG(3, "InitializeVariables()");
     electrons   .clear();
     protons     .clear();
     gammas      .clear();
@@ -282,7 +282,7 @@ void InitializeVariables(){
     DC_layer    = -9999;
     status      = 1; // 0 is good...
     
-    
+    DEBUG(3, "electron...");
     e_p4 = TLorentzVector(0,0,0,aux.Me);
     xB  = Q2  = omega     = -9999;
     W   = M_x             = -9999;
@@ -300,6 +300,7 @@ void InitializeVariables(){
     Ve                                  = TVector3();
     ePastCutsInEvent                    = false;
     
+    DEBUG(3, "proton...");
     p_p4 = TLorentzVector(0,0,0,aux.Mp);
     p_E_ECIN    = p_E_ECOUT = p_E_PCAL  = -9999;
     p_PCAL_W    = p_PCAL_V              = -9999;
@@ -315,7 +316,10 @@ void InitializeVariables(){
     Vp                                  = TVector3();
     pPastCutsInEvent                    = false;
     
+    DEBUG(3, "eep");
     eepPastCutsInEvent                  = false;
+    
+    DEBUG(3, "Done InitializeVariables()");
 }
 
 
