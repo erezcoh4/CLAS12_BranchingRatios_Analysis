@@ -216,8 +216,7 @@ void SetTarget (){
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void SetGlobals(int v=0, float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
-    SetVerbosity        (v);
+void SetGlobals(float fEbeam=10.2, TString fDataPath = "sidisdvcs") {
     SetEbeam            (fEbeam);
     SetTarget           ();
     SetDataPath         (fDataPath, fEbeam);
@@ -609,11 +608,13 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                                  float             fEbeam = 10.2,
                                  int               fdebug = 0
                                  ){
+    SetVerbosity   (fdebug);
+    DEBUG(1, "Begin main");
     
-    SetGlobals     (fdebug, fEbeam, fDataPath );
+    SetGlobals     (fEbeam, fDataPath );
     LoadCutValues  ();
     SetFileNames   ();
-    DEBUG(1, "Begin main");
+    
     
     // open input file and get the hipo data
     TChain fake("hipo");
