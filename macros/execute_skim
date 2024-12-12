@@ -3,12 +3,12 @@
 # previously: /usr/bin/env python
 
 '''
-    last edit Nov-24, 2024 (EOC)
+    last edit Dec-12, 2024 (EOC)
 
     execute:
     ------------
 
-    skim_sidis_multiple_runs --Ebeam=10.4 --Nruns=1 --fdebug=2 --NeventsMax=10 --no-email
+    execute_skim --Ebeam=10.4 --Nruns=1 --fdebug=2 --FirstEvent=10 --NeventsMax=10 --no-email
 
     comments
     ------------

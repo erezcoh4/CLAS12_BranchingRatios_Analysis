@@ -193,7 +193,7 @@ void SetDataPath (TString fDataPath, Double_t fEbeam) {
         prefix = "p_uniform_distribution";
     }
     
-    if (verbosity>2) std::cout << DataPath << std::endl;
+    DEBUG(2,DataPath);
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
