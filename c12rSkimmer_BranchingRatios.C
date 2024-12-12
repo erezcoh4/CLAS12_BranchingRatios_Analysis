@@ -274,7 +274,7 @@ void OpenResultFiles(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void InitializeVariables(){
-    DEBUG(3, "InitializeVariables()");
+    DEBUG(5, "InitializeVariables()");
     electrons   .clear();
     protons     .clear();
     gammas      .clear();
@@ -316,10 +316,10 @@ void InitializeVariables(){
     Vp                                  = TVector3();
     pPastCutsInEvent                    = false;
     
-    DEBUG(3, "eep");
+    DEBUG(5, "eep");
     eepPastCutsInEvent                  = false;
     
-    DEBUG(3, "Done InitializeVariables()");
+    DEBUG(5, "Done InitializeVariables()");
 }
 
 
