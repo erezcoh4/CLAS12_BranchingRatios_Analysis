@@ -639,7 +639,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         int event = 0;
         
         // process the events...
-        while((c12.next()==true) && ((event + FirstEvent) < NeventsMaxToProcess)){
+        while((c12.next()==true) && (event < (FirstEvent + NeventsMaxToProcess))){
             InitializeVariables();
             event++;
             DEBUG(3, "event %d", event);
