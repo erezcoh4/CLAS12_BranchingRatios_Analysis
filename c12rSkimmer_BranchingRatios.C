@@ -93,7 +93,8 @@ int    Nevents_passed_eep_cuts = 0;
 // leading electron
 // electron energy deposit in PCAL [GeV], in ECAL_in [GeV], in ECAL_out [GeV]...
 double e_E_PCAL, e_E_ECIN, e_E_ECOUT, e_PCAL_W, e_PCAL_V, e_PCAL_x, e_PCAL_y, e_PCAL_z;
-double e_PCAL_sector, e_DC_sector, e_DC_Chi2N, e_DC_x[3], e_DC_y[3], e_DC_z[3];
+double e_PCAL_sector, e_DC_sector;
+double e_DC_Chi2N, e_DC_x[3], e_DC_y[3], e_DC_z[3];
 TVector3 Ve;
 bool     ePastCutsInEvent;
 
@@ -366,17 +367,7 @@ bool CheckIfProtonPassedSelectionCuts(Double_t p_PCAL_x, Double_t p_PCAL_y,
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
-                                        Double_t e_PCAL_W, Double_t e_PCAL_V,
-                                        Double_t e_E_PCAL,
-                                        Double_t e_E_ECIN, Double_t e_E_ECOUT,
-                                        TLorentzVector e,
-                                        TVector3 Ve,
-                                        Double_t e_DC_sector,
-                                        Double_t e_DC_x[3],
-                                        Double_t e_DC_y[3],
-                                        Double_t e_DC_z[3],
-                                        int torusBending){
+bool CheckIfElectronPassedSelectionCuts(){
     DEBUG(3,"CheckIfElectronPassedSelectionCuts()");
     // decide if electron in event passes event selection cuts
     
@@ -423,8 +414,8 @@ bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
          &&  e_E_PCAL > aux.cutValue_e_E_PCAL
          
          // Sampling fraction cut
-         && ((e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e.P()) > aux.cutValue_SamplingFraction_min
-         && (e_E_ECIN/e.P() > aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e.P()) // RGA AN puts "<" here mistakenly
+         && ((e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P()) > aux.cutValue_SamplingFraction_min
+         && (e_E_ECIN/e_p4.P() > aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P()) // RGA AN puts "<" here mistakenly
          
          // Cut on z-vertex position: in-bending torus field -13.0 cm < Vz < +12.0 cm
          // Spring 19 and Spring 2020 in-bending.
@@ -469,7 +460,6 @@ void ExtractElectronInformation(){
     e_PCAL_W        = e_PCAL_info->getLw();
     e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
     e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
-    DEBUG(3,"lead index: %d, PCAL sector: %d, PCAL: (V=%.1f,W=%.1f)",leading_e_index,e_PCAL_sector,e_PCAL_V,e_PCAL_W);
     
     // hit position in PCAL
     e_PCAL_x        = e_PCAL_info->getX();
@@ -488,18 +478,12 @@ void ExtractElectronInformation(){
         e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
         DEBUG(2,"Extracted electron information");
     }
-
+    DEBUG(3,"lead index: %d, PCAL sector: %.0f, DC sector: %.0f, PCAL: (V=%.1f,W=%.1f)",leading_e_index,e_PCAL_sector,e_DC_sector, e_PCAL_V,e_PCAL_W);
+    
     // ------------------------------------------------------------------------------------------------
     // now, check if electron passed event selection requirements
     // ------------------------------------------------------------------------------------------------
-    ePastCutsInEvent = CheckIfElectronPassedSelectionCuts(e_PCAL_x, e_PCAL_y,
-                                                          e_PCAL_W, e_PCAL_V,
-                                                          e_E_PCAL, e_E_ECIN,
-                                                          e_E_ECOUT,
-                                                          e_p4, Ve,
-                                                          e_PCAL_sector,
-                                                          e_DC_x, e_DC_y, e_DC_z,
-                                                          torusBending );
+    ePastCutsInEvent = CheckIfElectronPassedSelectionCuts();
     if (ePastCutsInEvent)  Nevents_passed_e_cuts++ ;
 }
 
