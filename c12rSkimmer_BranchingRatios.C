@@ -39,7 +39,7 @@ DCfid_SIDIS dcfid;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,"
-                     // e'
+                     // e
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,"
                      +(TString)"e_DC_sector,"
                      // p
