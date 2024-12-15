@@ -85,7 +85,8 @@ TString    full_outcsvfilename = "";
 ofstream          outcsvfile_eep2gX;
 
 // detector features
-int    DC_layer, status, DC_layers[3];
+int               DC_layer, status;
+int               DC_layers[3] = {6,18,36};// Region 1 is denoted at DC detector 6, Region 2 is denoted 18, Region 3 - as 36
 int      Nevents_passed_e_cuts = 0;
 int      Nevents_passed_p_cuts = 0;
 int    Nevents_passed_eep_cuts = 0;
