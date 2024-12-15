@@ -8,8 +8,11 @@
     execute:
     ------------
 
+    git pull && python ./macros/execute_skim --fdebug=4 --no-email --NeventsMax=100
+    
     execute_skim --Ebeam=10.4 --Nruns=1 --fdebug=2 --FirstEvent=10 --NeventsMax=10 --no-email
 
+    
     comments
     ------------
 '''

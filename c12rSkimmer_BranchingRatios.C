@@ -437,10 +437,12 @@ bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ExtractElectronInformation(){
+    DEBUG(3,"ExtractElectronInformation()");
     // ------------------------------------------------------------------------------------------------
     // extract electron information
     // ------------------------------------------------------------------------------------------------
     // find leading electron as the one with highest energy
+    if (Ne == 0) return;
     double  leading_e_E;
     int     leading_e_index = 0;
     SetLorentzVector(e_p4,electrons[0]);
@@ -453,6 +455,7 @@ void ExtractElectronInformation(){
             leading_e_E     = Ee;
         }
     }
+    DEBUG(3,"leading_e_index: %d",leading_e_index);
     // set leading electron 4-momentum
     SetLorentzVector(e_p4 , electrons[leading_e_index]);
     // set leading electron vertex
