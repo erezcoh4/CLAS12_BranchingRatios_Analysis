@@ -451,50 +451,50 @@ void ExtractElectronInformation(){
             leading_e_E     = Ee;
         }
     }
-//    // set leading electron 4-momentum
-//    SetLorentzVector(e_p4 , electrons[leading_e_index]);
-//    // set leading electron vertex
-//    Ve              = GetParticleVertex( electrons[leading_e_index] );
-//
-//    // detector information on electron
-//    auto e_PCAL_info= electrons[leading_e_index]->cal(PCAL);
-//    e_E_PCAL        = e_PCAL_info->getEnergy();
-//    e_PCAL_sector   = e_PCAL_info->getSector();
-//    e_PCAL_V        = e_PCAL_info->getLv();
-//    e_PCAL_W        = e_PCAL_info->getLw();
-//    e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
-//    e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
-//
-//    // hit position in PCAL
-//    e_PCAL_x        = e_PCAL_info->getX();
-//    e_PCAL_y        = e_PCAL_info->getY();
-//    e_PCAL_z        = e_PCAL_info->getZ();
-//
-//    // Drift Chamber tracking system
-//    auto e_DC_info  = electrons[leading_e_index]->trk(DC);
-//    e_DC_sector     = e_DC_info->getSector(); // tracking sector
-//    e_DC_Chi2N      = e_DC_info->getChi2N();  // tracking chi^2/NDF
-//
-//    for (int regionIdx=0; regionIdx<3; regionIdx++) {
-//        int DC_layer = DC_layers[regionIdx];
-//        e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
-//        e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
-//        e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
-//    }
-//    DEBUG(2,"extracted electron information");
-//
-//    // ------------------------------------------------------------------------------------------------
-//    // now, check if electron passed event selection requirements
-//    // ------------------------------------------------------------------------------------------------
-//    ePastCutsInEvent = CheckIfElectronPassedSelectionCuts(e_PCAL_x, e_PCAL_y,
-//                                                          e_PCAL_W, e_PCAL_V,
-//                                                          e_E_PCAL, e_E_ECIN,
-//                                                          e_E_ECOUT,
-//                                                          e_p4, Ve,
-//                                                          e_PCAL_sector,
-//                                                          e_DC_x, e_DC_y, e_DC_z,
-//                                                          torusBending );
-//    if (ePastCutsInEvent)  Nevents_passed_e_cuts++ ;
+    // set leading electron 4-momentum
+    SetLorentzVector(e_p4 , electrons[leading_e_index]);
+    // set leading electron vertex
+    Ve              = GetParticleVertex( electrons[leading_e_index] );
+
+    // detector information on electron
+    auto e_PCAL_info= electrons[leading_e_index]->cal(PCAL);
+    e_E_PCAL        = e_PCAL_info->getEnergy();
+    e_PCAL_sector   = e_PCAL_info->getSector();
+    e_PCAL_V        = e_PCAL_info->getLv();
+    e_PCAL_W        = e_PCAL_info->getLw();
+    e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
+    e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
+
+    // hit position in PCAL
+    e_PCAL_x        = e_PCAL_info->getX();
+    e_PCAL_y        = e_PCAL_info->getY();
+    e_PCAL_z        = e_PCAL_info->getZ();
+
+    // Drift Chamber tracking system
+    auto e_DC_info  = electrons[leading_e_index]->trk(DC);
+    e_DC_sector     = e_DC_info->getSector(); // tracking sector
+    e_DC_Chi2N      = e_DC_info->getChi2N();  // tracking chi^2/NDF
+
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        int DC_layer = DC_layers[regionIdx];
+        e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
+        e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
+        e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
+    }
+    DEBUG(2,"extracted electron information");
+
+    // ------------------------------------------------------------------------------------------------
+    // now, check if electron passed event selection requirements
+    // ------------------------------------------------------------------------------------------------
+    ePastCutsInEvent = CheckIfElectronPassedSelectionCuts(e_PCAL_x, e_PCAL_y,
+                                                          e_PCAL_W, e_PCAL_V,
+                                                          e_E_PCAL, e_E_ECIN,
+                                                          e_E_ECOUT,
+                                                          e_p4, Ve,
+                                                          e_PCAL_sector,
+                                                          e_DC_x, e_DC_y, e_DC_z,
+                                                          torusBending );
+    if (ePastCutsInEvent)  Nevents_passed_e_cuts++ ;
 }
 
 
