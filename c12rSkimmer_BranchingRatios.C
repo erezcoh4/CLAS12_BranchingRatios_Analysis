@@ -581,6 +581,11 @@ void WriteEventToOutput(){
     // (Maybe) write this event to "selected events csv-file"
     bool IsSelected = false;
     
+    if (ePastCutsInEvent) DEBUG(2, "electron succesfully past cuts");
+    else                  DEBUG(2, "electron did not pass cuts succesfully");
+    if (pPastCutsInEvent) DEBUG(2, "proton succesfully past cuts");
+    else                  DEBUG(2, "proton did not pass cuts succesfully");
+    
     if (ePastCutsInEvent && pPastCutsInEvent) {
         IsSelected = true;
         Nevents_passed_eep_cuts ++ ;
