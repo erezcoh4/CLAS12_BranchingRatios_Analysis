@@ -476,7 +476,7 @@ void ExtractElectronInformation(){
         e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
         e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
         e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
-        DEBUG(3,"DC: sector %.0f, region %d, (x=%.1f,y=%.1f)",e_DC_sector, DC_layer, e_DC_x[regionIdx], e_DC_y[regionIdx]);
+        DEBUG(3,"DC: sector %.0f, region %d, (x=%.1f,y=%.1f)",e_DC_sector, regionIdx, e_DC_x[regionIdx], e_DC_y[regionIdx]);
     }
     
     
