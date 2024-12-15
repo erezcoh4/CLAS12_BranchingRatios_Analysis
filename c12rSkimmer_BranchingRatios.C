@@ -648,15 +648,15 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         
         // process the events...
         while((c12.next()==true) && (event < (FirstEvent + NeventsMaxToProcess))){
-//            InitializeVariables();
-//            event++;
-//            DEBUG(3, "hipo entry %d", event);
+            InitializeVariables();
+            event++;
+            DEBUG(3, "hipo entry %d", event);
 //
 //            if (event%PrintProgress==0 && (event > FirstEvent))
 //                DEBUG(3,"Start processing %d/%d (run %d, event %d)",
 //                      (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
 //
-//            if (event > FirstEvent) {
+            if (event > FirstEvent) {
 //
 //                runnum = c12.runconfig()->getRun();
 //                evnum  = c12.runconfig()->getEvent();
@@ -681,7 +681,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
 //                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
 //                }
 //                //                Nevents_processed++;
-//            } // end if (event > FirstEvent)
+            } // end if (event > FirstEvent)
 //            if (event%PrintProgress==0 && (event > FirstEvent)){
 //                DEBUG(1,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
 //                DEBUG(3,"----------------------------------------------------------");
