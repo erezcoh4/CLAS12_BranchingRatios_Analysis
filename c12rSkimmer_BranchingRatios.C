@@ -377,7 +377,7 @@ bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
                                         Double_t e_DC_y[3],
                                         Double_t e_DC_z[3],
                                         int torusBending){
-    
+    DEBUG(3,"CheckIfElectronPassedSelectionCuts()");
     // decide if electron in event passes event selection cuts
     
     // DC - fiducial cuts on DC
@@ -390,7 +390,7 @@ bool CheckIfElectronPassedSelectionCuts(Double_t e_PCAL_x, Double_t e_PCAL_y,
     
     // sometimes the readout-sector is 0. This is funny
     // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
-    DEBUG(2,"e_DC_sector: %d",e_DC_sector);
+    DEBUG(3,"e_DC_sector: %d",e_DC_sector);
     if (e_DC_sector == 0) return false;
     
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
