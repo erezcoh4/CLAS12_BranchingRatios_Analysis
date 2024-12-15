@@ -442,7 +442,7 @@ void ExtractElectronInformation(){
     double  leading_e_E;
     int     leading_e_index = 0;
     SetLorentzVector(e_p4,electrons[0]);
-//    TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
+    TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
 //    for (int eIdx=0; eIdx < Ne; eIdx++) {
 //        SetLorentzVector(e_tmp  ,electrons[eIdx]);
 //        double Ee = e_tmp.E();
