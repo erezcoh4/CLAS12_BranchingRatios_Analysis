@@ -381,22 +381,18 @@ bool CheckIfElectronPassedSelectionCuts(){
     
     // sometimes the readout-sector is 0. This is funny
     // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
-    DEBUG(3,"electron DC sector: %0f",e_DC_sector);
     if (e_DC_sector == 0) return false;
-    
+    int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
+    DEBUG(3,"electron DC sector: %.0f",e_DC_sector);
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
-        // DC_e_fid:
-        // sector:  1-6
-        // layer:   1-3
-        // bending: 0(out)/1(in)
-        // std::cout << "e_DC_sector: " << e_DC_sector << ", regionIdx: " << regionIdx << std::endl;
-        int bending  = 1 ? (torusBending==-1) : 0;
+        // DC_e_fid: sector 1-6, layer 1-3
         bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
                                              e_DC_x[regionIdx],  // x
                                              e_DC_y[regionIdx],  // y
                                              e_DC_sector,        // sector
                                              regionIdx+1,        // layer
-                                             bending);           // torus bending
+                                             bending);           // torus bending        
+        DEBUG(3,"DC fid (region %d): %d",regionIdx, DC_fid);
         if (DC_fid == false) {
             return false;
         }
