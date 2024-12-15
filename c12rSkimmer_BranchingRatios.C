@@ -689,7 +689,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         }// end event loop
     } // end file loop
                 
-    FinishProgram();
+//    FinishProgram();
     DEBUG(1, "\nDone main.\n");
 } // end main
 
