@@ -455,7 +455,7 @@ void ExtractElectronInformation(){
             leading_e_E     = Ee;
         }
     }
-    DEBUG(3,"leading_e_index: %d",leading_e_index);
+    
     // set leading electron 4-momentum
     SetLorentzVector(e_p4 , electrons[leading_e_index]);
     // set leading electron vertex
@@ -469,7 +469,8 @@ void ExtractElectronInformation(){
     e_PCAL_W        = e_PCAL_info->getLw();
     e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
     e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
-
+    DEBUG(3,"lead index: %d, PCAL sector: %d, PCAL: (V=%.1f,W=%.1f)",leading_e_index,e_PCAL_sector,e_PCAL_V,e_PCAL_W);
+    
     // hit position in PCAL
     e_PCAL_x        = e_PCAL_info->getX();
     e_PCAL_y        = e_PCAL_info->getY();
