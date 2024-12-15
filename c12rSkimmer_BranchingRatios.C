@@ -64,7 +64,7 @@ std::vector<int> csvprecisions = {
     0,
     4,4,4,4,
     0,
-    4,4,4,4,4,4,
+    4,4,4,4,4,4
 };
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
