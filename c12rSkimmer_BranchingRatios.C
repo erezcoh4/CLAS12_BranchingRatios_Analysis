@@ -480,8 +480,8 @@ void ExtractElectronInformation(){
         e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
         e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
         e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
+        DEBUG(2,"Extracted electron information");
     }
-    DEBUG(2,"extracted electron information");
 
     // ------------------------------------------------------------------------------------------------
     // now, check if electron passed event selection requirements
@@ -547,7 +547,7 @@ void ExtractProtonInformation(){
         p_DC_y[regionIdx] = protons[leading_p_index]->traj(DC,DC_layer)->getY();
         p_DC_z[regionIdx] = protons[leading_p_index]->traj(DC,DC_layer)->getZ();
     }
-    DEBUG(2,"extracted proton information");
+    DEBUG(2,"Extracted proton information");
     
     // ------------------------------------------------------------------------------------------------
     // now, check if proton passed event selection requirements
@@ -675,7 +675,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
-//                    WriteEventToOutput          ();
+                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
 
                 } else {
