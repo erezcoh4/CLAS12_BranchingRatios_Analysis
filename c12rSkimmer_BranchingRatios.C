@@ -35,6 +35,8 @@ BranchingRatio_CLAS12_Auxiliary aux;
 auto db = TDatabasePDG::Instance();
 DCfid_SIDIS dcfid;
 
+//std::pair<TString,int> csv_var_precision;
+
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,"
                      // e'
@@ -602,7 +604,7 @@ void WriteEventToOutput(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void FinishProgram(){
-
+    DEBUG(2, "FinishProgram()");
     outcsvfile_eep2gX.close();
 }
 
