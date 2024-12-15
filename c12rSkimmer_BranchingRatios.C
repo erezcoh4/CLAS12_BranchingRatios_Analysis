@@ -657,10 +657,10 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                       (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
 
             if (event > FirstEvent) {
-//
-//                runnum = c12.runconfig()->getRun();
-//                evnum  = c12.runconfig()->getEvent();
-//
+
+                runnum = c12.runconfig()->getRun();
+                evnum  = c12.runconfig()->getEvent();
+
 //                // Get Particles By Type
 //                electrons   = c12.getByID( 11   );
 //                protons     = c12.getByID( 2212 );
