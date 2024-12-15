@@ -470,13 +470,14 @@ void ExtractElectronInformation(){
     auto e_DC_info  = electrons[leading_e_index]->trk(DC);
     e_DC_sector     = e_DC_info->getSector(); // tracking sector
     e_DC_Chi2N      = e_DC_info->getChi2N();  // tracking chi^2/NDF
-
+    DEBUG(3,"DC: sector %.0f, Chi2/N %.1f",e_DC_sector,e_DC_Chi2N);
+    
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
         int DC_layer = DC_layers[regionIdx];
         e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
         e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
         e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
-        DEBUG(3,"DC: sector %.0f, region %d, (x=%.1f,y=%.1f)",e_DC_sector, regionIdx, e_DC_x[regionIdx], e_DC_y[regionIdx]);
+        DEBUG(3,"\tRegion %d: (x=%.3f,y=%.3f)",e_DC_sector, regionIdx, e_DC_x[regionIdx], e_DC_y[regionIdx]);
     }
     
     
