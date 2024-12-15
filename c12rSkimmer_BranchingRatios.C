@@ -262,7 +262,6 @@ void GetParticlesByType (){
 }
 
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void OpenResultFiles(){
     
@@ -634,8 +633,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
     fake.Add(infilename.Data());
     auto files = fake.GetListOfFiles();
     
-    // open output files
-    OpenResultFiles();
+//    // open output files
+//    OpenResultFiles();
     
     // start analysis
     // step over events and extract information....
@@ -675,7 +674,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
-                    WriteEventToOutput          ();
+//                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
                     
                 } else {
