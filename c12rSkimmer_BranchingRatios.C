@@ -673,7 +673,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     DEBUG(2,"Extracting information...");
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
-//                    ExtractProtonInformation    ();
+                    ExtractProtonInformation    ();
 //                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
 
