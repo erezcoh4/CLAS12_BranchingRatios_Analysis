@@ -93,11 +93,11 @@ for line in run_fileLines[FirstRun:]:#{
     commandline = ("clas12root -q 'c12rSkimmer_BranchingRatios.C+(%d,%d,%d,%d,\"%s\",%f,%d)'"%
                     (run,FirstEvent,NeventsMax,PrintProgress,DataPath,Ebeam,fdebug))
     print(commandline)
-    
-    
+        
     os.system( commandline )
 
     if (runIdx >= Nruns): break;
+    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     print('------------------------------------------------------------')
 #}
 
