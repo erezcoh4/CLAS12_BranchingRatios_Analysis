@@ -40,23 +40,31 @@ DCfid_SIDIS dcfid;
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,"
                      // e'
-                     +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,"
+                     +(TString)"e_P,e_Theta,e_Phi,e_Vz,"
+                     +(TString)"e_DC_sector,"
                      // p
-                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,"
+                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,
+                     +(TString)"p_DC_sector,"
                      // two photons
-                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,"
-                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,"
+                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,"
+                     +(TString)"g1_DC_sector,"
+                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,"
+                     +(TString)"g2_DC_sector,"
                      // kinematics
-                     +(TString)"Q2,xB,omega,y,W,M_x,"
+                     +(TString)"Q2,xB,omega,W,M_x,q,"
                      );
 
 std::vector<int> csvprecisions = {
-    0,0,0,0,
-    9,9,9,9,0,
-    9,9,9,9,0,
-    9,9,9,9,0,
-    9,9,9,9,0,
-    9,9,9,9,9,9
+    0,0,0,
+    4,4,4,4,
+    0,
+    4,4,4,4,
+    0,
+    4,4,4,4,
+    0
+    4,4,4,4,
+    0
+    4,4,4,4,4,4,
 };
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -578,9 +586,14 @@ void WriteEventToOutput(){
         std::vector<double> variables =
         {   (double)status, (double)runnum,     (double)evnum,
             e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
-            Q2,             xB,                 omega,
-            (double)e_DC_sector,                (double)p_DC_sector,
-            q_p4.P(),
+            (double)e_DC_sector,
+            p_p4.P(),       p_p4.Theta(),       p_p4.Phi(),         Vp.Z(),
+            (double)p_DC_sector,
+            g1_p4.P(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),
+            (double)g1_DC_sector,
+            g2_p4.P(),       g2_p4.Theta(),      g2_p4.Phi(),         Vg2.Z(),
+            (double)g2_DC_sector,
+            Q2, xB, omega,  W, M_x, q_p4.P(),
         };
         
         aux.StreamToCSVfile(outcsvfile_eep2gX,
@@ -599,8 +612,6 @@ void FinishProgram(){
     outcsvfile_eep2gX.close();
     DEBUG(2,"See results at (e,e'p2𝛾)X csv file: %s",full_outcsvfilename.Data());
 }
-
-
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // main
