@@ -651,11 +651,11 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             InitializeVariables();
             event++;
             DEBUG(3, "hipo entry %d", event);
-//
-//            if (event%PrintProgress==0 && (event > FirstEvent))
-//                DEBUG(3,"Start processing %d/%d (run %d, event %d)",
-//                      (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
-//
+
+            if (event%PrintProgress==0 && (event > FirstEvent))
+                DEBUG(3,"Start processing %d/%d (run %d, event %d)",
+                      (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
+
             if (event > FirstEvent) {
 //
 //                runnum = c12.runconfig()->getRun();
