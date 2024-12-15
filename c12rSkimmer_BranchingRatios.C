@@ -464,8 +464,7 @@ void ExtractElectronInformation(){
     e_PCAL_x        = e_PCAL_info->getX();
     e_PCAL_y        = e_PCAL_info->getY();
     e_PCAL_z        = e_PCAL_info->getZ();
-    
-    
+        
     // Drift Chamber tracking system
     auto e_DC_info  = electrons[leading_e_index]->trk(DC);
     e_DC_sector     = e_DC_info->getSector(); // tracking sector
@@ -477,7 +476,7 @@ void ExtractElectronInformation(){
         e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
         e_DC_y[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getY();
         e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
-        DEBUG(3,"\tRegion %d: (x=%.3f,y=%.3f)",e_DC_sector, regionIdx, e_DC_x[regionIdx], e_DC_y[regionIdx]);
+        DEBUG(3,"\tRegion %d, DC_layer %d: (x=%.3f,y=%.3f)",e_DC_sector, regionIdx, e_DC_x[regionIdx], e_DC_y[regionIdx]);
     }
     
     
