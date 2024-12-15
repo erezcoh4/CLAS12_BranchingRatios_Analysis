@@ -81,6 +81,7 @@ TString               Skimming = "";
 TString                 prefix = "";
 TString               DataPath = "";
 TString infilename, outfilepath, outfilename;
+TString    full_outcsvfilename = "";
 ofstream          outcsvfile_eep2gX;
 
 // detector features
@@ -264,9 +265,9 @@ void GetParticlesByType (){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void OpenResultFiles(){
-    
-    
-    outcsvfile_eep2gX.open( outfilename + "_eep2gX.csv" );
+        
+    full_outcsvfilename = outfilepath + outfilename + "_eep2gX.csv";
+    outcsvfile_eep2gX.open( full_outcsvfilename );
     outcsvfile_eep2gX << csvheader << std::endl;
     
     if (verbosity>1) std::cout << "Done OpenOutputFiles( " << outfilename << ")" << std::endl;
@@ -604,8 +605,9 @@ void WriteEventToOutput(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void FinishProgram(){
-    DEBUG(2, "FinishProgram()");
+    DEBUG(3, "FinishProgram()");
     outcsvfile_eep2gX.close();
+    DEBUG(2,"See results at (e,e'p2𝛾)X csv file: %s",full_outcsvfilename.Data());
 }
 
 
