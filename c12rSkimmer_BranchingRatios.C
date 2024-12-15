@@ -451,8 +451,8 @@ void ExtractElectronInformation(){
             leading_e_E     = Ee;
         }
     }
-//    // set leading electron 4-momentum
-//    SetLorentzVector(e_p4 , electrons[leading_e_index]);
+    // set leading electron 4-momentum
+    SetLorentzVector(e_p4 , electrons[leading_e_index]);
 //    // set leading electron vertex
 //    Ve              = GetParticleVertex( electrons[leading_e_index] );
 //
