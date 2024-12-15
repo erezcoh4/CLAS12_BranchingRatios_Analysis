@@ -557,14 +557,7 @@ void ExtractProtonInformation(){
     // ------------------------------------------------------------------------------------------------
     // now, check if proton passed event selection requirements
     // ------------------------------------------------------------------------------------------------
-    pPastCutsInEvent = CheckIfProtonPassedSelectionCuts(p_PCAL_x, p_PCAL_y,
-                                                        p_PCAL_W, p_PCAL_V,
-                                                        p_E_PCAL, p_E_ECIN,
-                                                        p_E_ECOUT,
-                                                        p_p4, Vp,
-                                                        p_PCAL_sector,
-                                                        p_DC_x, p_DC_y, p_DC_z,
-                                                        torusBending );
+    pPastCutsInEvent = CheckIfProtonPassedSelectionCuts();
     if (pPastCutsInEvent)  Nevents_passed_p_cuts++ ;
 }
 
