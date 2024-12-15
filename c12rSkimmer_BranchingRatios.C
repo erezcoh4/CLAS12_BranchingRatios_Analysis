@@ -368,7 +368,7 @@ bool CheckIfProtonPassedSelectionCuts(Double_t p_PCAL_x, Double_t p_PCAL_y,
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void ConfrontValueWithCut(TString varlabel, double var, double cutValue){
-    DEBUG(3,"%s: %.1f (cut value %.1f)",varlabel.Data(),var, cutValue);
+    DEBUG(3,"%s: %.2f (cut value %.2f)",varlabel.Data(),var, cutValue);
 }
 
 

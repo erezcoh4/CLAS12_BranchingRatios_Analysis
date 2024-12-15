@@ -49,24 +49,26 @@ void BranchingRatio_CLAS12_Auxiliary::loadCutValues(std::string cutValuesFilenam
     cutValue_e_PCAL_W               = FindCutValue("e_PCAL_W_min");
     cutValue_e_PCAL_V               = FindCutValue("e_PCAL_V_min");
     cutValue_e_E_PCAL               = FindCutValue("e_E_PCAL_min");
-    cutValue_e_PCAL_W               = FindCutValue("p_PCAL_W_min");
-    cutValue_e_PCAL_V               = FindCutValue("p_PCAL_V_min");
-    cutValue_e_E_PCAL               = FindCutValue("p_E_PCAL_min");
     cutValue_SamplingFraction_min   = FindCutValue("SamplingFraction_min");
     cutValue_PCAL_ECIN_SF_min       = FindCutValue("PCAL_ECIN_SF_min");
-    cutValue_Ve_Vp_dz_max           = FindCutValue("(Ve-Vp)_z_max");
     cutValue_Q2_min                 = FindCutValue("Q2_min");
     cutValue_Q2_max                 = FindCutValue("Q2_max");
     cutValue_W_min                  = FindCutValue("W_min");
     cutValue_y_max                  = FindCutValue("y_max");
     cutValue_e_theta_min            = FindCutValue("e_theta_min");
     cutValue_e_theta_max            = FindCutValue("e_theta_max");
+    cutValue_Pe_min                 = FindCutValue("Pe_min");
+    cutValue_Pe_max                 = FindCutValue("Pe_max");
+
+    cutValue_p_E_PCAL               = FindCutValue("p_E_PCAL_min");
+    cutValue_p_PCAL_W               = FindCutValue("p_PCAL_W_min");
+    cutValue_p_PCAL_V               = FindCutValue("p_PCAL_V_min");
     cutValue_p_theta_min            = FindCutValue("p_theta_min");
     cutValue_p_theta_max            = FindCutValue("p_theta_max");
     cutValue_Pp_min                 = FindCutValue("Pp_min");
     cutValue_Pp_max                 = FindCutValue("Pp_max");
-    cutValue_Pe_min                 = FindCutValue("Pe_min");
-    cutValue_Pe_max                  = FindCutValue("Pe_max");
+
+    cutValue_Ve_Vp_dz_max           = FindCutValue("(Ve-Vp)_z_max");
 
     if (fdebug>2) { printCutValues(); }
 }
