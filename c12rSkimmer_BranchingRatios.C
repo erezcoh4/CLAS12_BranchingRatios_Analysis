@@ -666,21 +666,21 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                 protons     = c12.getByID( 2212 );
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ();
-//
-//                // filter events, extract information, and compute event kinematics
-//                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
-//
-//                    DEBUG(2,"Extracting information...");
+
+                // filter events, extract information, and compute event kinematics
+                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
+
+                    DEBUG(2,"Extracting information...");
 //                    ExtractElectronInformation  ();
 //                    ComputeElectronKinematics   ();
 //                    ExtractProtonInformation    ();
 //                    WriteEventToOutput          ();
-//                    DEBUG(2,"Done extracting information...");
-//
-//                } else {
-//                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
-//                }
-//                //                Nevents_processed++;
+                    DEBUG(2,"Done extracting information...");
+
+                } else {
+                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+                }
+                //                Nevents_processed++;
             } // end if (event > FirstEvent)
             if (event%PrintProgress==0 && (event > FirstEvent)){
                 DEBUG(1,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
