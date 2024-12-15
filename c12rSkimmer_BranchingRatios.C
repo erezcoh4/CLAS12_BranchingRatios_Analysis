@@ -381,7 +381,7 @@ bool CheckIfElectronPassedSelectionCuts(){
     
     // sometimes the readout-sector is 0. This is funny
     // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
-    DEBUG(3,"e_DC_sector: %d",e_DC_sector);
+    DEBUG(3,"electron DC sector: %0f",e_DC_sector);
     if (e_DC_sector == 0) return false;
     
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
