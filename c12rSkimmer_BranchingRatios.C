@@ -504,10 +504,11 @@ void ExtractProtonInformation(){
     // extract electron information
     // ------------------------------------------------------------------------------------------------
     // find leading electron as the one with highest energy
+    if (Np == 0) return;
     double  leading_p_E;
     int     leading_p_index = 0;
     SetLorentzVector(p_p4,protons[0]);
-    TLorentzVector p_tmp(0,0,0,db->GetParticle(11)->Mass());
+    TLorentzVector p_tmp(0,0,0,aux.Mp);
     for (int pIdx=0; pIdx < Np; pIdx++) {
         SetLorentzVector(p_tmp  ,protons[pIdx]);
         double Ep = p_tmp.E();
