@@ -353,20 +353,17 @@ bool CheckIfProtonPassedSelectionCuts(){
         }
     }
     
-    ConfrontValueWithCut("p PCAL(W)",p_PCAL_W,aux.cutValue_p_PCAL_W);
-    ConfrontValueWithCut("p PCAL(V)",p_PCAL_V,aux.cutValue_p_PCAL_V);
-    ConfrontValueWithCut("p E-PCAL",p_E_PCAL,aux.cutValue_p_E_PCAL);
-    ConfrontValueWithCut("Sampling Fraction minimum",(p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P(), aux.cutValue_SamplingFraction_min);
-    ConfrontValueWithCut("p PCAL ECIN SF min",p_E_ECIN/p_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P());
-    ConfrontValueWithCut("V(p)-z", Vp.Z(), aux.cutValue_Vz_min );
+//    ConfrontValueWithCut("p PCAL(W)",p_PCAL_W,aux.cutValue_p_PCAL_W);
+//    ConfrontValueWithCut("p PCAL(V)",p_PCAL_V,aux.cutValue_p_PCAL_V);
+//    ConfrontValueWithCut("p E-PCAL",p_E_PCAL,aux.cutValue_p_E_PCAL);
+//    ConfrontValueWithCut("Sampling Fraction minimum",(p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P(), aux.cutValue_SamplingFraction_min);
+//    ConfrontValueWithCut("p PCAL ECIN SF min",p_E_ECIN/p_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P());
+//    ConfrontValueWithCut("V(p)-z", Vp.Z(), aux.cutValue_Vz_min );
+    ConfrontValueWithCut("|Ve(z) - Vp(z)|", fabs((Ve-Vp).Z()), aux.cutValue_Ve_Vp_dz_max );
     
     if(!(true
-         &&  p_PCAL_W > aux.cutValue_p_PCAL_W
-         &&  p_PCAL_V > aux.cutValue_p_PCAL_V
-         &&  p_E_PCAL > aux.cutValue_p_E_PCAL
-         && ((p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P()) > aux.cutValue_SamplingFraction_min
-         && (p_E_ECIN/p_p4.P() > aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P())
-         &&  ((aux.cutValue_Vz_min < Vp.Z()) && (Vp.Z() < aux.cutValue_Vz_max))
+         // Cut on the z-Vertex Difference Between Electrons and Hadrons
+         &&  ( fabs((Ve-Vp).Z()) < aux.cutValue_Ve_Vp_dz_max )
          )) return false;
     
     return true;
@@ -404,17 +401,31 @@ bool CheckIfElectronPassedSelectionCuts(){
         }
     }
     
-//    ConfrontValueWithCut("e PCAL(W)",e_PCAL_W,aux.cutValue_e_PCAL_W);
-//    ConfrontValueWithCut("e PCAL(V)",e_PCAL_V,aux.cutValue_e_PCAL_V);
-//    ConfrontValueWithCut("e E-PCAL",e_E_PCAL,aux.cutValue_e_E_PCAL);
-//    ConfrontValueWithCut("Sampling Fraction minimum",(e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P(), aux.cutValue_SamplingFraction_min);
-//    ConfrontValueWithCut("e PCAL ECIN SF min",e_E_ECIN/e_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P());
-//    ConfrontValueWithCut("V(e)-z", Ve.Z(), aux.cutValue_Vz_min );
-    ConfrontValueWithCut("|Ve(z) - Vp(z)|", fabs((Ve-Vp).Z()), aux.cutValue_Ve_Vp_dz_max );
+    ConfrontValueWithCut("e PCAL(W)",e_PCAL_W,aux.cutValue_e_PCAL_W);
+    ConfrontValueWithCut("e PCAL(V)",e_PCAL_V,aux.cutValue_e_PCAL_V);
+    ConfrontValueWithCut("e E-PCAL",e_E_PCAL,aux.cutValue_e_E_PCAL);
+    ConfrontValueWithCut("Sampling Fraction minimum",(e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P(), aux.cutValue_SamplingFraction_min);
+    ConfrontValueWithCut("e PCAL ECIN SF min",e_E_ECIN/e_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P());
+    ConfrontValueWithCut("V(e)-z", Ve.Z(), aux.cutValue_Vz_min );
     
     if(!(true
-         // Cut on the z-Vertex Difference Between Electrons and Hadrons
-         &&  ( fabs((Ve-Vp).Z()) < aux.cutValue_Ve_Vp_dz_max )
+         // fiducial cuts on PCAL
+         //fabs(e_PCAL_x)>0
+         //&&  fabs(e_PCAL_y)>0
+         &&  e_PCAL_W > aux.cutValue_e_PCAL_W
+         &&  e_PCAL_V > aux.cutValue_e_PCAL_V
+         
+         // Electron Identification Refinement  - PCAL Minimum Energy Deposition Cut
+         &&  e_E_PCAL > aux.cutValue_e_E_PCAL
+         
+         // Sampling fraction cut
+         && ((e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P()) > aux.cutValue_SamplingFraction_min
+         && (e_E_ECIN/e_p4.P() > aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P()) // RGA AN puts "<" here mistakenly
+         
+         // Cut on z-vertex position: in-bending torus field -13.0 cm < Vz < +12.0 cm
+         // Spring 19 and Spring 2020 in-bending.
+         // Fall 2019 (without low-energy-run) was out-bending.
+         &&  ((aux.cutValue_Vz_min < Ve.Z()) && (Ve.Z() < aux.cutValue_Vz_max))
          )) return false;
     
     return true;
