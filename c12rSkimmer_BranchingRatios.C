@@ -43,7 +43,7 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,"
                      +(TString)"e_DC_sector,"
                      // p
-                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,
+                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,"
                      +(TString)"p_DC_sector,"
                      // two photons
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,"
