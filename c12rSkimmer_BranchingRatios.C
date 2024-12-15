@@ -671,8 +671,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                 if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
 
                     DEBUG(2,"Extracting information...");
-//                    ExtractElectronInformation  ();
-//                    ComputeElectronKinematics   ();
+                    ExtractElectronInformation  ();
+                    ComputeElectronKinematics   ();
 //                    ExtractProtonInformation    ();
 //                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
