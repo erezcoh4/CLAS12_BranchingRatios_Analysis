@@ -61,9 +61,9 @@ std::vector<int> csvprecisions = {
     4,4,4,4,
     0,
     4,4,4,4,
-    0
+    0,
     4,4,4,4,
-    0
+    0,
     4,4,4,4,4,4,
 };
 
@@ -603,7 +603,7 @@ void WriteEventToOutput(){
             (double)p_DC_sector,
             g1_p4.P(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),
             (double)g1_DC_sector,
-            g2_p4.P(),       g2_p4.Theta(),      g2_p4.Phi(),         Vg2.Z(),
+            g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
             (double)g2_DC_sector,
             Q2, xB, omega,  W, M_x, q_p4.P(),
         };
