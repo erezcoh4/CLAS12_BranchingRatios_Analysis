@@ -130,6 +130,11 @@ void DEBUG(int v, const char* fmt, ...) {
     va_end(arg);
 }
 
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+void ConfrontValueWithCut(TString varlabel, double var, double cutValue){
+    DEBUG(3,"%s: %.2f (cut value %.2f)",varlabel.Data(),var, cutValue);
+}
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 TString GetRunNumberSTR( int RunNumber, TString fSkimming ){
     char RunNumberStr[20];
@@ -328,32 +333,32 @@ void InitializeVariables(){
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-bool CheckIfProtonPassedSelectionCuts(Double_t p_PCAL_x, Double_t p_PCAL_y,
-                                        Double_t p_PCAL_W, Double_t p_PCAL_V,
-                                        Double_t p_E_PCAL,
-                                        Double_t p_E_ECIN, Double_t p_E_ECOUT,
-                                        TLorentzVector p,
-                                        TVector3 Vp,
-                                        Double_t p_DC_sector,
-                                        Double_t p_DC_x[3],
-                                        Double_t p_DC_y[3],
-                                        Double_t p_DC_z[3],
-                                        int torusBending){
-    
+bool CheckIfProtonPassedSelectionCuts(){
+    DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
     if (p_DC_sector == 0) return false;
-    
+    int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
+    DEBUG(3,"proton DC sector: %.0f, bending: %d",p_DC_sector, bending);
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
-        int bending  = 1 ? (torusBending==-1) : 0;
-        bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
+        DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",p_DC_x[regionIdx], p_DC_y[regionIdx], p_DC_sector);
+        bool DC_fid  = dcfid.DC_fid_xy_sidis(2212,               // particle PID,
                                              p_DC_x[regionIdx],  // x
                                              p_DC_y[regionIdx],  // y
                                              p_DC_sector,        // sector
                                              regionIdx+1,        // layer
                                              bending);           // torus bending
+        DEBUG(3,"\tDC fid (region %d): %d",regionIdx, DC_fid);
         if (DC_fid == false) {
             return false;
         }
     }
+    
+    ConfrontValueWithCut("p PCAL(W)",p_PCAL_W,aux.cutValue_p_PCAL_W);
+    ConfrontValueWithCut("p PCAL(V)",p_PCAL_V,aux.cutValue_p_PCAL_V);
+    ConfrontValueWithCut("p E-PCAL",p_E_PCAL,aux.cutValue_p_E_PCAL);
+    ConfrontValueWithCut("Sampling Fraction minimum",(p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P(), aux.cutValue_SamplingFraction_min);
+    ConfrontValueWithCut("p PCAL ECIN SF min",p_E_ECIN/p_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P());
+    ConfrontValueWithCut("V(p)-z", Vp.Z(), aux.cutValue_Vz_min );
+    
     if(!(true
          &&  p_PCAL_W > aux.cutValue_p_PCAL_W
          &&  p_PCAL_V > aux.cutValue_p_PCAL_V
@@ -366,10 +371,7 @@ bool CheckIfProtonPassedSelectionCuts(Double_t p_PCAL_x, Double_t p_PCAL_y,
     return true;
 }
 
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-void ConfrontValueWithCut(TString varlabel, double var, double cutValue){
-    DEBUG(3,"%s: %.2f (cut value %.2f)",varlabel.Data(),var, cutValue);
-}
+
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -392,14 +394,14 @@ bool CheckIfElectronPassedSelectionCuts(){
     DEBUG(3,"electron DC sector: %.0f, bending: %d",e_DC_sector, bending);
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
         // DC_e_fid: sector 1-6, layer 1-3
-        DEBUG(3,"DC (x=%.1f,y=%.1f), sector: %.0f",e_DC_x[regionIdx], e_DC_y[regionIdx],e_DC_sector);
+        DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",e_DC_x[regionIdx], e_DC_y[regionIdx],e_DC_sector);
         bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
                                              e_DC_x[regionIdx],  // x
                                              e_DC_y[regionIdx],  // y
                                              e_DC_sector,        // sector
                                              regionIdx+1,        // layer
                                              bending);           // torus bending
-        DEBUG(3,"DC fid (region %d): %d",regionIdx, DC_fid);
+        DEBUG(3,"\tDC fid (region %d): %d",regionIdx, DC_fid);
         if (DC_fid == false) {
             return false;
         }
