@@ -633,8 +633,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
     fake.Add(infilename.Data());
     auto files = fake.GetListOfFiles();
     
-//    // open output files
-//    OpenResultFiles();
+    // open output files
+    OpenResultFiles();
     
     // start analysis
     // step over events and extract information....
@@ -642,7 +642,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         
         //create the event reader
         DEBUG(2, "file %d", i);
-        clas12reader c12(files->At(i)->GetTitle(),{0});
+//        clas12reader c12(files->At(i)->GetTitle(),{0});
         DEBUG(2, "Read title of file %d", i);
         int event = 0;
         
@@ -674,7 +674,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
-//                    WriteEventToOutput          ();
+                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
                     
                 } else {
@@ -689,7 +689,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         }// end event loop
     } // end file loop
                 
-//    FinishProgram();
+    FinishProgram();
     DEBUG(1, "\nDone main.\n");
 } // end main
 
