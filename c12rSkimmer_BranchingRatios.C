@@ -496,8 +496,8 @@ void ExtractElectronInformation(){
     // now, check if electron passed event selection requirements
     // ------------------------------------------------------------------------------------------------
     ePastCutsInEvent = CheckIfElectronPassedSelectionCuts();
-    if (ePastCutsInEvent) {DEBUG(2, "electron succesfully past cuts"); Nevents_passed_e_cuts++ ;}
-    else                  {DEBUG(2, "electron did not pass cuts succesfully");}
+    if (ePastCutsInEvent) {DEBUG(2, "** electron succesfully past cuts **"); Nevents_passed_e_cuts++ ;}
+    else                  {DEBUG(2, "** electron did not pass cuts succesfully **");}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -555,8 +555,8 @@ void ExtractProtonInformation(){
     // now, check if proton passed event selection requirements
     // ------------------------------------------------------------------------------------------------
     pPastCutsInEvent = CheckIfProtonPassedSelectionCuts();
-    if (pPastCutsInEvent) {DEBUG(2, "proton succesfully past cuts"); Nevents_passed_p_cuts++ ;}
-    else                  {DEBUG(2, "proton did not pass cuts succesfully");}
+    if (pPastCutsInEvent) {DEBUG(2, "** proton succesfully past cuts **"); Nevents_passed_p_cuts++ ;}
+    else                  {DEBUG(2, "** proton did not pass cuts succesfully **");}
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
