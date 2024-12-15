@@ -680,7 +680,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                 } else {
                     DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
                 }
-                //                Nevents_processed++;
+                                Nevents_processed++;
             } // end if (event > FirstEvent)
             if (event%PrintProgress==0 && (event > FirstEvent)){
                 DEBUG(1,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
