@@ -95,7 +95,7 @@ for line in run_fileLines[FirstRun:]:#{
     print(commandline)
         
     os.system( commandline )
-
+    print('runIdx:',runIdx,'Nruns:',Nruns)
     if (runIdx >= Nruns): break;
     print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
     print('------------------------------------------------------------')
