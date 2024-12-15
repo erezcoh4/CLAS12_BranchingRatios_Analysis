@@ -404,12 +404,13 @@ bool CheckIfElectronPassedSelectionCuts(){
         }
     }
     
-    ConfrontValueWithCut("e PCAL(W)",e_PCAL_W,aux.cutValue_e_PCAL_W);
-    ConfrontValueWithCut("e PCAL(V)",e_PCAL_V,aux.cutValue_e_PCAL_V);
-    ConfrontValueWithCut("e E-PCAL",e_E_PCAL,aux.cutValue_e_E_PCAL);
-    ConfrontValueWithCut("Sampling Fraction minimum",(e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P(), aux.cutValue_SamplingFraction_min);
-    ConfrontValueWithCut("e PCAL ECIN SF min",e_E_ECIN/e_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P());
-    ConfrontValueWithCut("V(e)-z", Ve.Z(), aux.cutValue_Vz_min );
+//    ConfrontValueWithCut("e PCAL(W)",e_PCAL_W,aux.cutValue_e_PCAL_W);
+//    ConfrontValueWithCut("e PCAL(V)",e_PCAL_V,aux.cutValue_e_PCAL_V);
+//    ConfrontValueWithCut("e E-PCAL",e_E_PCAL,aux.cutValue_e_E_PCAL);
+//    ConfrontValueWithCut("Sampling Fraction minimum",(e_E_PCAL + e_E_ECIN + e_E_ECOUT)/e_p4.P(), aux.cutValue_SamplingFraction_min);
+//    ConfrontValueWithCut("e PCAL ECIN SF min",e_E_ECIN/e_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - e_E_PCAL/e_p4.P());
+//    ConfrontValueWithCut("V(e)-z", Ve.Z(), aux.cutValue_Vz_min );
+    ConfrontValueWithCut("|Ve(z) - Vp(z)|", fabs((Ve-Vp).Z()), aux.cutValue_Ve_Vp_dz_max );
     
     if(!(true
          // Cut on the z-Vertex Difference Between Electrons and Hadrons
