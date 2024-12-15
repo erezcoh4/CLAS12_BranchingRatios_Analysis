@@ -283,7 +283,7 @@ void InitializeVariables(){
     DC_layer    = -9999;
     status      = 1; // 0 is good...
     
-    DEBUG(3, "electron...");
+    DEBUG(4, "Initialize electron...");
     e_p4 = TLorentzVector(0,0,0,aux.Me);
     xB  = Q2  = omega     = -9999;
     W   = M_x             = -9999;
@@ -301,7 +301,7 @@ void InitializeVariables(){
     Ve                                  = TVector3();
     ePastCutsInEvent                    = false;
     
-    DEBUG(3, "proton...");
+    DEBUG(4, "Initialize proton...");
     p_p4 = TLorentzVector(0,0,0,aux.Mp);
     p_E_ECIN    = p_E_ECOUT = p_E_PCAL  = -9999;
     p_PCAL_W    = p_PCAL_V              = -9999;
@@ -317,7 +317,7 @@ void InitializeVariables(){
     Vp                                  = TVector3();
     pPastCutsInEvent                    = false;
     
-    DEBUG(5, "eep");
+    DEBUG(5, "Initialize (e,e'p)");
     eepPastCutsInEvent                  = false;
     
     DEBUG(5, "Done InitializeVariables()");
@@ -672,7 +672,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
 
                     DEBUG(2,"Extracting information...");
                     ExtractElectronInformation  ();
-//                    ComputeElectronKinematics   ();
+                    ComputeElectronKinematics   ();
 //                    ExtractProtonInformation    ();
 //                    WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
