@@ -114,6 +114,18 @@ double p_PCAL_sector, p_DC_sector, p_DC_Chi2N, p_DC_x[3], p_DC_y[3], p_DC_z[3];
 TVector3 Vp;
 bool     pPastCutsInEvent;
 
+// two photons
+double g1_E_PCAL, g1_E_ECIN, g1_E_ECOUT, g1_PCAL_W, g1_PCAL_V, g1_PCAL_x, g1_PCAL_y, g1_PCAL_z;
+double g1_PCAL_sector, g1_DC_sector, g1_DC_Chi2N, g1_DC_x[3], g1_DC_y[3], g1_DC_z[3];
+TVector3 Vg1;
+bool     g1PastCutsInEvent;
+
+double g2_E_PCAL, g2_E_ECIN, g2_E_ECOUT, g2_PCAL_W, g2_PCAL_V, g2_PCAL_x, g2_PCAL_y, g2_PCAL_z;
+double g2_PCAL_sector, g2_DC_sector, g2_DC_Chi2N, g2_DC_x[3], g2_DC_y[3], g2_DC_z[3];
+TVector3 Vg2;
+bool     g2PastCutsInEvent;
+
+
 // kinematics
 double xB, Q2, omega, W, M_x;
 double Pe_phi, Pe_theta;
