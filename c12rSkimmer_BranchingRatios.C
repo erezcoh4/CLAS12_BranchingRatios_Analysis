@@ -386,6 +386,7 @@ bool CheckIfElectronPassedSelectionCuts(){
     DEBUG(3,"electron DC sector: %.0f, bending: %d",e_DC_sector, bending);
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
         // DC_e_fid: sector 1-6, layer 1-3
+        DEBUG(3,"DC (x=%.1f,y=%.1f), sector: %.0f",e_DC_x[regionIdx], e_DC_y[regionIdx],e_DC_sector);
         bool DC_fid  = dcfid.DC_fid_xy_sidis(11,                 // particle PID,
                                              e_DC_x[regionIdx],  // x
                                              e_DC_y[regionIdx],  // y
