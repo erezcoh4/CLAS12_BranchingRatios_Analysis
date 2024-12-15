@@ -441,21 +441,21 @@ void ExtractElectronInformation(){
     // find leading electron as the one with highest energy
     double  leading_e_E;
     int     leading_e_index = 0;
-    SetLorentzVector(e_p4,electrons[0]);
-    TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
-    for (int eIdx=0; eIdx < Ne; eIdx++) {
-        SetLorentzVector(e_tmp  ,electrons[eIdx]);
-        double Ee = e_tmp.E();
-        if (Ee > leading_e_E) {
-            leading_e_index = eIdx;
-            leading_e_E     = Ee;
-        }
-    }
+//    SetLorentzVector(e_p4,electrons[0]);
+//    TLorentzVector e_tmp(0,0,0,db->GetParticle(11)->Mass());
+//    for (int eIdx=0; eIdx < Ne; eIdx++) {
+//        SetLorentzVector(e_tmp  ,electrons[eIdx]);
+//        double Ee = e_tmp.E();
+//        if (Ee > leading_e_E) {
+//            leading_e_index = eIdx;
+//            leading_e_E     = Ee;
+//        }
+//    }
 //    // set leading electron 4-momentum
 //    SetLorentzVector(e_p4 , electrons[leading_e_index]);
 //    // set leading electron vertex
 //    Ve              = GetParticleVertex( electrons[leading_e_index] );
-//    
+//
 //    // detector information on electron
 //    auto e_PCAL_info= electrons[leading_e_index]->cal(PCAL);
 //    e_E_PCAL        = e_PCAL_info->getEnergy();
@@ -464,17 +464,17 @@ void ExtractElectronInformation(){
 //    e_PCAL_W        = e_PCAL_info->getLw();
 //    e_E_ECIN        = electrons[leading_e_index]->cal(ECIN)->getEnergy();
 //    e_E_ECOUT       = electrons[leading_e_index]->cal(ECOUT)->getEnergy();
-//    
+//
 //    // hit position in PCAL
 //    e_PCAL_x        = e_PCAL_info->getX();
 //    e_PCAL_y        = e_PCAL_info->getY();
 //    e_PCAL_z        = e_PCAL_info->getZ();
-//    
+//
 //    // Drift Chamber tracking system
 //    auto e_DC_info  = electrons[leading_e_index]->trk(DC);
 //    e_DC_sector     = e_DC_info->getSector(); // tracking sector
 //    e_DC_Chi2N      = e_DC_info->getChi2N();  // tracking chi^2/NDF
-//    
+//
 //    for (int regionIdx=0; regionIdx<3; regionIdx++) {
 //        int DC_layer = DC_layers[regionIdx];
 //        e_DC_x[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getX();
@@ -482,7 +482,7 @@ void ExtractElectronInformation(){
 //        e_DC_z[regionIdx] = electrons[leading_e_index]->traj(DC,DC_layer)->getZ();
 //    }
 //    DEBUG(2,"extracted electron information");
-//    
+//
 //    // ------------------------------------------------------------------------------------------------
 //    // now, check if electron passed event selection requirements
 //    // ------------------------------------------------------------------------------------------------
