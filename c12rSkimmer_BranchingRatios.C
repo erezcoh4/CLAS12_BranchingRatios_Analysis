@@ -75,6 +75,7 @@ int                Ne, Np, Ngammas;
 int          Nevents_processed = 0;
 int                   evnum, runnum;
 int               torusBending = -1; // -1 for In-bending, +1 for Out-bending
+int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
 
 float                         Ebeam;
 TString               Skimming = "";
@@ -335,9 +336,9 @@ void InitializeVariables(){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfProtonPassedSelectionCuts(){
     DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
-    if (p_DC_sector == 0) return false;
-    int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
+    
     DEBUG(3,"proton DC sector: %.0f, bending: %d",p_DC_sector, bending);
+    if (p_DC_sector == 0) return false;
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
         DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",p_DC_x[regionIdx], p_DC_y[regionIdx], p_DC_sector);
         bool DC_fid  = dcfid.DC_fid_xy_sidis(2212,               // particle PID,
@@ -371,9 +372,6 @@ bool CheckIfProtonPassedSelectionCuts(){
     return true;
 }
 
-
-
-
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfElectronPassedSelectionCuts(){
     DEBUG(3,"CheckIfElectronPassedSelectionCuts()");
@@ -389,9 +387,8 @@ bool CheckIfElectronPassedSelectionCuts(){
     
     // sometimes the readout-sector is 0. This is funny
     // Justin B. Estee (June-21): I also had this issue. I am throwing away sector 0. The way you check is plot the (x,y) coordinates of the sector and you will not see any thing. Double check me but I think it is 0.
-    if (e_DC_sector == 0) return false;
-    int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
     DEBUG(3,"electron DC sector: %.0f, bending: %d",e_DC_sector, bending);
+    if (e_DC_sector == 0) return false;
     for (int regionIdx=0; regionIdx<3; regionIdx++) {
         // DC_e_fid: sector 1-6, layer 1-3
         DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",e_DC_x[regionIdx], e_DC_y[regionIdx],e_DC_sector);
@@ -499,9 +496,9 @@ void ExtractElectronInformation(){
     // now, check if electron passed event selection requirements
     // ------------------------------------------------------------------------------------------------
     ePastCutsInEvent = CheckIfElectronPassedSelectionCuts();
-    if (ePastCutsInEvent)  Nevents_passed_e_cuts++ ;
+    if (ePastCutsInEvent) {DEBUG(2, "electron succesfully past cuts"); Nevents_passed_e_cuts++ ;}
+    else                  {DEBUG(2, "electron did not pass cuts succesfully");}
 }
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ExtractProtonInformation(){
@@ -558,9 +555,9 @@ void ExtractProtonInformation(){
     // now, check if proton passed event selection requirements
     // ------------------------------------------------------------------------------------------------
     pPastCutsInEvent = CheckIfProtonPassedSelectionCuts();
-    if (pPastCutsInEvent)  Nevents_passed_p_cuts++ ;
+    if (pPastCutsInEvent) {DEBUG(2, "proton succesfully past cuts"); Nevents_passed_p_cuts++ ;}
+    else                  {DEBUG(2, "proton did not pass cuts succesfully");}
 }
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ComputeElectronKinematics(){
@@ -572,16 +569,10 @@ void ComputeElectronKinematics(){
     W       = sqrt((p_rest + q_p4).Mag2());
 }
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void WriteEventToOutput(){
     // (Maybe) write this event to "selected events csv-file"
     bool IsSelected = false;
-    
-    if (ePastCutsInEvent) DEBUG(2, "electron succesfully past cuts");
-    else                  DEBUG(2, "electron did not pass cuts succesfully");
-    if (pPastCutsInEvent) DEBUG(2, "proton succesfully past cuts");
-    else                  DEBUG(2, "proton did not pass cuts succesfully");
     
     if (ePastCutsInEvent && pPastCutsInEvent) {
         IsSelected = true;
