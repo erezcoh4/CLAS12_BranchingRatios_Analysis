@@ -657,10 +657,10 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                       (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
 
             if (event > FirstEvent) {
-
-                runnum = c12.runconfig()->getRun();
-                evnum  = c12.runconfig()->getEvent();
-
+//
+//                runnum = c12.runconfig()->getRun();
+//                evnum  = c12.runconfig()->getEvent();
+//
 //                // Get Particles By Type
 //                electrons   = c12.getByID( 11   );
 //                protons     = c12.getByID( 2212 );
@@ -677,10 +677,10 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
 //                    WriteEventToOutput          ();
 //                    DEBUG(2,"Done extracting information...");
 //
-                } else {
-                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
-                }
-                                Nevents_processed++;
+//                } else {
+//                    DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
+//                }
+//                //                Nevents_processed++;
             } // end if (event > FirstEvent)
             if (event%PrintProgress==0 && (event > FirstEvent)){
                 DEBUG(1,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
