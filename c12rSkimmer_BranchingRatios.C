@@ -661,11 +661,11 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
 
-//                // Get Particles By Type
-//                electrons   = c12.getByID( 11   );
-//                protons     = c12.getByID( 2212 );
-//                gammas      = c12.getByID( 22   );
-//                GetParticlesByType ();
+                // Get Particles By Type
+                electrons   = c12.getByID( 11   );
+                protons     = c12.getByID( 2212 );
+                gammas      = c12.getByID( 22   );
+                GetParticlesByType ();
 //
 //                // filter events, extract information, and compute event kinematics
 //                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
