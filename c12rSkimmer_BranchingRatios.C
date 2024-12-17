@@ -594,12 +594,14 @@ void ExtractGammasInformation(){
     // where we note
     // g1 - photon with higher energy
     // g2 - photon with smaller energy
-    
+    DEBUG(3, "ExtractGammasInformation()");
     if (Ngammas != 2) return;
     SetLorentzVector(g1_p4,  gammas[0]);
     Vg1 = GetParticleVertex( gammas[0] );
     SetLorentzVector(g2_p4,  gammas[1]);
     Vg2 = GetParticleVertex( gammas[1] );
+    
+    DEBUG(3, "g1_p4.E(): %.1f GeV, g2_p4.E(): %.1f GeV, Vg1.Z(): %.1f cm, Vg2.Z(): %.1f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     
     auto g1_DC_info  = gammas[0]->trk(DC);
     g1_DC_Chi2N      = g1_DC_info->getChi2N();  // tracking chi^2/NDF
@@ -637,14 +639,16 @@ void ExtractGammasInformation(){
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void ComputeElectronKinematics(){
-    // compute event kinematics (from e-only information)
+void ComputeKinematics(){
+    // compute event kinematics
+    DEBUG(3, "ComputeKinematics()");
     q_p4    = Beam_p4 - e_p4;
     Q2      = -q_p4.Mag2();
     omega   = q_p4.E();
     xB      = Q2/(2. * aux.Mp * q_p4.E());
     W       = sqrt((p_rest + q_p4).Mag2());
     M_x     = ( (q_p4 + p_rest) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
+    DEBUG(3, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PrintVariables(){
@@ -654,32 +658,32 @@ void PrintVariables(){
     << std::endl << "electron: " << std::endl   <<
     "p: "           << e_p4.P()                 << " GeV/c, "
     "𝜃: "           << e_p4.Theta()*180./3.14   << " deg., "
-    "ϕ "            << e_p4.Phi()*180./3.14     << " deg., "
+    "ϕ: "           << e_p4.Phi()*180./3.14     << " deg., "
     "V(z) "         << Ve.Z()                   << " cm, "
     "DC-sector: "   << e_DC_sector              << ", "
     "χ2/NDF "       << e_DC_Chi2N               << ", "
     << std::endl << "proton: " << std::endl     <<
     "p: "           << p_p4.P()                 << " GeV/c ,"
     "𝜃: "           << p_p4.Theta()*180./3.14   << " deg., "
-    "ϕ "            << p_p4.Phi()*180./3.14     << " deg., "
+    "ϕ: "           << p_p4.Phi()*180./3.14     << " deg., "
     "V(z) "         << Vp.Z()                   << " cm, "
     "DC-sector: "   << p_DC_sector              << ", "
     "χ2/NDF "       << p_DC_Chi2N               << ", "
     << std::endl << "g1: " << std::endl         <<
     "p: "           << g1_p4.P()                 << " GeV/c, "
     "𝜃: "           << g1_p4.Theta()*180./3.14   << " deg., "
-    "ϕ "            << g1_p4.Phi()*180./3.14     << " deg., "
+    "ϕ: "           << g1_p4.Phi()*180./3.14     << " deg., "
     "V(z) "         << Vg1.Z()                   << " cm, "
     "DC-sector: "   << g1_DC_sector              << ", "
     "χ2/NDF "       << g1_DC_Chi2N               << ", "
     << std::endl << "g2: " << std::endl         <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
     "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
-    "ϕ "            << g2_p4.Phi()*180./3.14     << " deg.,"
+    "ϕ: "           << g2_p4.Phi()*180./3.14     << " deg.,"
     "V(z) "         << Vg2.Z()                   << " cm,"
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
-    << std::endl    << 
+    << std::endl    <<
     "Q2: "          << Q2                       << " (GeV/c)2, "
     "xB: "          << xB                       << " , "
     "ω: "           << omega                    << " GeV, "
@@ -794,9 +798,9 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                     
                     DEBUG(2,"Extracting information...");
                     ExtractElectronInformation  ();
-                    ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
                     ExtractGammasInformation    ();
+                    ComputeKinematics           ();
                     WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
                     
