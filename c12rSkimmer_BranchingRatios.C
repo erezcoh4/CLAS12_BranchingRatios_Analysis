@@ -737,7 +737,7 @@ void WriteEventToOutput(){
 void FinishProgram(){
     DEBUG(3, "FinishProgram()");
     outcsvfile_eep2gX.close();
-    DEBUG(2,"See results at (e,e'p2𝛾)X csv file: %s",full_outcsvfilename.Data());
+    DEBUG(0,"See results at (e,e'p2𝛾)X csv file: %s",full_outcsvfilename.Data());
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.

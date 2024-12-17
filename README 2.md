@@ -63,7 +63,7 @@ module load clas12
 
 **Name** calculation                definition
 
-**M2g**  (g1_p4 + g2_p4).M();       invariant mass of the two photons M2g = |g1_p4 + g2_p4|
+**M2g**  (g1_p4 + g2_p4).M();       invariant mass of the two photons M2g = |g1_p4 + g2_p4|, in [GeV/c]
 
 
 
