@@ -72,7 +72,7 @@ public:
     double             cutValue_e_E_PCAL;
     double cutValue_SamplingFraction_min;
     double     cutValue_PCAL_ECIN_SF_min;
-    double         cutValue_Ve_Vp_dz_max;
+    
     double               cutValue_Q2_min;
     double               cutValue_Q2_max;
     double                cutValue_W_min;
@@ -89,7 +89,9 @@ public:
     double             cutValue_p_PCAL_W;
     double             cutValue_p_PCAL_V;
     double             cutValue_p_E_PCAL;
-
+    double         cutValue_Ve_Vp_dz_max; // electron - proton
+    
+    double         cutValue_Ve_Vg_dz_max; // electron - gamma
     
     double         Me = 0.00051099895;// GeV/c2
     double        Mpi = 0.139570;     // GeV/c2

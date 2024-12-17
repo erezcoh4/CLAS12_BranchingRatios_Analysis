@@ -1,7 +1,7 @@
 # CLAS12_BranchingRatios_Analysis
 
 
-Last update Dec-16, 2024
+Last update Nov-24, 2024
 
 
 # **(1) General**
@@ -26,7 +26,7 @@ The analysis is limited to cases where the meson decays to 2 gamma-rays, i.e
 
 ### (1.1.1) Desired event class 
 --------------------------------------------------------
-We are looking for a clas of events with exactly one proton and two photons in the final state:  
+We are looking for a clas of events with a proton and two photons in the final state:  
 
     D(e,e'p2𝛾X)
 
@@ -49,16 +49,6 @@ module use /scigroup/cvmfs/hallb/clas12/sw/modulefiles
 module purge
 module load sqlite/dev
 module load clas12
-
-
-# **(2) Comments**
---------------------------------------------------------
-
-## (2.1) $\gamma$ classification
-1. g1 - photon with higher energy
-2. g2 - photon with smaller energy
-
-
 
 
 # **(3) ToDo**

@@ -1,4 +1,4 @@
-// last edit Nov-24, 2023
+// last edit Dec-16, 2023
 
 #include <cstdlib>
 #include <iostream>
@@ -39,19 +39,19 @@ DCfid_SIDIS dcfid;
 
 // Results in CSV file d(e,e'p2𝛾X)
 TString csvheader = ( (TString)"status,runnum,evnum,"
-                     +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,"        // e
-                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,"        // p
-                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,"   // photon-1
-                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,"   // photon-2
+                     +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,e_DC_Chi2N,"         // e
+                     +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
+                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
+                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
                      +(TString)"Q2,xB,omega,W,M_x,q,"                       // kinematics
                      );
 
 std::vector<int> csvprecisions = {
     0,0,0,
-    4,4,4,4,0,
-    4,4,4,4,0,
-    4,4,4,4,0,
-    4,4,4,4,0,
+    4,4,4,4,0,4,
+    4,4,4,4,0,4,
+    4,4,4,4,0,4,
+    4,4,4,4,0,4,
     4,4,4,4,4,4
 };
 
@@ -61,9 +61,11 @@ std::vector<int> csvprecisions = {
 int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
-TLorentzVector   Beam_p4, target_p4, e_p4, q_p4, p_p4;
-TLorentzVector   p_rest;
-TLorentzVector   g1_p4, g2_p4; // gamma 1 and gamma 2
+TLorentzVector     Beam_p4, target_p4;
+TLorentzVector             e_p4, q_p4;
+TLorentzVector     p_p4, g1_p4, g2_p4;
+TLorentzVector                 p_rest;
+TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
@@ -281,7 +283,7 @@ void GetParticlesByType (){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void OpenResultFiles(){
-        
+    
     full_outcsvfilename = outfilepath + outfilename + "_eep2gX.csv";
     outcsvfile_eep2gX.open( full_outcsvfilename );
     outcsvfile_eep2gX << csvheader << std::endl;
@@ -340,42 +342,6 @@ void InitializeVariables(){
     DEBUG(5, "Done InitializeVariables()");
 }
 
-
-// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
-bool CheckIfProtonPassedSelectionCuts(){
-    DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
-    
-    DEBUG(3,"proton DC sector: %.0f, bending: %d",p_DC_sector, bending);
-    if (p_DC_sector == 0) return false;
-    for (int regionIdx=0; regionIdx<3; regionIdx++) {
-        DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",p_DC_x[regionIdx], p_DC_y[regionIdx], p_DC_sector);
-        bool DC_fid  = dcfid.DC_fid_xy_sidis(2212,               // particle PID,
-                                             p_DC_x[regionIdx],  // x
-                                             p_DC_y[regionIdx],  // y
-                                             p_DC_sector,        // sector
-                                             regionIdx+1,        // layer
-                                             bending);           // torus bending
-        DEBUG(3,"\tDC fid (region %d): %d",regionIdx, DC_fid);
-        if (DC_fid == false) {
-            return false;
-        }
-    }
-    
-//    ConfrontValueWithCut("p PCAL(W)",p_PCAL_W,aux.cutValue_p_PCAL_W);
-//    ConfrontValueWithCut("p PCAL(V)",p_PCAL_V,aux.cutValue_p_PCAL_V);
-//    ConfrontValueWithCut("p E-PCAL",p_E_PCAL,aux.cutValue_p_E_PCAL);
-//    ConfrontValueWithCut("Sampling Fraction minimum",(p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P(), aux.cutValue_SamplingFraction_min);
-//    ConfrontValueWithCut("p PCAL ECIN SF min",p_E_ECIN/p_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P());
-//    ConfrontValueWithCut("V(p)-z", Vp.Z(), aux.cutValue_Vz_min );
-    ConfrontValueWithCut("|Ve(z) - Vp(z)|", fabs((Ve-Vp).Z()), aux.cutValue_Ve_Vp_dz_max );
-    
-    if(!(true
-         // Cut on the z-Vertex Difference Between Electrons and Hadrons
-         &&  ( fabs((Ve-Vp).Z()) < aux.cutValue_Ve_Vp_dz_max )
-         )) return false;
-    
-    return true;
-}
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfElectronPassedSelectionCuts(){
@@ -465,7 +431,7 @@ void ExtractElectronInformation(){
     SetLorentzVector(e_p4 , electrons[leading_e_index]);
     // set leading electron vertex
     Ve              = GetParticleVertex( electrons[leading_e_index] );
-
+    
     // detector information on electron
     auto e_PCAL_info= electrons[leading_e_index]->cal(PCAL);
     e_E_PCAL        = e_PCAL_info->getEnergy();
@@ -480,7 +446,7 @@ void ExtractElectronInformation(){
     e_PCAL_x        = e_PCAL_info->getX();
     e_PCAL_y        = e_PCAL_info->getY();
     e_PCAL_z        = e_PCAL_info->getZ();
-        
+    
     // Drift Chamber tracking system
     auto e_DC_info  = electrons[leading_e_index]->trk(DC);
     e_DC_sector     = e_DC_info->getSector(); // tracking sector
@@ -505,12 +471,63 @@ void ExtractElectronInformation(){
     else                  {DEBUG(2, "** electron did not pass cuts succesfully **");}
 }
 
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+bool CheckIfProtonPassedSelectionCuts(){
+    DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
+    
+    DEBUG(3,"proton DC sector: %.0f, bending: %d",p_DC_sector, bending);
+    if (p_DC_sector == 0) return false;
+    for (int regionIdx=0; regionIdx<3; regionIdx++) {
+        DEBUG(3,"\t(x=%.1f,y=%.1f), sector: %.0f",p_DC_x[regionIdx], p_DC_y[regionIdx], p_DC_sector);
+        bool DC_fid  = dcfid.DC_fid_xy_sidis(2212,               // particle PID,
+                                             p_DC_x[regionIdx],  // x
+                                             p_DC_y[regionIdx],  // y
+                                             p_DC_sector,        // sector
+                                             regionIdx+1,        // layer
+                                             bending);           // torus bending
+        DEBUG(3,"\tDC fid (region %d): %d",regionIdx, DC_fid);
+        if (DC_fid == false) {
+            return false;
+        }
+    }
+    
+    //    ConfrontValueWithCut("p PCAL(W)",p_PCAL_W,aux.cutValue_p_PCAL_W);
+    //    ConfrontValueWithCut("p PCAL(V)",p_PCAL_V,aux.cutValue_p_PCAL_V);
+    //    ConfrontValueWithCut("p E-PCAL",p_E_PCAL,aux.cutValue_p_E_PCAL);
+    //    ConfrontValueWithCut("Sampling Fraction minimum",(p_E_PCAL + p_E_ECIN + p_E_ECOUT)/p_p4.P(), aux.cutValue_SamplingFraction_min);
+    //    ConfrontValueWithCut("p PCAL ECIN SF min",p_E_ECIN/p_p4.P(),aux.cutValue_PCAL_ECIN_SF_min - p_E_PCAL/p_p4.P());
+    //    ConfrontValueWithCut("V(p)-z", Vp.Z(), aux.cutValue_Vz_min );
+    ConfrontValueWithCut("|Ve(z) - Vp(z)|", fabs((Ve-Vp).Z()), aux.cutValue_Ve_Vp_dz_max );
+    
+    if(!(true
+         // Cut on the z-Vertex Difference Between Electrons and Hadrons
+         &&  ( fabs((Ve-Vp).Z()) < aux.cutValue_Ve_Vp_dz_max )
+         )) return false;
+    
+    return true;
+}
+
+// Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+bool CheckIfGammaPassedSelectionCuts(TVector3 Vg){
+    DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
+        
+    ConfrontValueWithCut("|Ve(z) - Vg(z)|", fabs((Ve-Vg).Z()), aux.cutValue_Ve_Vg_dz_max );
+    
+    if(!(true
+         // Cut on the z-Vertex Difference Between Electrons and Hadrons
+         &&  ( fabs((Ve-Vg).Z()) < aux.cutValue_Ve_Vg_dz_max )
+         )) return false;
+    
+    return true;
+}
+
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ExtractProtonInformation(){
     // ------------------------------------------------------------------------------------------------
-    // extract electron information
+    // extract proton info
     // ------------------------------------------------------------------------------------------------
-    // find leading electron as the one with highest energy
+    // find leading proton as the one with highest energy
     if (Np == 0) return;
     double  leading_p_E;
     int     leading_p_index = 0;
@@ -524,12 +541,12 @@ void ExtractProtonInformation(){
             leading_p_E     = Ep;
         }
     }
-    // set leading electron 4-momentum
+    // set leading proton 4-momentum
     SetLorentzVector(p_p4 , protons[leading_p_index]);
     // set leading proton vertex
     Vp              = GetParticleVertex( protons[leading_p_index] );
     
-    // detector information on electron
+    // detector information on proton
     auto p_PCAL_info= protons[leading_p_index]->cal(PCAL);
     p_E_PCAL        = p_PCAL_info->getEnergy();
     p_PCAL_sector   = p_PCAL_info->getSector();
@@ -565,6 +582,58 @@ void ExtractProtonInformation(){
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void ExtractGammasInformation(){
+    // ------------------------------------------------------------------------------------------------
+    // extract photon info
+    // ------------------------------------------------------------------------------------------------
+    // Gamma classification:
+    // we are restricting our analysis to events with one proton and two detected photons,
+    // where we note
+    // g1 - photon with higher energy
+    // g2 - photon with smaller energy
+    
+    if (Ng != 2) return;
+    SetLorentzVector(g1_p4,  gammas[0]);
+    Vg1 = GetParticleVertex( gammas[0] );
+    SetLorentzVector(g2_p4,  gammas[1]);
+    Vg2 = GetParticleVertex( gammas[1] );
+    
+    auto g1_DC_info  = gammas[0]->trk(DC);
+    g1_DC_Chi2N      = g1_DC_info->getChi2N();  // tracking chi^2/NDF
+    auto g2_DC_info  = gammas[1]->trk(DC);
+    g2_DC_Chi2N      = g2_DC_info->getChi2N();  // tracking chi^2/NDF
+    
+    
+    TLorentzVector g_tmp(0,0,0,0);
+    TVector3      Vg_tmp  (0,0,0);
+    double         g_tmp_DC_Chi2N;
+    
+    if (g2_p4.E() > g1_p4.E()) {
+        g_tmp  = g1_p4;
+        Vg_tmp = Vg1;
+        g_tmp_DC_Chi2N = g1_DC_Chi2N;
+        
+        g1_p4 = g2_p4;
+        Vg1   = Vg2;
+        g1_DC_Chi2N = g2_DC_Chi2N;
+        
+        g2_p4 = g_tmp;
+        Vg2   = Vg1;
+        g2_DC_Chi2N = g_tmp_DC_Chi2N;
+    }
+    DEBUG(2,"Extracted gamma information");
+    
+    g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
+    if (g1PastCutsInEvent){DEBUG(2, "** gamma-1 succesfully past cuts **"); Nevents_passed_g1_cuts++ ;}
+    else                  {DEBUG(2, "** gamma-1 did not pass cuts succesfully **");}
+    
+    g2PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg2);
+    if (g2PastCutsInEvent){DEBUG(2, "** gamma-2 succesfully past cuts **"); Nevents_passed_g2_cuts++ ;}
+    else                  {DEBUG(2, "** gamma-2 did not pass cuts succesfully **");}
+    
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ComputeElectronKinematics(){
     // compute event kinematics (from e-only information)
     q_p4    = Beam_p4 - e_p4;
@@ -572,6 +641,7 @@ void ComputeElectronKinematics(){
     omega   = q_p4.E();
     xB      = Q2/(2. * aux.Mp * q_p4.E());
     W       = sqrt((p_rest + q_p4).Mag2());
+    M_x     = ( (q_p4 + p_rest) - (p_q4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -586,13 +656,13 @@ void WriteEventToOutput(){
         std::vector<double> variables =
         {   (double)status, (double)runnum,     (double)evnum,
             e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
-            (double)e_DC_sector,
+            (double)e_DC_sector, e_DC_Chi2N,
             p_p4.P(),       p_p4.Theta(),       p_p4.Phi(),         Vp.Z(),
-            (double)p_DC_sector,
+            (double)p_DC_sector, p_DC_Chi2N,
             g1_p4.P(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),
-            (double)g1_DC_sector,
+            (double)g1_DC_sector, g1_DC_Chi2N,
             g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
-            (double)g2_DC_sector,
+            (double)g2_DC_sector, g2_DC_Chi2N,
             Q2, xB, omega,  W, M_x, q_p4.P(),
         };
         
@@ -655,32 +725,37 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             InitializeVariables();
             event++;
             DEBUG(3, "hipo entry %d", event);
-
+            
             if (event%PrintProgress==0 && (event > FirstEvent))
                 DEBUG(3,"Start processing %d/%d (run %d, event %d)",
                       (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
-
+            
             if (event > FirstEvent) {
-
+                
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
-
+                
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
                 gammas      = c12.getByID( 22   );
                 GetParticlesByType ();
-
+                
                 // filter events, extract information, and compute event kinematics
-                if(( 0 < Ne ) && ( Np == 1 ) && ( Ngammas == 2 ))   {
-
+                //
+                // we are restricting our analysis to events
+                // with exactly one proton and exactly two detected photons
+                //
+                if(( Ne > 0) && ( Np == 1 ) && ( Ngammas == 2 ))   {
+                    
                     DEBUG(2,"Extracting information...");
                     ExtractElectronInformation  ();
                     ComputeElectronKinematics   ();
                     ExtractProtonInformation    ();
+                    ExtractGammasInformation    ();
                     WriteEventToOutput          ();
                     DEBUG(2,"Done extracting information...");
-
+                    
                 } else {
                     DEBUG(2,"Skipped computation, since N(e)=%d, N(p)=%d, N(gamma)=%d",Ne,Np,Ngammas);
                 }
@@ -692,7 +767,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             } // end if (event%PrintProgress==0 && (event > FirstEvent))
         }// end event loop
     } // end file loop
-                
+    
     FinishProgram();
     DEBUG(1, "\nDone main.\n");
 } // end main
