@@ -269,7 +269,7 @@ void SetFileNames(int RunNumber=6164) {
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void LoadCutValues(TString cutFilename = "cuts/cutValues_16Dec2024.csv") {
     // read cut values
-    aux.loadCutValues(cutFilename,torusBending);
+    aux.loadCutValues(cutFilename.Data(),torusBending);
 }
 
 
