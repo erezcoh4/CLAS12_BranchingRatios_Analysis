@@ -298,6 +298,11 @@ void OpenResultFiles(){
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void InitializeVariables(){
     DEBUG(5, "InitializeVariables()");
+    Beam    .SetPxPyPzE (0, 0, Ebeam, Ebeam );
+    target  .SetXYZM    (0, 0, 0,     aux.Md    );
+    p_rest  .SetXYZM    (0, 0, 0,     aux.Mp    );
+
+    
     electrons   .clear();
     protons     .clear();
     gammas      .clear();
@@ -601,7 +606,7 @@ void ExtractGammasInformation(){
     SetLorentzVector(g2_p4,  gammas[1]);
     Vg2 = GetParticleVertex( gammas[1] );
     
-    DEBUG(3, "g1_p4.E(): %.1f GeV, g2_p4.E(): %.1f GeV, Vg1.Z(): %.1f cm, Vg2.Z(): %.1f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
+    DEBUG(3, "g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     
     auto g1_DC_info  = gammas[0]->trk(DC);
     g1_DC_Chi2N      = g1_DC_info->getChi2N();  // tracking chi^2/NDF
@@ -626,7 +631,7 @@ void ExtractGammasInformation(){
         Vg2   = Vg1;
         g2_DC_Chi2N = g_tmp_DC_Chi2N;
     }
-    DEBUG(3, "after swap g1_p4.E(): %.1f GeV, g2_p4.E(): %.1f GeV, Vg1.Z(): %.1f cm, Vg2.Z(): %.1f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
+    DEBUG(3, "after swap g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
