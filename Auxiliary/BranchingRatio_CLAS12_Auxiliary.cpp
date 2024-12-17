@@ -69,6 +69,7 @@ void BranchingRatio_CLAS12_Auxiliary::loadCutValues(std::string cutValuesFilenam
     cutValue_Pp_max                 = FindCutValue("Pp_max");
 
     cutValue_Ve_Vp_dz_max           = FindCutValue("(Ve-Vp)_z_max");
+    cutValue_Ve_Vg_dz_max           = FindCutValue("(Ve-Vg)_z_max");
 
     if (fdebug>2) { printCutValues(); }
 }
@@ -84,19 +85,20 @@ void BranchingRatio_CLAS12_Auxiliary::printCutValues(){
     "e_E_PCAL: "                << cutValue_e_E_PCAL                << ", " << std::endl <<
     "SamplingFraction_min: "    << cutValue_SamplingFraction_min    << ", " << std::endl <<
     "PCAL_ECIN_SF_min: "        << cutValue_PCAL_ECIN_SF_min        << ", " << std::endl <<
-    "Ve_Vp_dz_max: "           << cutValue_Ve_Vp_dz_max           << ", " << std::endl <<
+    "(Ve-Vp)_z_max: "           << cutValue_Ve_Vp_dz_max           << ", " << std::endl <<
     "Q2_min: "                  << cutValue_Q2_min                  << ", " << std::endl <<
     "Q2_max: "                  << cutValue_Q2_max                  << ", " << std::endl <<
     "W_min: "                   << cutValue_W_min                   << ", " << std::endl <<
     "y_max: "                   << cutValue_y_max                   << ", " << std::endl <<
     "e_theta_min: "             << cutValue_e_theta_min             << ", " << std::endl <<
     "e_theta_max: "             << cutValue_e_theta_max             << ", " << std::endl <<
-    "p_theta_min: "            << cutValue_p_theta_min            << ", " << std::endl <<
-    "p_theta_max: "            << cutValue_p_theta_max            << ", " << std::endl <<
-    "Pp_min: "                 << cutValue_Pp_min                 << ", " << std::endl <<
-    "Pp_max: "                 << cutValue_Pp_max                 << ", " << std::endl <<
+    "p_theta_min: "             << cutValue_p_theta_min            << ", " << std::endl <<
+    "p_theta_max: "             << cutValue_p_theta_max            << ", " << std::endl <<
+    "Pp_min: "                  << cutValue_Pp_min                 << ", " << std::endl <<
+    "Pp_max: "                  << cutValue_Pp_max                 << ", " << std::endl <<
     "Pe_min: "                  << cutValue_Pe_min                  << ", " << std::endl <<
     "Pe_max: "                  << cutValue_Pe_max                  << ", " << std::endl <<
+    "(Ve-Vg)_z_max: "           << cutValue_Ve_Vg_dz_max           << ", " << std::endl <<
     std::endl;
 }
 
