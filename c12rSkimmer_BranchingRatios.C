@@ -512,7 +512,7 @@ bool CheckIfProtonPassedSelectionCuts(){
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfGammaPassedSelectionCuts(TVector3 Vg){
-    DEBUG(3,"CheckIfProtonPassedSelectionCuts()");
+    DEBUG(3,"CheckIfGammaPassedSelectionCuts()");
         
     ConfrontValueWithCut("|Ve(z) - Vg(z)|", fabs((Ve-Vg).Z()), aux.cutValue_Ve_Vg_dz_max );
     
@@ -626,6 +626,7 @@ void ExtractGammasInformation(){
         Vg2   = Vg1;
         g2_DC_Chi2N = g_tmp_DC_Chi2N;
     }
+    DEBUG(3, "after swap g1_p4.E(): %.1f GeV, g2_p4.E(): %.1f GeV, Vg1.Z(): %.1f cm, Vg2.Z(): %.1f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
