@@ -61,7 +61,7 @@ std::vector<int> csvprecisions = {
 int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
-TLorentzVector                 p_rest;
+TLorentzVector              p_rest_p4;
 TLorentzVector     Beam_p4, target_p4;
 TLorentzVector       e_p4, q_p4, p_p4;
 TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
@@ -235,7 +235,8 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetTarget (){
-    p_rest.SetXYZM (0, 0, 0, aux.Mp);
+    p_rest_p4.SetXYZM (0, 0, 0, aux.Mp);
+    target_p4.SetXYZM (0, 0, 0, aux.Md);
 }
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -298,9 +299,7 @@ void OpenResultFiles(){
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void InitializeVariables(){
     DEBUG(5, "InitializeVariables()");
-    Beam    .SetPxPyPzE (0, 0, Ebeam, Ebeam );
-    target  .SetXYZM    (0, 0, 0,     aux.Md    );
-    p_rest  .SetXYZM    (0, 0, 0,     aux.Mp    );
+    Beam_p4    .SetPxPyPzE (0, 0, Ebeam, Ebeam );
 
     
     electrons   .clear();
@@ -652,8 +651,8 @@ void ComputeKinematics(){
     Q2      = -q_p4.Mag2();
     omega   = q_p4.E();
     xB      = Q2/(2. * aux.Mp * q_p4.E());
-    W       = sqrt((p_rest + q_p4).Mag2());
-    M_x     = ( (q_p4 + p_rest) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
+    W       = sqrt((p_rest_p4 + q_p4).Mag2());
+    M_x     = ( (q_p4 + p_rest_p4) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
     DEBUG(3, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
