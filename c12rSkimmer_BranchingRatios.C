@@ -646,6 +646,49 @@ void ComputeElectronKinematics(){
     W       = sqrt((p_rest + q_p4).Mag2());
     M_x     = ( (q_p4 + p_rest) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
 }
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void PrintVariables(){
+    std::cout <<
+    "run " << runnum << ","
+    "event " << evnum << ","
+    << std::endl << "electron: " << std::endl
+    "p: "           << e_p4.P()                 << " GeV/c, "
+    "𝜃: "           << e_p4.Theta()*180./3.14   << " deg., "
+    "ϕ "            << e_p4.Phi()*180./3.14     << " deg., "
+    "V(z) "         << Ve.Z()                   << " cm, "
+    "DC-sector: "   << e_DC_sector              << ", "
+    "χ2/NDF "       << e_DC_Chi2N               << ", "
+    << std::endl << "proton: " << std::endl
+    "p: "           << p_p4.P()                 << " GeV/c ,"
+    "𝜃: "           << p_p4.Theta()*180./3.14   << " deg., "
+    "ϕ "            << p_p4.Phi()*180./3.14     << " deg., "
+    "V(z) "         << Vp.Z()                   << " cm, "
+    "DC-sector: "   << p_DC_sector              << ", "
+    "χ2/NDF "       << p_DC_Chi2N               << ", "
+    << std::endl << "g1: " << std::endl
+    "p: "           << g1_p4.P()                 << " GeV/c, "
+    "𝜃: "           << g1_p4.Theta()*180./3.14   << " deg., "
+    "ϕ "            << g1_p4.Phi()*180./3.14     << " deg., "
+    "V(z) "         << Vg1.Z()                   << " cm, "
+    "DC-sector: "   << g1_DC_sector              << ", "
+    "χ2/NDF "       << g1_DC_Chi2N               << ", "
+    << std::endl << "g2: " << std::endl
+    "p: "           << g2_p4.P()                 << " GeV/c,"
+    "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
+    "ϕ "            << g2_p4.Phi()*180./3.14     << " deg.,"
+    "V(z) "         << Vg2.Z()                   << " cm,"
+    "DC-sector: "   << g2_DC_sector              << ","
+    "χ2/NDF "       << g2_DC_Chi2N               << ","
+    << std::endl
+    "Q2: "          << Q2                       << " (GeV/c)2, "
+    "xB: "          << xB                       << " , "
+    "ω: "           << omega                    << " GeV, "
+    "W: "           << W                        << " GeV/c2, "
+    "Mx: "          << M_x                      << " GeV/c2, "
+    "q: "           << q_p4.P()                 << " GeV/c, "
+    << std::endl;
+}
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void WriteEventToOutput(){
@@ -668,13 +711,11 @@ void WriteEventToOutput(){
             (double)g2_DC_sector, g2_DC_Chi2N,
             Q2, xB, omega,  W, M_x, q_p4.P(),
         };
-        
+        DEBUG(3,"--- -- - electron, proton, 𝛾1 and 𝛾2 passed cuts, writing (e,e'p2𝛾)X event - -- ---");
+        if (verbosity > 4) PrintVariables();
         aux.StreamToCSVfile(outcsvfile_eep2gX,
                             variables,
                             csvprecisions );
-        
-        DEBUG(3,"electron, proton, and 𝛾1 and 𝛾2 passed cuts, writing (e,e'p2𝛾)X event");
-        
     }
     
 }
