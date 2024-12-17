@@ -43,7 +43,7 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
                      +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
-                     +(TString)"Q2,xB,omega,W,M_x,q,"                       // kinematics
+                     +(TString)"Q2,xB,omega,W,M_x,q,M2g,"                               // kinematics
                      );
 
 std::vector<int> csvprecisions = {
@@ -52,7 +52,7 @@ std::vector<int> csvprecisions = {
     4,4,4,4,0,4,
     4,4,4,4,0,4,
     4,4,4,4,0,4,
-    4,4,4,4,4,4
+    4,4,4,4,4,4,4
 };
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -120,10 +120,10 @@ bool     g2PastCutsInEvent;
 
 // kinematics
 double xB, Q2, omega, W, M_x;
+double M2g; // invariant mass of the two photons M2g = |g1_p4 + g2_p4|
 double Pe_phi, Pe_theta;
 double q_phi,   q_theta;
 double Pp_phi, Pp_theta;
-
 bool    eepPastCutsInEvent;
 
 
@@ -605,7 +605,7 @@ void ExtractGammasInformation(){
     SetLorentzVector(g2_p4,  gammas[1]);
     Vg2 = GetParticleVertex( gammas[1] );
     
-    DEBUG(3, "g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
+    DEBUG(5, "g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     
     auto g1_DC_info  = gammas[0]->trk(DC);
     g1_DC_Chi2N      = g1_DC_info->getChi2N();  // tracking chi^2/NDF
@@ -629,8 +629,8 @@ void ExtractGammasInformation(){
         g2_p4 = g_tmp;
         Vg2   = Vg1;
         g2_DC_Chi2N = g_tmp_DC_Chi2N;
+        DEBUG(5, "after swap g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     }
-    DEBUG(3, "after swap g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
@@ -653,7 +653,8 @@ void ComputeKinematics(){
     xB      = Q2/(2. * aux.Mp * q_p4.E());
     W       = sqrt((p_rest_p4 + q_p4).Mag2());
     M_x     = ( (q_p4 + p_rest_p4) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
-    DEBUG(3, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
+    M2g     = (g1_p4 + g2_p4).M();
+    DEBUG(5, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PrintVariables(){
@@ -695,6 +696,8 @@ void PrintVariables(){
     "W: "           << W                        << " GeV/c2, "
     "Mx: "          << M_x                      << " GeV/c2, "
     "q: "           << q_p4.P()                 << " GeV/c, "
+    << std::endl    <<
+    "M2g: "         << M2g                      << " GeV/c2, "
     << std::endl;
 }
 
@@ -719,6 +722,7 @@ void WriteEventToOutput(){
             g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
             (double)g2_DC_sector, g2_DC_Chi2N,
             Q2, xB, omega,  W, M_x, q_p4.P(),
+            M2g,
         };
         DEBUG(3,"--- -- - electron, proton, 𝛾1 and 𝛾2 passed cuts, writing (e,e'p2𝛾)X event - -- ---");
         if (verbosity > 4) PrintVariables();

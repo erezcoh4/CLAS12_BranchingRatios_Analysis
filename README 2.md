@@ -59,6 +59,11 @@ module load clas12
 1. g1 - photon with higher energy
 2. g2 - photon with smaller energy
 
+## (2.2) observables and output variables
+
+**Name** calculation                definition
+
+**M2g**  (g1_p4 + g2_p4).M();       invariant mass of the two photons M2g = |g1_p4 + g2_p4|
 
 
 
