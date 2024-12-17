@@ -1,4 +1,4 @@
-// last edit Dec-16, 2023
+// last edit Dec-17, 2024
 
 #include <cstdlib>
 #include <iostream>
@@ -679,7 +679,7 @@ void PrintVariables(){
     "V(z) "         << Vg2.Z()                   << " cm,"
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
-    << std::endl
+    << std::endl    << 
     "Q2: "          << Q2                       << " (GeV/c)2, "
     "xB: "          << xB                       << " , "
     "ω: "           << omega                    << " GeV, "

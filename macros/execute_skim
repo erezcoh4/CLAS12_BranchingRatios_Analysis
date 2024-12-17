@@ -3,12 +3,12 @@
 # previously: /usr/bin/env python
 
 '''
-    last edit Dec-12, 2024 (EOC)
+    last edit Dec-17, 2024 (EOC)
 
     execute:
     ------------
 
-    git pull && python ./macros/execute_skim --fdebug=4 --no-email --NeventsMax=44
+    git pull && python ./macros/execute_skim --fdebug=4 --no-email --NeventsMax=100
     
     execute_skim --Ebeam=10.4 --Nruns=1 --fdebug=2 --FirstEvent=10 --NeventsMax=10 --no-email
 

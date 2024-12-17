@@ -1,5 +1,5 @@
 
-// last edit Dec-5, 2024 (EOC)
+// last edit Dec-17, 2024 (EOC)
 
 #include "BranchingRatio_CLAS12_Auxiliary.h"
 #define r2d 180./3.1415 // radians to degrees

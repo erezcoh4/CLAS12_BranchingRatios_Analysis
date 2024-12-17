@@ -1,30 +1,9 @@
 
 
 
-// EOC, Dec-5, 2024
+// EOC, Dec-17, 2024
 #ifndef __BranchingRatio_CLAS12_Auxiliary_H__
 #define __BranchingRatio_CLAS12_Auxiliary_H__
-//
-//#include <cstdlib>
-//#include <iostream>
-//#include <iomanip>
-//#include <chrono>
-//#include <TFile.h>
-//#include <TTree.h>
-//#include <TApplication.h>
-//#include <TROOT.h>
-//#include <TDatabasePDG.h>
-//#include <TLorentzVector.h>
-//#include <TVector3.h>
-//#include <TH1.h>
-//#include <TChain.h>
-//#include <TCanvas.h>
-//#include <TBenchmark.h>
-//#include <sstream>
-//#include <fstream>
-//#include <iostream>
-//#include "clas12reader.h"
-//#include "csv_reader.h"
 
 #include "csv_reader.h"
 #include <sstream>
