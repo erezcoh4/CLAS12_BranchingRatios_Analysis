@@ -594,7 +594,7 @@ void ExtractGammasInformation(){
     // g1 - photon with higher energy
     // g2 - photon with smaller energy
     
-    if (Ngammas adfd!= 2) return;
+    if (Ngammas != 2) return;
     SetLorentzVector(g1_p4,  gammas[0]);
     Vg1 = GetParticleVertex( gammas[0] );
     SetLorentzVector(g2_p4,  gammas[1]);
