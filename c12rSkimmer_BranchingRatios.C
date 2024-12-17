@@ -61,10 +61,9 @@ std::vector<int> csvprecisions = {
 int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
-TLorentzVector     Beam_p4, target_p4;
-TLorentzVector             e_p4, q_p4;
-TLorentzVector     p_p4, g1_p4, g2_p4;
 TLorentzVector                 p_rest;
+TLorentzVector     Beam_p4, target_p4;
+TLorentzVector       e_p4, q_p4, p_p4;
 TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
 TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
 TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
@@ -88,7 +87,10 @@ int               DC_layer, status;
 int               DC_layers[3] = {6,18,36};// Region 1 is denoted at DC detector 6, Region 2 is denoted 18, Region 3 - as 36
 int      Nevents_passed_e_cuts = 0;
 int      Nevents_passed_p_cuts = 0;
+int     Nevents_passed_g1_cuts = 0;
+int     Nevents_passed_g2_cuts = 0;
 int    Nevents_passed_eep_cuts = 0;
+int  Nevents_passed_eep2g_cuts = 0;
 
 // leading electron
 // electron energy deposit in PCAL [GeV], in ECAL_in [GeV], in ECAL_out [GeV]...
@@ -641,7 +643,7 @@ void ComputeElectronKinematics(){
     omega   = q_p4.E();
     xB      = Q2/(2. * aux.Mp * q_p4.E());
     W       = sqrt((p_rest + q_p4).Mag2());
-    M_x     = ( (q_p4 + p_rest) - (p_q4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
+    M_x     = ( (q_p4 + p_rest) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
