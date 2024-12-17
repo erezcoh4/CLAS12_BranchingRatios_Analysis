@@ -652,7 +652,7 @@ void WriteEventToOutput(){
     // (Maybe) write this event to "selected events csv-file"
     bool IsSelected = false;
     
-    if (ePastCutsInEvent && pPastCutsInEvent) {
+    if (ePastCutsInEvent && pPastCutsInEvent && g1PastCutsInEvent && g2PastCutsInEvent) {
         IsSelected = true;
         Nevents_passed_eep_cuts ++ ;
         
@@ -673,7 +673,7 @@ void WriteEventToOutput(){
                             variables,
                             csvprecisions );
         
-        DEBUG(3,"writing (e,e'p) event");
+        DEBUG(3,"electron, proton, and 𝛾1 and 𝛾2 passed cuts, writing (e,e'p2𝛾)X event");
         
     }
     
