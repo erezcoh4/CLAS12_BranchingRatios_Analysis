@@ -783,8 +783,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             event++;
             DEBUG(3, "hipo entry %d", event);
             
-            if (event%PrintProgress==0 && (event > FirstEvent))
-                DEBUG(0,"Start processing %d/%d (run %d, event %d)",
+            if ((event%PrintProgress==0) && (event > FirstEvent))
+                DEBUG(3,"Start processing %d/%d (run %d, event %d)",
                       (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
             
             if (event > FirstEvent) {
@@ -818,8 +818,8 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
                 }
                 //                Nevents_processed++;
             } // end if (event > FirstEvent)
-            if (event%PrintProgress==0 && (event > FirstEvent)){
-                DEBUG(1,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
+            if ((event%PrintProgress==0) && (event > FirstEvent)){
+                DEBUG(0,"Done %d/%d",(event-FirstEvent),NeventsMaxToProcess);
                 DEBUG(3,"----------------------------------------------------------");
             } // end if (event%PrintProgress==0 && (event > FirstEvent))
         }// end event loop
