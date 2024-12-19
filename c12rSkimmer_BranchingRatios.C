@@ -1,4 +1,4 @@
-// last edit Dec-17, 2024
+// d(e,e'p𝛾𝛾)X - last edit Dec-19, 2024
 
 #include <cstdlib>
 #include <iostream>
@@ -42,8 +42,11 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,e_DC_Chi2N,"         // e
                      +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
+                     +(TString)"g1_E_PCAL","g1_E_ECIN","g1_E_ECOUT,"
                      +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
-                     +(TString)"Q2,xB,omega,W,M_x,q,M2g,"                               // kinematics
+                     +(TString)"g2_E_PCAL","g2_E_ECIN","g2_E_ECOUT,"
+                     +(TString)"Q2,xB,omega,q,"                                         // kinematics
+                     +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
                      );
 
 std::vector<int> csvprecisions = {
@@ -51,8 +54,11 @@ std::vector<int> csvprecisions = {
     4,4,4,4,0,4,
     4,4,4,4,0,4,
     4,4,4,4,0,4,
+    4,4,4,
     4,4,4,4,0,4,
-    4,4,4,4,4,4,4
+    4,4,4,
+    4,4,4,4,
+    4,4,4,4,4,
 };
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -65,22 +71,20 @@ TLorentzVector              p_rest_p4;
 TLorentzVector     Beam_p4, target_p4;
 TLorentzVector       e_p4, q_p4, p_p4;
 TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
-TLorentzVector*    reco_pi0_p4 = NULL; // best fit pi0
-TLorentzVector*    reco_eta_p4 = NULL; // best fit eta
 std::vector<region_part_ptr>  electrons, protons, gammas;
-int                Ne, Np, Ngammas;
-int          Nevents_processed = 0;
-int                   evnum, runnum;
-int               torusBending = -1; // -1 for In-bending, +1 for Out-bending
-int bending  = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
+int                   Ne, Np, Ngammas;
+int             Nevents_processed = 0;
+int                     evnum, runnum;
+int                 torusBending = -1; // -1 for In-bending, +1 for Out-bending
+int  bending = 1 ? (torusBending==-1) : 0; // bending: 0(out)/1(in)
 
-float                         Ebeam;
-TString               Skimming = "";
-TString                 prefix = "";
-TString               DataPath = "";
+float                          Ebeam;
+TString                Skimming = "";
+TString                  prefix = "";
+TString                DataPath = "";
 TString infilename, outfilepath, outfilename;
-TString    full_outcsvfilename = "";
-ofstream          outcsvfile_eep2gX;
+TString     full_outcsvfilename = "";
+ofstream           outcsvfile_eep2gX;
 
 // detector features
 int               DC_layer, status;
@@ -119,12 +123,15 @@ bool     g2PastCutsInEvent;
 
 
 // kinematics
-double xB, Q2, omega, W, M_x;
-double M2g; // invariant mass of the two photons M2g = |g1_p4 + g2_p4|
+double xB, Q2, omega, W;
+double         M_x_peep; // invariant mass of the p(e,e'p) reaction
+double         M_x_deep; // invariant mass of the d(e,e'p) reaction
+double       M_x_deep2g; // invariant mass of the d(e,e'p2𝛾) reaction
+double              Mgg; // invariant mass of the two photons Mgg = |g1_p4 + g2_p4|
 double Pe_phi, Pe_theta;
 double q_phi,   q_theta;
 double Pp_phi, Pp_theta;
-bool    eepPastCutsInEvent;
+bool eepPastCutsInEvent;
 
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
@@ -300,7 +307,7 @@ void OpenResultFiles(){
 void InitializeVariables(){
     DEBUG(5, "InitializeVariables()");
     Beam_p4    .SetPxPyPzE (0, 0, Ebeam, Ebeam );
-
+    
     
     electrons   .clear();
     protons     .clear();
@@ -311,8 +318,8 @@ void InitializeVariables(){
     
     DEBUG(4, "Initialize electron...");
     e_p4 = TLorentzVector(0,0,0,aux.Me);
-    xB  = Q2  = omega     = -9999;
-    W   = M_x             = -9999;
+    xB  = Q2  = omega                   = -9999;
+    W   = M_x_deep   = M_x_deep2g       = -9999;
     e_E_ECIN    = e_E_ECOUT = e_E_PCAL  = -9999;
     e_PCAL_W    = e_PCAL_V              = -9999;
     e_PCAL_x    = e_PCAL_y  = e_PCAL_z  = -9999;
@@ -517,7 +524,7 @@ bool CheckIfProtonPassedSelectionCuts(){
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 bool CheckIfGammaPassedSelectionCuts(TVector3 Vg){
     DEBUG(3,"CheckIfGammaPassedSelectionCuts()");
-        
+    
     ConfrontValueWithCut("|Ve(z) - Vg(z)|", fabs((Ve-Vg).Z()), aux.cutValue_Ve_Vg_dz_max );
     
     if(!(true
@@ -612,25 +619,17 @@ void ExtractGammasInformation(){
     auto g2_DC_info  = gammas[1]->trk(DC);
     g2_DC_Chi2N      = g2_DC_info->getChi2N();  // tracking chi^2/NDF
     
+    //  From [https://doi.org/10.1016/j.nima.2020.163419]
+    //  Electromagnetic Calorimeters (ECAL)
+    //  The CLAS12 detector package uses the existing electromagnetic calorimeter (EC) of the CLAS detector [14] and a new pre-shower calorimeter (PCAL) installed in front of the EC. Together the PCAL and EC are referred to as the ECAL. The calorimeters in CLAS12 are used primarily for the identification and kinematical reconstruction of electrons, photons (e.g. from π0 → γγ and η → γγ decays),and neutrons.
+    // detector information on electron
+    g1_E_PCAL       = gammas[0]->cal(PCAL) ->getEnergy();
+    g1_E_ECIN       = gammas[0]->cal(ECIN) ->getEnergy();
+    g1_E_ECOUT      = gammas[0]->cal(ECOUT)->getEnergy();
+    g2_E_PCAL       = gammas[1]->cal(PCAL) ->getEnergy();
+    g2_E_ECIN       = gammas[1]->cal(ECIN) ->getEnergy();
+    g2_E_ECOUT      = gammas[1]->cal(ECOUT)->getEnergy();
     
-    TLorentzVector g_tmp(0,0,0,0);
-    TVector3      Vg_tmp  (0,0,0);
-    double         g_tmp_DC_Chi2N;
-    
-    if (g2_p4.E() > g1_p4.E()) {
-        g_tmp  = g1_p4;
-        Vg_tmp = Vg1;
-        g_tmp_DC_Chi2N = g1_DC_Chi2N;
-        
-        g1_p4 = g2_p4;
-        Vg1   = Vg2;
-        g1_DC_Chi2N = g2_DC_Chi2N;
-        
-        g2_p4 = g_tmp;
-        Vg2   = Vg1;
-        g2_DC_Chi2N = g_tmp_DC_Chi2N;
-        DEBUG(5, "after swap g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
-    }
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
@@ -641,21 +640,59 @@ void ExtractGammasInformation(){
     if (g2PastCutsInEvent){DEBUG(2, "** gamma-2 succesfully past cuts **"); Nevents_passed_g2_cuts++ ;}
     else                  {DEBUG(2, "** gamma-2 did not pass cuts succesfully **");}
     
+    
+    
+    
+    // data on the gamma-ray shower from the CND
+    // Particles scattered from the target at polar an gles in the range from 35◦ to 125◦ are detected in the Central Detector with its own particle identification and tracking detectors. Charged particlesare tracked in the Central Vertex Tracker (CVT)and detected in the Central Time-of-Flight (CTOF) detector with full 360◦ coverage in azimuthal angle. Neutron detection is provided by the Central Neutron Detector (CND) located radially outside of the CVT and the CTOF.
+    //
+    //    gammas[i]->sci(CTOF)->getEnergy();
+    //    gammas[i]->sci(CND1)->getEnergy();
+    //    gammas[i]->sci(CND2)->getEnergy();
+    //    gammas[i]->sci(CND3)->getEnergy();
+    
+    
+    // Swap g1 and g2 if (E(g2) > E(g1))
+    // ----------------------------------------
+    // This is redundant since the detected particle array is
+    // already ordered by energy,
+    // and gammas[0] is always more energetic then gammas[1]
+    //    TLorentzVector g_tmp(0,0,0,0);
+    //    TVector3      Vg_tmp  (0,0,0);
+    //    double         g_tmp_DC_Chi2N;
+    //
+    //    if (g2_p4.E() > g1_p4.E()) {
+    //        g_tmp  = g1_p4;
+    //        Vg_tmp = Vg1;
+    //        g_tmp_DC_Chi2N = g1_DC_Chi2N;
+    //
+    //        g1_p4 = g2_p4;
+    //        Vg1   = Vg2;
+    //        g1_DC_Chi2N = g2_DC_Chi2N;
+    //
+    //        g2_p4 = g_tmp;
+    //        Vg2   = Vg1;
+    //        g2_DC_Chi2N = g_tmp_DC_Chi2N;
+    //        DEBUG(5, "after swap g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
+    //    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ComputeKinematics(){
     // compute event kinematics
     DEBUG(3, "ComputeKinematics()");
-    q_p4    = Beam_p4 - e_p4;
-    Q2      = -q_p4.Mag2();
-    omega   = q_p4.E();
-    xB      = Q2/(2. * aux.Mp * q_p4.E());
-    W       = sqrt((p_rest_p4 + q_p4).Mag2());
-    M_x     = ( (q_p4 + p_rest_p4) - (p_p4 + g1_p4 + g2_p4) ).Mag(); // Mx_eep2gX
-    M2g     = (g1_p4 + g2_p4).M();
+    q_p4        = Beam_p4 - e_p4;
+    Q2          = -q_p4.Mag2();
+    omega       = q_p4.E();
+    xB          = Q2/(2. * aux.Mp * q_p4.E());
+    W           = sqrt((p_rest_p4 + q_p4).Mag2());
+    M_x_peep    = ( (q_p4 + p_rest_p4) - (p_p4) ).Mag();
+    M_x_deep    = ( (q_p4 + d_rest_p4) - (p_p4) ).Mag();
+    M_x_deep2g  = ( (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g1_p4 + g2_p4) ).Mag();
+    Mgg         = (g1_p4 + g2_p4).M();
     DEBUG(5, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PrintVariables(){
     std::cout <<
@@ -690,17 +727,19 @@ void PrintVariables(){
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
     << std::endl    <<
-    "Q2: "          << Q2                       << " (GeV/c)2, "
+    "Q2: "          << Q2                       << " (GeV/c)², "
     "xB: "          << xB                       << " , "
     "ω: "           << omega                    << " GeV, "
-    "W: "           << W                        << " GeV/c2, "
-    "Mx: "          << M_x                      << " GeV/c2, "
+    "W: "           << W                        << " GeV/c², "
     "q: "           << q_p4.P()                 << " GeV/c, "
     << std::endl    <<
-    "M2g: "         << M2g                      << " GeV/c2, "
+    "Mx(ep->e'p): " << M_x_peep                 << " GeV/c², "
+    "Mx(ed->e'p): " << M_x_peep                 << " GeV/c², "
+    "Mx(ed->e'p𝛾𝛾): "<< M_x_peep                 << " GeV/c², "
+    << std::endl    <<
+    "M𝛾𝛾: "         << Mgg                      << " GeV/c², "
     << std::endl;
 }
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void WriteEventToOutput(){
@@ -719,12 +758,14 @@ void WriteEventToOutput(){
             (double)p_DC_sector, p_DC_Chi2N,
             g1_p4.P(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),
             (double)g1_DC_sector, g1_DC_Chi2N,
+            g1_E_PCAL,      g1_E_ECIN,          g1_E_ECOUT,
             g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
             (double)g2_DC_sector, g2_DC_Chi2N,
-            Q2, xB, omega,  W, M_x, q_p4.P(),
-            M2g,
+            g2_E_PCAL,      g2_E_ECIN,          g2_E_ECOUT,
+            Q2,             xB,                 omega,              q_p4.P(),
+            W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
         };
-        DEBUG(3,"--- -- - electron, proton, 𝛾1 and 𝛾2 passed cuts, writing (e,e'p2𝛾)X event - -- ---");
+        DEBUG(3,"--- -- - electron, proton, 𝛾₁ and 𝛾₂ passed cuts, writing (e,e'p𝛾𝛾)X event - -- ---");
         if (verbosity > 4) PrintVariables();
         aux.StreamToCSVfile(outcsvfile_eep2gX,
                             variables,

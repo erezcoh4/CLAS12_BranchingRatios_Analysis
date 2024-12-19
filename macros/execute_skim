@@ -9,6 +9,8 @@
     ------------
 
     git pull && python ./macros/execute_skim --fdebug=5 --no-email --NeventsMax=69
+    git pull && python ./macros/execute_skim --fdebug=1 --NeventsMax=-1
+    git pull && python ./macros/execute_skim --fdebug=2 --PrintProgress=10000 --NeventsMax=-1
     
     execute_skim --Ebeam=10.4 --Nruns=1 --fdebug=2 --FirstEvent=10 --NeventsMax=10 --no-email
 
@@ -109,7 +111,7 @@ print('done execute skim.')
 print('')
 if args.no_email==False:#{
     mailtitle = 'Done processing execute_skim'
-    mailbody  = ('Processed %s - %d runs, see ....'%( DataPath, Nruns))
+    mailbody  = ('Processed %s - %d runs, see /volatile/clas12/users/ecohen/RGB/'%( DataPath, Nruns))
     emailstr = ('echo %s | mail -s %s cohen.erez7@gmail.com'%(mailbody,mailtitle) )
     os.system(emailstr)
 #}
