@@ -92,14 +92,15 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 **g2_Vz**
 **g2_DC_sector**
 **g2_DC_Chi2N**
-**Q2**          -q_p4.Mag2()            momentum transfer
-**xB**          Q2/(2*Mp*q_p4.E())      Bjorken x
-**omega**       q_p4.E()                energy transfer in the (e,e') reaction
-**q**           q_p4.P()                momentum transfer in the (e,e') reaction
-**W**           sqrt((p_rest_p4 + q_p4).Mag2()); invariant mass  of the (e,e'p) reaction
-**M_x**         ((q_p4 + p_rest_p4) - (p_p4 + g1_p4 + g2_p4)).Mag();      missing mass of the (e,e'p2𝛾X) reaction
-**M2g**         (g1_p4 + g2_p4).M();    invariant mass of the two photons M2g = |g1_p4 + g2_p4|, in [GeV/c]
-
+**Q2**          -q_p4.Mag2()                                            momentum transfer
+**xB**          Q2/(2*Mp*q_p4.E())                                      Bjorken x
+**omega**       q_p4.E()                                                energy transfer in the (e,e') reaction
+**q**           q_p4.P()                                                momentum transfer in the (e,e') reaction
+**W**           sqrt((p_rest_p4 + q_p4).Mag2());                        invariant mass  of the (e,e'p) reaction
+**M2g**         (g1_p4 + g2_p4).M();                                    invariant mass of the two photons M2g = |g1_p4 + g2_p4|, in [GeV/c]
+**M_x_peep**    ((q_p4 + p_rest_p4) - (p_p4)).Mag();                    missing mass of the p(e,e'p) reaction
+**M_x_deep**    ((q_p4 + d_rest_p4) - (p_p4)).Mag();                    missing mass of the d(e,e'p) reaction
+**M_x_deep2g**  ((q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4)).Mag();    missing mass of the d(e,e'p𝛾𝛾) reaction
 
 # **(3) ToDo**
 --------------------------------------------------------

@@ -42,9 +42,9 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,e_DC_Chi2N,"         // e
                      +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
-                     +(TString)"g1_E_PCAL","g1_E_ECIN","g1_E_ECOUT,"
+                     +(TString)"g1_E_PCAL,g1_E_ECIN,g1_E_ECOUT,"
                      +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
-                     +(TString)"g2_E_PCAL","g2_E_ECIN","g2_E_ECOUT,"
+                     +(TString)"g2_E_PCAL,g2_E_ECIN,g2_E_ECOUT,"
                      +(TString)"Q2,xB,omega,q,"                                         // kinematics
                      +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
                      );
@@ -720,13 +720,21 @@ void PrintVariables(){
     "V(z) "         << Vg1.Z()                   << " cm, "
     "DC-sector: "   << g1_DC_sector              << ", "
     "χ2/NDF "       << g1_DC_Chi2N               << ", "
-    << std::endl << "g2: " << std::endl         <<
+    << std::endl    <<
+    "E(PCAL):"      << g1_E_PCAL                 << ", "
+    "E(ECIN):"      << g1_E_ECIN                 << ", "
+    "E(ECOUT):"     << g1_E_ECOUT                << ", "
+    << std::endl << "g2: " << std::endl          <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
     "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
     "ϕ: "           << g2_p4.Phi()*180./3.14     << " deg.,"
     "V(z) "         << Vg2.Z()                   << " cm,"
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
+    << std::endl    <<
+    "E(PCAL):"      << g2_E_PCAL                 << ", "
+    "E(ECIN):"      << g2_E_ECIN                 << ", "
+    "E(ECOUT):"     << g2_E_ECOUT                << ", "
     << std::endl    <<
     "Q2: "          << Q2                       << " (GeV/c)², "
     "xB: "          << xB                       << " , "
