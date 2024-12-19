@@ -1,7 +1,7 @@
 
 
 # **Dec-19, 2024**
-## git commit 
+## git commit 635da56 
 --------------------------------------------------------
 1. Added Electromagnetic Calorimeters (ECAL) features of the two gamma-rays: g_E_PCAL, g_E_ECIN, g_E_ECOUT.
 2. Added kinematic variables:
@@ -17,11 +17,6 @@
 2. Added extraction of the data for the two gamma-rays (energy and momomentum, and vertex)
 3. Added a cut on the vertex z-difference between the gamma rays and the electron
 4. Solved problem in ExtractElectronInformation(), it was due to a missing definition of int DC_layers[3] = {6,18,36};
-
-# **Nov-30, 2024**
-## git commit 
---------------------------------------------------------
-Created repo, and added some content 
 
 
 # **Nov-24, 2024**

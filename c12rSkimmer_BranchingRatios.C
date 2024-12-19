@@ -67,7 +67,7 @@ std::vector<int> csvprecisions = {
 int verbosity = 2;
 
 // 4-vectors for the reaction d(e,e'p2𝛾X)
-TLorentzVector              p_rest_p4;
+TLorentzVector   p_rest_p4, d_rest_p4;
 TLorentzVector     Beam_p4, target_p4;
 TLorentzVector       e_p4, q_p4, p_p4;
 TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
@@ -243,6 +243,7 @@ void SetEbeam (double fEbeam=10.2) { // [GeV]
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 void SetTarget (){
     p_rest_p4.SetXYZM (0, 0, 0, aux.Mp);
+    d_rest_p4.SetXYZM (0, 0, 0, aux.Md);
     target_p4.SetXYZM (0, 0, 0, aux.Md);
 }
 
