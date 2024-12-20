@@ -1,7 +1,7 @@
 
 
 # **Dec-19, 2024**
-## git commit 260d307 
+## git commit a75aef9
 --------------------------------------------------------
 1. Added Electromagnetic Calorimeters (ECAL) features of the two gamma-rays: g_E_PCAL, g_E_ECIN, g_E_ECOUT.
 2. Added kinematic variables:

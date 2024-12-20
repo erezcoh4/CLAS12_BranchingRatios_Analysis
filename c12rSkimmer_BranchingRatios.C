@@ -43,8 +43,10 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
                      +(TString)"g1_E_PCAL,g1_E_ECIN,g1_E_ECOUT,"
+                     +(TString)"g1_E_CTOF,g1_E_CND1,g1_E_CND2,g1_E_CND3,"
                      +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
                      +(TString)"g2_E_PCAL,g2_E_ECIN,g2_E_ECOUT,"
+                     +(TString)"g2_E_CTOF,g2_E_CND1,g2_E_CND2,g2_E_CND3,"
                      +(TString)"Q2,xB,omega,q,"                                         // kinematics
                      +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
                      );
@@ -113,11 +115,13 @@ bool     pPastCutsInEvent;
 // two photons
 double g1_E_PCAL, g1_E_ECIN, g1_E_ECOUT, g1_PCAL_W, g1_PCAL_V, g1_PCAL_x, g1_PCAL_y, g1_PCAL_z;
 double g1_PCAL_sector, g1_DC_sector, g1_DC_Chi2N, g1_DC_x[3], g1_DC_y[3], g1_DC_z[3];
+double g1_E_CTOF,g1_E_CND1,g1_E_CND2,g1_E_CND3;
 TVector3 Vg1;
 bool     g1PastCutsInEvent;
 
 double g2_E_PCAL, g2_E_ECIN, g2_E_ECOUT, g2_PCAL_W, g2_PCAL_V, g2_PCAL_x, g2_PCAL_y, g2_PCAL_z;
 double g2_PCAL_sector, g2_DC_sector, g2_DC_Chi2N, g2_DC_x[3], g2_DC_y[3], g2_DC_z[3];
+double g2_E_CTOF,g2_E_CND1,g2_E_CND2,g2_E_CND3;
 TVector3 Vg2;
 bool     g2PastCutsInEvent;
 
@@ -627,10 +631,19 @@ void ExtractGammasInformation(){
     g1_E_PCAL       = gammas[0]->cal(PCAL) ->getEnergy();
     g1_E_ECIN       = gammas[0]->cal(ECIN) ->getEnergy();
     g1_E_ECOUT      = gammas[0]->cal(ECOUT)->getEnergy();
+    g1_E_CTOF       = gammas[0]->sci(CTOF)->getEnergy();
+    g1_E_CND1       = gammas[0]->sci(CND1)->getEnergy();
+    g1_E_CND2       = gammas[0]->sci(CND2)->getEnergy();
+    g1_E_CND3       = gammas[0]->sci(CND3)->getEnergy();
+    
     g2_E_PCAL       = gammas[1]->cal(PCAL) ->getEnergy();
     g2_E_ECIN       = gammas[1]->cal(ECIN) ->getEnergy();
     g2_E_ECOUT      = gammas[1]->cal(ECOUT)->getEnergy();
-    
+    g2_E_CTOF       = gammas[0]->sci(CTOF)->getEnergy();
+    g2_E_CND1       = gammas[1]->sci(CND1)->getEnergy();
+    g2_E_CND2       = gammas[1]->sci(CND2)->getEnergy();
+    g2_E_CND3       = gammas[1]->sci(CND3)->getEnergy();
+
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
@@ -724,6 +737,11 @@ void PrintVariables(){
     "E(PCAL):"      << g1_E_PCAL                 << ", "
     "E(ECIN):"      << g1_E_ECIN                 << ", "
     "E(ECOUT):"     << g1_E_ECOUT                << ", "
+    "E(CTOF): "     << g1_E_CTOF                << ", "
+    "E(CND1): "     << g1_E_CND1                << ", "
+    "E(CND2): "     << g1_E_CND2                << ", "
+    "E(CND3): "     << g1_E_CND3                << ", "
+
     << std::endl << "g2: " << std::endl          <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
     "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
@@ -732,9 +750,13 @@ void PrintVariables(){
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
     << std::endl    <<
-    "E(PCAL):"      << g2_E_PCAL                 << ", "
-    "E(ECIN):"      << g2_E_ECIN                 << ", "
-    "E(ECOUT):"     << g2_E_ECOUT                << ", "
+    "E(PCAL): "     << g2_E_PCAL                 << ", "
+    "E(ECIN): "     << g2_E_ECIN                 << ", "
+    "E(ECOUT): "    << g2_E_ECOUT                << ", "
+    "E(CTOF): "     << g2_E_CTOF                << ", "
+    "E(CND1): "     << g2_E_CND1                << ", "
+    "E(CND2): "     << g2_E_CND2                << ", "
+    "E(CND3): "     << g2_E_CND3                << ", "
     << std::endl    <<
     "Q2: "          << Q2                       << " (GeV/c)², "
     "xB: "          << xB                       << " , "
@@ -767,10 +789,12 @@ void WriteEventToOutput(){
             (double)p_DC_sector, p_DC_Chi2N,
             g1_p4.P(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),
             (double)g1_DC_sector, g1_DC_Chi2N,
+            g1_E_CTOF,      g1_E_CND1,          g1_E_CND2,          g1_E_CND3,
             g1_E_PCAL,      g1_E_ECIN,          g1_E_ECOUT,
             g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
             (double)g2_DC_sector, g2_DC_Chi2N,
             g2_E_PCAL,      g2_E_ECIN,          g2_E_ECOUT,
+            g2_E_CTOF,      g2_E_CND1,          g2_E_CND2,          g2_E_CND3,
             Q2,             xB,                 omega,              q_p4.P(),
             W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
         };
