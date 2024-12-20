@@ -116,12 +116,14 @@ bool     pPastCutsInEvent;
 double g1_E_PCAL, g1_E_ECIN, g1_E_ECOUT, g1_PCAL_W, g1_PCAL_V, g1_PCAL_x, g1_PCAL_y, g1_PCAL_z;
 double g1_PCAL_sector, g1_DC_sector, g1_DC_Chi2N, g1_DC_x[3], g1_DC_y[3], g1_DC_z[3];
 double g1_E_CTOF,g1_E_CND1,g1_E_CND2,g1_E_CND3;
+double g1_E_EC, g1_E_CN;
 TVector3 Vg1;
 bool     g1PastCutsInEvent;
 
 double g2_E_PCAL, g2_E_ECIN, g2_E_ECOUT, g2_PCAL_W, g2_PCAL_V, g2_PCAL_x, g2_PCAL_y, g2_PCAL_z;
 double g2_PCAL_sector, g2_DC_sector, g2_DC_Chi2N, g2_DC_x[3], g2_DC_y[3], g2_DC_z[3];
 double g2_E_CTOF,g2_E_CND1,g2_E_CND2,g2_E_CND3;
+double g2_E_EC, g2_E_CN;
 TVector3 Vg2;
 bool     g2PastCutsInEvent;
 
@@ -631,19 +633,23 @@ void ExtractGammasInformation(){
     g1_E_PCAL       = gammas[0]->cal(PCAL) ->getEnergy();
     g1_E_ECIN       = gammas[0]->cal(ECIN) ->getEnergy();
     g1_E_ECOUT      = gammas[0]->cal(ECOUT)->getEnergy();
+    g1_E_EC         = g1_E_PCAL + g1_E_ECIN + g1_E_ECOUT;
     g1_E_CTOF       = gammas[0]->sci(CTOF)->getEnergy();
     g1_E_CND1       = gammas[0]->sci(CND1)->getEnergy();
     g1_E_CND2       = gammas[0]->sci(CND2)->getEnergy();
     g1_E_CND3       = gammas[0]->sci(CND3)->getEnergy();
+    g1_E_CN         = g1_E_CTOF + g1_E_CND1 + g1_E_CND2 + g1_E_CND3;
     
     g2_E_PCAL       = gammas[1]->cal(PCAL) ->getEnergy();
     g2_E_ECIN       = gammas[1]->cal(ECIN) ->getEnergy();
     g2_E_ECOUT      = gammas[1]->cal(ECOUT)->getEnergy();
-    g2_E_CTOF       = gammas[0]->sci(CTOF)->getEnergy();
+    g2_E_EC         = g2_E_PCAL + g2_E_ECIN + g2_E_ECOUT;
+    g2_E_CTOF       = gammas[1]->sci(CTOF)->getEnergy();
     g2_E_CND1       = gammas[1]->sci(CND1)->getEnergy();
     g2_E_CND2       = gammas[1]->sci(CND2)->getEnergy();
     g2_E_CND3       = gammas[1]->sci(CND3)->getEnergy();
-
+    g2_E_CN         = g2_E_CTOF + g2_E_CND1 + g2_E_CND2 + g2_E_CND3;
+    
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
@@ -741,7 +747,9 @@ void PrintVariables(){
     "E(CND1): "     << g1_E_CND1                << ", "
     "E(CND2): "     << g1_E_CND2                << ", "
     "E(CND3): "     << g1_E_CND3                << ", "
-
+    << std::endl    <<
+    "E(EC): "       << g1_E_EC                  << ", "
+    "E(CN): "       << g1_E_CN                  << ", "
     << std::endl << "g2: " << std::endl          <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
     "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
@@ -757,6 +765,9 @@ void PrintVariables(){
     "E(CND1): "     << g2_E_CND1                << ", "
     "E(CND2): "     << g2_E_CND2                << ", "
     "E(CND3): "     << g2_E_CND3                << ", "
+    << std::endl    <<
+    "E(EC): "       << g2_E_EC                  << ", "
+    "E(CN): "       << g2_E_CN                  << ", "    
     << std::endl    <<
     "Q2: "          << Q2                       << " (GeV/c)², "
     "xB: "          << xB                       << " , "

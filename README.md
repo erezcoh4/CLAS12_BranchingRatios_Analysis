@@ -92,10 +92,15 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 **g2_Vz**
 **g2_DC_sector**
 **g2_DC_Chi2N**
-**g2_E_CTOF**                           energy deposited in CTOF
-**g2_E_CND1**                           energy deposited in CND1
-**g2_E_CND2**                           energy deposited in CND2
-**g2_E_CND3**                           energy deposited in CND3
+**g2_E_PCAL**                                                           energy deposited in CTOF
+**g2_E_ECIN**                                                           energy deposited in EC-in
+**g2_E_ECOUT**                                                          energy deposited in EC-out
+**g2_E_EC**     g2_E_PCAL + g2_E_ECIN + g2_E_ECOUT                      energy deposited in PCAL and ECAL
+**g2_E_CTOF**                                                           energy deposited in CTOF
+**g2_E_CND1**                                                           energy deposited in CND1
+**g2_E_CND2**                                                           energy deposited in CND2
+**g2_E_CND3**                                                           energy deposited in CND3
+**g2_E_CN**     g2_E_CTOF + g2_E_CND1 + g2_E_CND2 + g2_E_CND3           energy deposited in CTOF and CND
 **Q2**          -q_p4.Mag2()                                            momentum transfer
 **xB**          Q2/(2*Mp*q_p4.E())                                      Bjorken x
 **omega**       q_p4.E()                                                energy transfer in the (e,e') reaction
