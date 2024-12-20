@@ -44,9 +44,11 @@ TString csvheader = ( (TString)"status,runnum,evnum,"
                      +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_DC_sector,g1_DC_Chi2N,"   // photon-1
                      +(TString)"g1_E_PCAL,g1_E_ECIN,g1_E_ECOUT,"
                      +(TString)"g1_E_CTOF,g1_E_CND1,g1_E_CND2,g1_E_CND3,"
+                     +(TString)"g1_E_EC,g1_E_CN,"
                      +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_DC_sector,g2_DC_Chi2N,"   // photon-2
                      +(TString)"g2_E_PCAL,g2_E_ECIN,g2_E_ECOUT,"
                      +(TString)"g2_E_CTOF,g2_E_CND1,g2_E_CND2,g2_E_CND3,"
+                     +(TString)"g2_E_EC,g2_E_CN,"
                      +(TString)"Q2,xB,omega,q,"                                         // kinematics
                      +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
                      );
@@ -767,7 +769,7 @@ void PrintVariables(){
     "E(CND3): "     << g2_E_CND3                << ", "
     << std::endl    <<
     "E(EC): "       << g2_E_EC                  << ", "
-    "E(CN): "       << g2_E_CN                  << ", "    
+    "E(CN): "       << g2_E_CN                  << ", "
     << std::endl    <<
     "Q2: "          << Q2                       << " (GeV/c)², "
     "xB: "          << xB                       << " , "
@@ -802,10 +804,12 @@ void WriteEventToOutput(){
             (double)g1_DC_sector, g1_DC_Chi2N,
             g1_E_CTOF,      g1_E_CND1,          g1_E_CND2,          g1_E_CND3,
             g1_E_PCAL,      g1_E_ECIN,          g1_E_ECOUT,
+            g1_E_EC,        g1_E_CN,
             g2_p4.P(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),
             (double)g2_DC_sector, g2_DC_Chi2N,
             g2_E_PCAL,      g2_E_ECIN,          g2_E_ECOUT,
             g2_E_CTOF,      g2_E_CND1,          g2_E_CND2,          g2_E_CND3,
+            g2_E_EC,        g2_E_CN,
             Q2,             xB,                 omega,              q_p4.P(),
             W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
         };
