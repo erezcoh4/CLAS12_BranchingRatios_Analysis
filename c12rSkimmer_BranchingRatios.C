@@ -720,14 +720,16 @@ void PrintVariables(){
     std::cout <<
     "run "          << runnum                   << ", "
     "event "        << evnum                    << ", "
-    "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
-    "electron: " << std::endl   <<
+    << std::endl    <<
+    "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"    << std::endl <<
+    "electron: "    << std::endl   <<
     "p: "           << e_p4.P()                 << " GeV/c, "
     "𝜃: "           << e_p4.Theta()*180./3.14   << " deg., "
     "ϕ: "           << e_p4.Phi()*180./3.14     << " deg., "
     "V(z) "         << Ve.Z()                   << " cm, "
     "DC-sector: "   << e_DC_sector              << ", "
     "χ2/NDF "       << e_DC_Chi2N               << ", "
+    << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "proton: " << std::endl     <<
     "p: "           << p_p4.P()                 << " GeV/c ,"
@@ -736,6 +738,7 @@ void PrintVariables(){
     "V(z) "         << Vp.Z()                   << " cm, "
     "DC-sector: "   << p_DC_sector              << ", "
     "χ2/NDF "       << p_DC_Chi2N               << ", "
+    << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "g1: "          << std::endl         <<
     "p: "           << g1_p4.P()                 << " GeV/c, "
@@ -755,6 +758,7 @@ void PrintVariables(){
     << std::endl    <<
     "E(EC): "       << g1_E_EC                  << ", "
     "E(CN): "       << g1_E_CN                  << ", "
+    << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "g2: "          << std::endl          <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
@@ -788,6 +792,8 @@ void PrintVariables(){
     "Mx(ed->e'p𝛾𝛾): "<< M_x_peep                 << " GeV/c², "
     << std::endl    <<
     "M𝛾𝛾: "         << Mgg                      << " GeV/c², "
+    << std::endl
+    "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     << std::endl;
 }
 
