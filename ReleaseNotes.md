@@ -1,9 +1,9 @@
 
 
-# **Dec-19, 2024**
-## git commit a75aef9
+# **Dec-20, 2024**
+## git commit b85822a
 --------------------------------------------------------
-1. Added Electromagnetic Calorimeters (ECAL) features of the two gamma-rays: g_E_PCAL, g_E_ECIN, g_E_ECOUT.
+1. Added Electromagnetic Calorimeters (ECAL) and CN (CTOF, CND) features of the two gamma-rays: g_E_PCAL, g_E_ECIN, g_E_ECOUT, g_E_CTOF, g_E_CND...
 2. Added kinematic variables:
     2.a. M_x_peep - invariant mass of the p(e,e'p) reaction       |(q_p4 + p_rest_p4) - (p_p4)|
     2.b. M_x_deep - invariant mass of the d(e,e'p) reaction       |(q_p4 + d_rest_p4) - (p_p4)|

@@ -43,7 +43,7 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 # **(2) Software**
 --------------------------------------------------------
 
-# Prequisits
+## (2.1) Prequisits
 ---------------------------------------
 ### Load modules on ifarm:
 
@@ -53,14 +53,19 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 4. module load clas12
 
 
-# **(2) Comments**
+## (2.2) Execute
+---------------------------------------
+    git pull && python ./macros/execute_skim --fdebug=4 --no-email --NeventsMax=44
+
+
+# **(3) Comments**
 --------------------------------------------------------
 
-## (2.1) $\gamma$ classification
+## (3.1) $\gamma$ classification
 1. g1 - photon with higher energy
 2. g2 - photon with smaller energy
 
-## (2.2) observables and output variables
+## (3.2) observables and output variables
 
 **Name** calculation                definition
 
@@ -111,17 +116,17 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 **M_x_deep**    ((q_p4 + d_rest_p4) - (p_p4)).Mag();                    missing mass of the d(e,e'p) reaction
 **M_x_deep2g**  ((q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4)).Mag();    missing mass of the d(e,e'p𝛾𝛾) reaction
 
-# **(3) ToDo**
---------------------------------------------------------
-
-1. Restrict particle detection to only the forward detector
-2. Add kinematic cuts - can we learn from what has been done in GlueX?
-3. Detector cuts on proton for PID refinement?
-4. Add fiducial cuts for proton
-5. Study what is the large background of M(gamma-gamma) = 0
-
 
 
 # **(4) ToDo**
 --------------------------------------------------------
-    git pull && python ./macros/execute_skim --fdebug=4 --no-email --NeventsMax=44
+
+[] Debug the vanishing values g1_E_EC, g1_E_CN, and g2_E_CN  
+[] Restrict particle detection to only the forward detector - ?
+[] Add kinematic cuts - can we learn from what has been done in GlueX?
+[] Detector cuts on proton for PID refinement?
+[] Add fiducial cuts for proton as a requirement
+[] Study what is the large background of M(gamma-gamma) = 0
+
+
+

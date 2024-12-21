@@ -3,7 +3,7 @@
 # previously: /usr/bin/env python
 
 '''
-    last edit Dec-17, 2024 (EOC)
+    last edit Dec-20, 2024 (EOC)
 
     execute:
     ------------
@@ -110,9 +110,9 @@ print('')
 print('done execute skim.')
 print('')
 if args.no_email==False:#{
-    mailtitle = 'Done processing execute_skim'
-    mailbody  = ('Processed %s - %d runs, see /volatile/clas12/users/ecohen/RGB/'%( DataPath, Nruns))
-    emailstr = ('echo %s | mail -s %s cohen.erez7@gmail.com'%(mailbody,mailtitle) )
+    mailtitle = 'Done processing execute_skim for Branching ratio analysis'
+    mailbody  = ('Processed %s - %d runs, see \n/volatile/clas12/users/ecohen/RGB/\nDownload data using\nscp -rJ cohen@login.jlab.org. cohen@ifarm:/volatile/clas12/users/ecohen/RGB/ .'%( DataPath, Nruns))
+    emailstr = ('echo %s | mail -s \"%s\" cohen.erez7@gmail.com'%(mailbody,mailtitle) )
     os.system(emailstr)
 #}
 
