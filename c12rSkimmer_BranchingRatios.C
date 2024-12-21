@@ -792,7 +792,7 @@ void PrintVariables(){
     "Mx(ed->e'p𝛾𝛾): "<< M_x_peep                 << " GeV/c², "
     << std::endl    <<
     "M𝛾𝛾: "         << Mgg                      << " GeV/c², "
-    << std::endl
+    << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl
     << std::endl;
 }
