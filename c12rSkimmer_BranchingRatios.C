@@ -717,7 +717,7 @@ void ComputeKinematics(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void PrintVariables(){
-    std::cout       << st::setprecision(1) <<
+    std::cout       << std::setprecision(1) <<
     "run "          << runnum                   << ", "
     "event "        << evnum                    << ", "
     << std::endl    <<
