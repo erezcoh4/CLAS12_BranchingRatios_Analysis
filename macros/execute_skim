@@ -11,9 +11,8 @@
     git pull && python ./macros/execute_skim --fdebug=5 --no-email --NeventsMax=100
     git pull && python ./macros/execute_skim --fdebug=1 --NeventsMax=-1
     git pull && python ./macros/execute_skim --fdebug=2 --PrintProgress=10000 --NeventsMax=-1
+    python ./macros/execute_skim --fdebug=1 --PrintProgress=100000 --NeventsMax=10000000
     
-    execute_skim --Ebeam=10.4 --Nruns=1 --fdebug=2 --FirstEvent=10 --NeventsMax=10 --no-email
-
     
     comments
     ------------
@@ -112,7 +111,7 @@ print('')
 if args.no_email==False:#{
     mailtitle = 'Done processing execute_skim for Branching ratio analysis'
     mailbody  = ('Processed %s - %d runs, see \n/volatile/clas12/users/ecohen/RGB/\nDownload data using\nscp -rJ cohen@login.jlab.org. cohen@ifarm:/volatile/clas12/users/ecohen/RGB/ .'%( DataPath, Nruns))
-    emailstr = ('echo %s | mail -s \"%s\" cohen.erez7@gmail.com'%(mailbody,mailtitle) )
+    emailstr = ('echo \"%s\" | mail -s \"%s\" cohen.erez7@gmail.com'%(mailbody,mailtitle) )
     os.system(emailstr)
 #}
 

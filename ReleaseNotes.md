@@ -1,4 +1,13 @@
 
+# **Dec-25, 2024**
+## git commit
+-------------------------------------------------------- 
+1. retained PCAL energy deposit: g1_E_PCAL and g2_E_PCAL (following Matousek in [1])
+2. Removed g1_E_EC and g2_E_EC
+3. Corrected gamma momentum to energy
+4. Added PCAL coordinates g_PCAL_W and g_PCAL_V to add a cut on them (following Matousek in [1])
+5. Added gamma velocity, β(𝛾) - g1_beta and g2_beta, which should be chosen in the range 0.9 - 1.1 following [1] 
+
 
 # **Dec-20, 2024**
 ## git commit b85822a
@@ -24,3 +33,9 @@
 --------------------------------------------------------
 Created repo, and added some content 
   
+
+
+# **References**
+--------------------------------------------------------
+[1] G. Matousek Measurements of Beam Spin Asymmetries of π±π0 dihadrons at CLAS12 using Gradient Boosted Trees https://www.jlab.org/Hall-B/shifts/admin/paper_reviews/2024/PiPi0_AnalysisNote_(3)_3.pdf-7600066-2024-03-09-v1.pdf
+
