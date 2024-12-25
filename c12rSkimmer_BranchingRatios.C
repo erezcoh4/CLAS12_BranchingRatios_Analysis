@@ -818,18 +818,16 @@ void WriteEventToOutput(){
     if (ePastCutsInEvent && pPastCutsInEvent && g1PastCutsInEvent && g2PastCutsInEvent) {
         IsSelected = true;
         Nevents_passed_eep_cuts ++ ;
-        
+
         
         std::vector<double> variables =
         {   (double)runnum,     (double)evnum,
-            e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
-            (double)e_DC_sector, e_DC_Chi2N,
-            p_p4.P(),       p_p4.Theta(),       p_p4.Phi(),         Vp.Z(),
-            (double)p_DC_sector, p_DC_Chi2N,
+            e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),         (double)e_DC_sector, e_DC_Chi2N,
+            p_p4.P(),       p_p4.Theta(),       p_p4.Phi(),         Vp.Z(),         (double)p_DC_sector, p_DC_Chi2N,
             g1_p4.E(),      g1_p4.Theta(),      g1_p4.Phi(),        Vg1.Z(),        g1_beta,
-            (double)g1_DC_sector, g1_DC_Chi2N,  g1_E_PCAL,          g1_PCAL_W,      g1_PCAL_V,
+            (double)g1_DC_sector, g1_DC_Chi2N,  g1_E_PCAL,          g1_E_EC,        g1_PCAL_W,      g1_PCAL_V,
             g2_p4.E(),      g2_p4.Theta(),      g2_p4.Phi(),        Vg2.Z(),        g2_beta,
-            (double)g2_DC_sector, g2_DC_Chi2N,  g2_E_PCAL,          g2_PCAL_W,      g2_PCAL_V,
+            (double)g2_DC_sector, g2_DC_Chi2N,  g2_E_PCAL,          g2_E_EC,        g2_PCAL_W,      g2_PCAL_V,
             Q2,             xB,                 omega,              q_p4.P(),
             W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
         };
