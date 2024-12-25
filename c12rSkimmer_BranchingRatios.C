@@ -755,7 +755,8 @@ void PrintVariables(){
     "p: "           << g1_p4.P()                 << " GeV/c, "
     "𝜃: "           << g1_p4.Theta()*180./3.14   << " deg., "
     "ϕ: "           << g1_p4.Phi()*180./3.14     << " deg., "
-    "V(z) "         << Vg1.Z()                   << " cm, "
+    "V(z): "        << Vg1.Z()                   << " cm, "
+    "β: "           << g1_beta                   << " ,"
     "DC-sector: "   << g1_DC_sector              << ", "
     "χ2/NDF "       << g1_DC_Chi2N               << ", "
     << std::endl    <<
@@ -766,7 +767,8 @@ void PrintVariables(){
     "p: "           << g2_p4.P()                 << " GeV/c,"
     "𝜃: "           << g2_p4.Theta()*180./3.14   << " deg.,"
     "ϕ: "           << g2_p4.Phi()*180./3.14     << " deg.,"
-    "V(z) "         << Vg2.Z()                   << " cm,"
+    "V(z): "        << Vg2.Z()                   << " cm,"
+    "β: "           << g2_beta                   << " ,"
     "DC-sector: "   << g2_DC_sector              << ","
     "χ2/NDF "       << g2_DC_Chi2N               << ","
     << std::endl    <<
