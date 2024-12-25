@@ -641,7 +641,7 @@ void ExtractGammasInformation(){
     // detector information on electron
     // detector information on electron
     g1_PCAL_V       = gammas[0]->cal(PCAL)->getLv();
-    g1_PCAL_W       = gammas[0]->cal(PCAL)->getLW();
+    g1_PCAL_W       = gammas[0]->cal(PCAL)->getLw();
     g1_E_PCAL       = gammas[0]->cal(PCAL) ->getEnergy();
     g1_E_ECIN       = gammas[0]->cal(ECIN) ->getEnergy();
     g1_E_ECOUT      = gammas[0]->cal(ECOUT)->getEnergy();
@@ -653,7 +653,7 @@ void ExtractGammasInformation(){
     g1_E_CN         = g1_E_CTOF + g1_E_CND1 + g1_E_CND2 + g1_E_CND3;
     
     g2_PCAL_V       = gammas[1]->cal(PCAL)->getLv();
-    g2_PCAL_W       = gammas[1]->cal(PCAL)->getLW();
+    g2_PCAL_W       = gammas[1]->cal(PCAL)->getLw();
     g2_E_PCAL       = gammas[1]->cal(PCAL) ->getEnergy();
     g2_E_ECIN       = gammas[1]->cal(ECIN) ->getEnergy();
     g2_E_ECOUT      = gammas[1]->cal(ECOUT)->getEnergy();
