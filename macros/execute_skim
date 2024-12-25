@@ -55,7 +55,7 @@ DataPath      = args.DataPath
 Ebeam         = args.Ebeam
 
 # print each event for a small number of events
-if PrintProgress > NeventsMax: PrintProgress = 1
+if (NeventsMax > 0) and (PrintProgress > NeventsMax): PrintProgress = 1
 
 if Ebeam == 10.2:
     runs_filename = "runlists/good_runs_10-2-final.txt"
