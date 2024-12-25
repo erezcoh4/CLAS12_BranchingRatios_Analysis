@@ -630,6 +630,7 @@ void ExtractGammasInformation(){
     g2_beta          = gammas[1]->par()->getBeta();
     
     DEBUG(5, "g1_p4.E(): %.3f GeV, g2_p4.E(): %.3f GeV, Vg1.Z(): %.3f cm, Vg2.Z(): %.3f cm",g1_p4.E(),g2_p4.E(),Vg1.Z(),Vg2.Z());
+    DEBUG(5, "beta(g1): %.3f, beta(g2): %.3f",g1_beta,g2_beta);
     
     auto g1_DC_info  = gammas[0]->trk(DC);
     g1_DC_Chi2N      = g1_DC_info->getChi2N();  // tracking chi^2/NDF
