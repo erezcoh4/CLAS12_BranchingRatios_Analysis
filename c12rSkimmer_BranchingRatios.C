@@ -820,16 +820,6 @@ void WriteEventToOutput(){
         Nevents_passed_eep_cuts ++ ;
         
         
-        (TString)"runnum,evnum,"
-                             +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,e_DC_Chi2N,"         // e
-                             +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
-                             +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_beta,"   // photon-1
-                             +(TString)"g1_DC_sector,g1_DC_Chi2N,g1_E_PCAL,g1_E_EC,g1_PCAL_W,g1_PCAL_V,"
-                             +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_beta,"   // photon-2
-                             +(TString)"g2_DC_sector,g2_DC_Chi2N,g2_E_PCAL,g2_E_EC,g2_PCAL_W,g2_PCAL_V,"
-                             +(TString)"Q2,xB,omega,q,"                                         // kinematics
-                             +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"
-        
         std::vector<double> variables =
         {   (double)runnum,     (double)evnum,
             e_p4.P(),       e_p4.Theta(),       e_p4.Phi(),         Ve.Z(),
