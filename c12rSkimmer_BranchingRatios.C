@@ -812,6 +812,7 @@ void PrintVariables(){
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void WriteEventToOutput(){
+    DEBUG(5,"WriteEventToOutput()");
     // (Maybe) write this event to "selected events csv-file"
     bool IsSelected = false;
     
@@ -841,7 +842,7 @@ void WriteEventToOutput(){
                             variables,
                             csvprecisions );
     }
-    
+    DEBUG(5,"Done WriteEventToOutput()");
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
