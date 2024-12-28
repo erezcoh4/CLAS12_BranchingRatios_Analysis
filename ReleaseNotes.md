@@ -1,6 +1,6 @@
 
 # **Dec-25, 2024**
-## git commit 6ee9374
+## git commit  
 -------------------------------------------------------- 
 1. retained PCAL energy deposit: g1_E_PCAL and g2_E_PCAL (following Matousek in [1])
 2. Removed g1_E_EC and g2_E_EC

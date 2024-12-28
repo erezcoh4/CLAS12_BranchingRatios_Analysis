@@ -741,6 +741,7 @@ void PrintVariables(){
     "V(z) "         << Ve.Z()                   << " cm, "
     "DC-sector: "   << e_DC_sector              << ", "
     "χ2/NDF "       << e_DC_Chi2N               << ", "
+    "PCAL(V,W): ("  << e_PCAL_V                 << ", "      << e_PCAL_W     << "), "
     << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ proton ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "p: "           << p_p4.P()                 << " GeV/c ,"
@@ -749,6 +750,7 @@ void PrintVariables(){
     "V(z) "         << Vp.Z()                   << " cm, "
     "DC-sector: "   << p_DC_sector              << ", "
     "χ2/NDF "       << p_DC_Chi2N               << ", "
+    "PCAL(V,W): ("  << p_PCAL_V                 << ", "      << p_PCAL_W     << "), "
     << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 𝛾1 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "p: "           << g1_p4.P()                 << " GeV/c, "
@@ -760,7 +762,8 @@ void PrintVariables(){
     "χ2/NDF "       << g1_DC_Chi2N               << ", "
     << std::endl    <<
     "E(PCAL):"      << g1_E_PCAL                 << ", "
-    "E(EC): "       << g1_E_EC                  << ", "
+    "E(EC): "       << g1_E_EC                   << ", "
+    "PCAL(V,W): ("  << g1_PCAL_V                 << ", "      << g1_PCAL_W     << "), "
     << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 𝛾2 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "p: "           << g2_p4.P()                 << " GeV/c,"
@@ -773,6 +776,7 @@ void PrintVariables(){
     << std::endl    <<
     "E(PCAL): "     << g2_E_PCAL                 << ", "
     "E(CN): "       << g2_E_CN                  << ", "
+    "PCAL(V,W): ("  << g2_PCAL_V                 << ", "      << g2_PCAL_W     << "), "
     << std::endl    <<
     "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Kinematics ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" << std::endl <<
     "Q2: "          << Q2                       << " (GeV/c)², "
