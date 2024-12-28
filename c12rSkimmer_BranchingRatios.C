@@ -897,13 +897,14 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
             
             if (event > FirstEvent) {
 
+                runnum = c12.runconfig()->getRun();
+                evnum  = c12.runconfig()->getEvent();
+
                 if (event%PrintProgress==0)
                     DEBUG(3,"Start processing %d/%d (run %d, event %d)",
                           (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
 
-                runnum = c12.runconfig()->getRun();
-                evnum  = c12.runconfig()->getEvent();
-                
+
                 // Get Particles By Type
                 electrons   = c12.getByID( 11   );
                 protons     = c12.getByID( 2212 );
