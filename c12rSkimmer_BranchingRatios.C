@@ -888,19 +888,19 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         clas12reader c12(files->At(i)->GetTitle(),{0});
         DEBUG(2, "Read title of file %d", i);
         int event = 0;
-        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 100000000000;
+        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 9999999999;
         // process the events...
         while((c12.next()==true) && (event < (FirstEvent + NeventsMaxToProcess))){
             InitializeVariables();
             event++;
             DEBUG(3, "hipo entry %d", event);
             
-            if ((event%PrintProgress==0) && (event > FirstEvent))
-                DEBUG(3,"Start processing %d/%d (run %d, event %d)",
-                      (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
-            
             if (event > FirstEvent) {
-                
+
+                if (event%PrintProgress==0)
+                    DEBUG(3,"Start processing %d/%d (run %d, event %d)",
+                          (event-FirstEvent),NeventsMaxToProcess,runnum,evnum);
+
                 runnum = c12.runconfig()->getRun();
                 evnum  = c12.runconfig()->getEvent();
                 
