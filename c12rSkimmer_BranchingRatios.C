@@ -665,6 +665,7 @@ void ExtractGammasInformation(){
     g2_E_CND3       = gammas[1]->sci(CND3)->getEnergy();
     g2_E_CN         = g2_E_CTOF + g2_E_CND1 + g2_E_CND2 + g2_E_CND3;
     
+    DEBUG(3,"g2_PCAL_V = %.1f, g2_PCAL_W = %.1f",g2_PCAL_V,g2_PCAL_W);
     DEBUG(2,"Extracted gamma information");
     
     g1PastCutsInEvent = CheckIfGammaPassedSelectionCuts(Vg1);
@@ -887,7 +888,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         clas12reader c12(files->At(i)->GetTitle(),{0});
         DEBUG(2, "Read title of file %d", i);
         int event = 0;
-        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 1e12;
+        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 100000000000;
         // process the events...
         while((c12.next()==true) && (event < (FirstEvent + NeventsMaxToProcess))){
             InitializeVariables();
