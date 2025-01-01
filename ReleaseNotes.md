@@ -4,7 +4,7 @@
 ## git commit 5584716
 -------------------------------------------------------- 
 1. Corrected an error in M_x_deep2g (it accidently counted g1 twice)
-
+2. Corrected a bug in the run number assignment (so far it caught only run number 6164)
 
 ## **Dec-27, 2024**
 ## git commit 1fb8ef9  
