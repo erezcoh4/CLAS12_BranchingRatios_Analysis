@@ -9,4 +9,8 @@ echo "git pull && python ./macros/execute_skim --fdebug=5 --no-email --FirstEven
 git pull && python ./macros/execute_skim --fdebug=5 --no-email --FirstEvent=0 --NeventsMax=69
 
 echo "Done."
+echo
+echo "Examples:"
 echo "git pull && python ./macros/execute_skim --fdebug=5 --no-email --FirstEvent=0 --NeventsMax=69"
+echo "git pull && python ./macros/execute_skim --fdebug=1 --NeventsMax=-1"
+echo
