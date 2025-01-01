@@ -107,6 +107,7 @@ for line in run_fileLines[FirstRun:]:#{
 
 print('')
 print('done execute skim.')
+print('scp -rJ cohen@login.jlab.org. cohen@ifarm:/volatile/clas12/users/ecohen/RGB/ .')
 print('')
 if args.no_email==False:#{
     mailtitle = 'Done processing execute_skim for Branching ratio analysis'

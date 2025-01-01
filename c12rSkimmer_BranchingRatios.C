@@ -724,8 +724,8 @@ void ComputeKinematics(){
     W           = sqrt((p_rest_p4 + q_p4).Mag2());
     M_x_peep    = ( (q_p4 + p_rest_p4) - (p_p4) ).Mag();
     M_x_deep    = ( (q_p4 + d_rest_p4) - (p_p4) ).Mag();
-    M_x_deep2g  = ( (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g1_p4 + g2_p4) ).Mag();
-    Mgg         = (g1_p4 + g2_p4).M();
+    M_x_deep2g  = ( (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4) ).Mag();
+    Mgg         = ( g1_p4 + g2_p4 ).M();
     DEBUG(5, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
 

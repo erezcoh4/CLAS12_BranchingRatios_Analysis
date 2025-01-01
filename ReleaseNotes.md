@@ -1,12 +1,20 @@
 
-# **Dec-25, 2024**
-## git commit  
+
+## **Jan-1, 2025**
+## git commit 
+-------------------------------------------------------- 
+1. Corrected an error in M_x_deep2g (it accidently counted g1 twice)
+
+
+## **Dec-27, 2024**
+## git commit 1fb8ef9  
 -------------------------------------------------------- 
 1. retained PCAL energy deposit: g1_E_PCAL and g2_E_PCAL (following Matousek in [1])
 2. Removed g1_E_EC and g2_E_EC
 3. Corrected gamma momentum to energy
 4. Added PCAL coordinates g_PCAL_W and g_PCAL_V to add a cut on them (following Matousek in [1])
 5. Added gamma velocity, β(𝛾) - g1_beta and g2_beta, which should be chosen in the range 0.9 - 1.1 following [1] 
+6. Corrected a bug with gamma PCPAL coordinates V,W
 
 
 # **Dec-20, 2024**

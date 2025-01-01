@@ -166,20 +166,21 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 
 # **(4) ToDo**
 --------------------------------------------------------
-[1] Find why PCAL coordinates for the gammas (lv and lw) are so small (we normally want > 14 or so) - is the problem with them? 
-[2] Is there a study in CLAS12 that looked for eta mesons? If yes - how did they detect it in the M(𝛾𝛾)?
- => Found in [2] 
-[5] Find what is the ML cut and how to apply it
-[4] Study the impact of a minimal Edep cut for gamma rays in the EC on the Mgg distribution
-[6] Study what is the large background of M(gamma-gamma) = 0
 [7] Add kinematic cuts - can we learn from previous studies in CLAS12 of diphoton and / or GlueX?
 [8] Detector cuts on proton for PID refinement?
 [9] Add fiducial cuts for proton as a requirement
+
+[v] Add gamma velocity, β(𝛾), which should be chosen in the range 0.9 - 1.1 following [1]
+[v] Restrict particle detection to only the forward detector
+[v] Is there a study in CLAS12 that looked for eta mesons? If yes - how did they detect it in the M(𝛾𝛾)?
+ => Found in [2] 
+[v] Find why PCAL coordinates for the gammas (lv and lw) are so small (we normally want > 14 or so) - is the problem with them? 
+[x] Find what is the ML cut and how to apply it
+[v] Study the impact of a minimal Edep cut for gamma rays in the EC on the Mgg distribution
+[v] Study what is the large background of M(gamma-gamma) = 0
 [v] Debug the vanishing values g1_E_EC, g1_E_CN, and g2_E_CN. Done Dec-2024  
 [v] Are there events in which the energy of gamma rays is smaller than the energy they deposited in the EC? - No. Verified on Dec-2024.     
 [v] Correct gamma momentum to energy 
-[v] Add gamma velocity, β(𝛾), which should be chosen in the range 0.9 - 1.1 following [1]
-[v] Restrict particle detection to only the forward detector
 
 
 
