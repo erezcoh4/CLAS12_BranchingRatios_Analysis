@@ -41,12 +41,13 @@ DCfid_SIDIS dcfid;
 TString csvheader = ( (TString)"runnum,evnum,"
                      +(TString)"e_P,e_Theta,e_Phi,e_Vz,e_DC_sector,e_DC_Chi2N,"         // e
                      +(TString)"p_P,p_Theta,p_Phi,p_Vz,p_DC_sector,p_DC_Chi2N,"         // p
-                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_beta,"   // photon-1
+                     +(TString)"g1_E,g1_Theta,g1_Phi,g1_Vz,g1_beta,"                    // photon-1
                      +(TString)"g1_DC_sector,g1_DC_Chi2N,g1_E_PCAL,g1_E_EC,g1_PCAL_W,g1_PCAL_V,"
-                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_beta,"   // photon-2
+                     +(TString)"g2_E,g2_Theta,g2_Phi,g2_Vz,g2_beta,"                    // photon-2
                      +(TString)"g2_DC_sector,g2_DC_Chi2N,g2_E_PCAL,g2_E_EC,g2_PCAL_W,g2_PCAL_V,"
                      +(TString)"Q2,xB,omega,q,"                                         // kinematics
                      +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
+                     +(TString)"theta_q_p,theta_q_m,theta_q_pm,"                        // angles
                      );
 
 std::vector<int> csvprecisions = {
@@ -57,6 +58,7 @@ std::vector<int> csvprecisions = {
     3,3,3,3,3,0,3,3,3,3,3,
     3,3,3,3,
     3,3,3,3,3,
+    3,3,3,
 };
 
 //                     +(TString)"g1_E_PCAL,g1_E_ECIN,g1_E_ECOUT,"
@@ -131,17 +133,25 @@ bool     g2PastCutsInEvent;
 double g2_beta;
 
 
+// reconstructed meson from the two photons
+// meson = gamma_1 + gamma_2
+TLorentzVector m_p4;
+
 // kinematics
 double xB, Q2, omega, W;
 double         M_x_peep; // invariant mass of the p(e,e'p) reaction
 double         M_x_deep; // invariant mass of the d(e,e'p) reaction
 double       M_x_deep2g; // invariant mass of the d(e,e'p2𝛾) reaction
+double   M_x_deep2g_alt; // alternative formula for M_x_deep2g
 double              Mgg; // invariant mass of the two photons Mgg = |g1_p4 + g2_p4|
 double Pe_phi, Pe_theta;
 double q_phi,   q_theta;
 double Pp_phi, Pp_theta;
 bool eepPastCutsInEvent;
 
+double        theta_q_p; // angle between the momentum transfer q and the proton (p)
+double        theta_q_m; // angle between the momentum transfer q and the reconstructed meson (m)
+double       theta_q_pm; // angle between the momentum transfer q and the vector sum of p + m
 
 // Oo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
 // Routines
@@ -365,6 +375,8 @@ void InitializeVariables(){
     
     g1_PCAL_W = g1_PCAL_V               = -9999;
     g2_PCAL_W = g2_PCAL_V               = -9999;
+    
+    theta_q_p = theta_q_m = theta_q_pm  = -9999;
     
     DEBUG(5, "Done InitializeVariables()");
 }
@@ -727,6 +739,26 @@ void ComputeKinematics(){
     M_x_deep    = ( (q_p4 + d_rest_p4) - (p_p4) ).Mag();
     M_x_deep2g  = ( (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4) ).Mag();
     Mgg         = ( g1_p4 + g2_p4 ).M();
+    
+    // reconstructed meson
+    m_p4        = g1_p4 + g2_p4;
+    
+    // momentum transfer vector
+    TVector3 q_p3 = q_p4.Vect();
+    
+    // angle between q vector and proton (p)
+    TVector3 p_p3 = p_p4.Vect();
+    theta_q_p     = q_p3.Angle( p_p3 );
+    
+    // angle between q vector and reconstructed meson (m)
+    TVector3 m_p3 = m_p4.Vect();
+    theta_q_m     = q_p3.Angle( m_p3 );
+    
+    // angle between q vector and reconstructed meson
+    TVector3 pm_p3= m_p4.Vect();
+    pm_p3         = p_p3 + m_p3;
+    theta_q_pm    = q_p3.Angle( pm_p3 );
+    
     DEBUG(5, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
 }
 
@@ -836,6 +868,7 @@ void WriteEventToOutput(){
             (double)g2_DC_sector, g2_DC_Chi2N,  g2_E_PCAL,          g2_E_EC,        g2_PCAL_W,      g2_PCAL_V,
             Q2,             xB,                 omega,              q_p4.P(),
             W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
+            theta_q_p,      theta_q_m,          theta_q_pm,
         };
         DEBUG(3,"--- -- - electron, proton, 𝛾₁ and 𝛾₂ passed cuts, writing (e,e'p𝛾𝛾)X event - -- ---");
         if (verbosity > 4) PrintVariables();
