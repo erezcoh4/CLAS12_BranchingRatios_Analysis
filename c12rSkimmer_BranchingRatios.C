@@ -889,7 +889,7 @@ void c12rSkimmer_BranchingRatios(int            RunNumber = 6164,
         clas12reader c12(files->At(i)->GetTitle(),{0});
         DEBUG(2, "Read title of file %d", i);
         int event = 0;
-        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 9999999999;
+        if (NeventsMaxToProcess < 0) NeventsMaxToProcess = 100000000;
         // process the events...
         while((c12.next()==true) && (event < (FirstEvent + NeventsMaxToProcess))){
             InitializeVariables();
