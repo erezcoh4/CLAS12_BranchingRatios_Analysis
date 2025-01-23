@@ -824,7 +824,10 @@ void PrintVariables(){
     "Mx(ed->e'p𝛾𝛾): "<< M_x_peep                 << " GeV/c², "
     << std::endl    <<
     "M𝛾𝛾: "          << Mgg                      << " GeV/c², "
-    << std::endl
+    << std::endl    <<
+    "𝜃(q-p): "      << theta_q_p*180./3.14      << "˚, "
+    "𝜃(q-m): "      << theta_q_m*180./3.14      << "˚, "
+    "𝜃(q-pm): "      << theta_q_pm*180./3.14      << "˚, "
     << std::endl;
     
     

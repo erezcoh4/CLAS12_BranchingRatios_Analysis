@@ -1,5 +1,14 @@
 
 
+## **Jan-13, 2025**
+## git commit 8640d95
+-------------------------------------------------------- 
+1. Added angles: 
+double        theta_q_p; // angle between the momentum transfer q and the proton (p)
+double        theta_q_m; // angle between the momentum transfer q and the reconstructed meson (m)
+double       theta_q_pm; // angle between the momentum transfer q and the vector sum of p + m
+
+
 ## **Jan-1, 2025**
 ## git commit 5584716
 -------------------------------------------------------- 
