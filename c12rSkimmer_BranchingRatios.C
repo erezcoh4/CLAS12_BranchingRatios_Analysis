@@ -820,8 +820,8 @@ void PrintVariables(){
     "q: "           << q_p4.P()                 << " GeV/c, "
     << std::endl    <<
     "Mx(ep->e'p): " << M_x_peep                 << " GeV/c², "
-    "Mx(ed->e'p): " << M_x_peep                 << " GeV/c², "
-    "Mx(ed->e'p𝛾𝛾): "<< M_x_peep                 << " GeV/c², "
+    "Mx(ed->e'p): " << M_x_deep                 << " GeV/c², "
+    "Mx(ed->e'p𝛾𝛾): "<< M_x_deep2g               << " GeV/c², "
     << std::endl    <<
     "M𝛾𝛾: "          << Mgg                      << " GeV/c², "
     << std::endl    <<
