@@ -67,9 +67,7 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 
 ## (3.2) observables and output variables
 
-**Name**        Computation formula                     definition
-
-**status**
+**Name**        Computation formula                             definition
 
 **runnum**
 
@@ -163,6 +161,14 @@ where the invariant mass of the two photons can be reconstructed as a meson prod
 
 **M_x_deep2g**  ((q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4)).Mag();    missing mass of the d(e,e'p𝛾𝛾) reaction
 
+**p_miss_p4**   (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4);            p_miss = (d+q) - (p + gamma_1 + gamma_2) missing momentum of the dd(e,e'p𝛾𝛾) reaction
+    
+**p_miss_p**     p_miss_p4.P()                                          Pmiss 3-momentum magnitude
+
+**p_miss_q**     Pmiss component in the direction of the q vector
+
+**p_miss_T**     Pmiss component in the transverse direction to the q vector
+    
 
 # **(4) ToDo**
 --------------------------------------------------------

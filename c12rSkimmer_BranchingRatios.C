@@ -48,6 +48,7 @@ TString csvheader = ( (TString)"runnum,evnum,"
                      +(TString)"Q2,xB,omega,q,"                                         // kinematics
                      +(TString)"W,M_x_peep,M_x_deep,M_x_deep2g,Mgg,"                    // kinematics
                      +(TString)"theta_q_p,theta_q_m,theta_q_pm,"                        // angles
+                     +(TString)"Pmiss_p,Pmiss_q,Pmiss_T,"                               // Pmiss
                      );
 
 std::vector<int> csvprecisions = {
@@ -58,6 +59,7 @@ std::vector<int> csvprecisions = {
     3,3,3,3,3,0,3,3,3,3,3,
     3,3,3,3,
     3,3,3,3,3,
+    3,3,3,
     3,3,3,
 };
 
@@ -76,6 +78,8 @@ TLorentzVector   p_rest_p4, d_rest_p4;
 TLorentzVector     Beam_p4, target_p4;
 TLorentzVector       e_p4, q_p4, p_p4;
 TLorentzVector           g1_p4, g2_p4; // gamma 1 and gamma 2
+TLorentzVector              p_miss_p4;
+double   p_miss_T, p_miss_p, p_miss_q;
 std::vector<region_part_ptr>  electrons, protons, gammas;
 int                   Ne, Np, Ngammas;
 int             Nevents_processed = 0;
@@ -560,7 +564,6 @@ bool CheckIfGammaPassedSelectionCuts(TVector3 Vg){
     return true;
 }
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 void ExtractProtonInformation(){
     // ------------------------------------------------------------------------------------------------
@@ -759,7 +762,15 @@ void ComputeKinematics(){
     pm_p3         = p_p3 + m_p3;
     theta_q_pm    = q_p3.Angle( pm_p3 );
     
-    DEBUG(5, "q: %.1f, omega: %.1f, Q2: %.1f",q_p4.P(), omega, Q2);
+    // missing momentum
+    p_miss_p4     = (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4);
+    TVector3 p_miss_p3 = p_miss_p4.Vect();
+    p_miss_p      = p_miss_p4.P(); // Pmiss 3-momentum magnitude
+    p_miss_q      = p_miss_p3.dot(q_p3) / q_p3.Mag(); // Pmiss component in the direction of the q vector
+    p_miss_T      = p_miss_p3.cross(q_p3) / q_p3.Mag(); // Pmiss component in the transverse direction to the q vector
+    
+    
+    DEBUG(5, "Done ComputeKinematics()");
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -827,7 +838,11 @@ void PrintVariables(){
     << std::endl    <<
     "𝜃(q-p): "      << theta_q_p*180./3.14      << "˚, "
     "𝜃(q-m): "      << theta_q_m*180./3.14      << "˚, "
-    "𝜃(q-pm): "      << theta_q_pm*180./3.14      << "˚, "
+    "𝜃(q-pm): "      << theta_q_pm*180./3.14    << "˚, "
+    << std::endl    <<
+    "p(miss): "     << p_miss_p                 << " GeV/c, "
+    "p(miss)||: "   << p_miss_q                 << " GeV/c, "
+    "p(miss)T: "    << p_miss_T                 << " GeV/c, "
     << std::endl;
     
     
@@ -872,6 +887,7 @@ void WriteEventToOutput(){
             Q2,             xB,                 omega,              q_p4.P(),
             W,              M_x_peep,           M_x_deep,           M_x_deep2g,         Mgg,
             theta_q_p,      theta_q_m,          theta_q_pm,
+            p_miss_p,       p_miss_q,           p_miss_T,
         };
         DEBUG(3,"--- -- - electron, proton, 𝛾₁ and 𝛾₂ passed cuts, writing (e,e'p𝛾𝛾)X event - -- ---");
         if (verbosity > 4) PrintVariables();

@@ -1,7 +1,13 @@
 
 
-## **Jan-13, 2025**
-## git commit 8640d95
+## **Jan-24, 2025**
+## git commit 
+-------------------------------------------------------- 
+1. Missing momentum p_miss = (d+q) - (p + gamma_1 + gamma_2) 
+
+
+## **Jan-23, 2025**
+## git commit 0c7e03a
 -------------------------------------------------------- 
 1. Added angles: 
 double        theta_q_p; // angle between the momentum transfer q and the proton (p)
