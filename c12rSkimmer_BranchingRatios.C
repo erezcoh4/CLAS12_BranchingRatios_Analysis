@@ -766,8 +766,8 @@ void ComputeKinematics(){
     p_miss_p4     = (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4);
     TVector3 p_miss_p3 = p_miss_p4.Vect();
     p_miss_p      = p_miss_p4.P(); // Pmiss 3-momentum magnitude
-    p_miss_q      = p_miss_p3.dot(q_p3) / q_p3.Mag(); // Pmiss component in the direction of the q vector
-    p_miss_T      = p_miss_p3.cross(q_p3) / q_p3.Mag(); // Pmiss component in the transverse direction to the q vector
+    p_miss_q      = p_miss_p3.Dot(q_p3) / q_p3.Mag(); // Pmiss component in the direction of the q vector
+    p_miss_T      = p_miss_p3.Cross(q_p3) / q_p3.Mag(); // Pmiss component in the transverse direction to the q vector
     
     
     DEBUG(5, "Done ComputeKinematics()");
