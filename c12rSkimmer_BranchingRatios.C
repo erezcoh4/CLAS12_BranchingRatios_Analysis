@@ -766,7 +766,7 @@ void ComputeKinematics(){
     p_miss_p4     = (q_p4 + d_rest_p4) - (p_p4 + g1_p4 + g2_p4);
     TVector3 p_miss_p3 = p_miss_p4.Vect();
     p_miss_p      = p_miss_p4.P(); // Pmiss 3-momentum magnitude
-    p_miss_q      = p_miss_p3.Dot(q_p3) / q_p3.Mag(); // Pmiss component in the direction of the q vector
+    p_miss_q      = (p_miss_p3.Dot(q_p3)) / q_p3.Mag(); // Pmiss component in the direction of the q vector
     p_miss_T      = (p_miss_p3.Cross(q_p3)).Mag() / q_p3.Mag(); // Pmiss component in the transverse direction to the q vector
     
     
@@ -841,8 +841,8 @@ void PrintVariables(){
     "𝜃(q-pm): "      << theta_q_pm*180./3.14    << "˚, "
     << std::endl    <<
     "p(miss): "     << p_miss_p                 << " GeV/c, "
-    "p(miss)||: "   << p_miss_q                 << " GeV/c, "
-    "p(miss)T: "    << p_miss_T                 << " GeV/c, "
+    "p(miss)-q: "   << p_miss_q                 << " GeV/c, "
+    "p(miss)-T: "   << p_miss_T                 << " GeV/c, "
     << std::endl;
     
     
